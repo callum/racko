@@ -8,11 +8,7 @@ let players = Immutable.Map();
 const PlayerStore = Object.assign({}, storeMixin, {
 
   get(gameId) {
-    let gamePlayers = players.get(gameId);
-
-    if (gamePlayers) {
-      return gamePlayers.toSet();
-    }
+    return players.get(gameId);
   }
 
 });

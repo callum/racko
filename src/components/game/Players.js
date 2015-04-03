@@ -38,5 +38,5 @@ Players.propTypes = {
 
 Players.defaultProps = {
   game: Immutable.Map(),
-  players: Immutable.Set()
+  players: Immutable.Map()
 };

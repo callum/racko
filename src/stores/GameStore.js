@@ -9,10 +9,6 @@ const GameStore = Object.assign({}, storeMixin, {
 
   get(id) {
     return games.get(id);
-  },
-
-  getAll() {
-    return games.toList();
   }
 
 });

@@ -39,7 +39,7 @@ Game.propTypes = {
 
 Game.defaultProps = {
   game: Immutable.Map(),
-  players: Immutable.Set()
+  players: Immutable.Map()
 };
 
 function syncer() {

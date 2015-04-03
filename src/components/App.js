@@ -60,6 +60,7 @@ export class App extends React.Component {
 
   render() {
     let token = App.getToken();
+    let params = this.context.router.getCurrentParams();
 
     if (this.props.user) {
       return (
@@ -68,7 +69,7 @@ export class App extends React.Component {
 
           <p>Logged in as {this.props.user.name}</p>
 
-          <RouteHandler user={this.props.user} />
+          <RouteHandler params={params} user={this.props.user} />
         </div>
       );
     }
@@ -96,5 +97,9 @@ export class App extends React.Component {
   }
 
 }
+
+App.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
 
 export default withFirebase(App);

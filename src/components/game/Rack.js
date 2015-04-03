@@ -1,39 +1,23 @@
 import React from 'react';
-import withFirebase from '../shared/withFirebase';
+import Immutable from 'immutable';
+
+import RackSynchronizer from '../../synchronizers/RackSynchronizer';
+import RackStore from '../../stores/RackStore';
+
+import withSync from '../shared/withSync';
+import withFlux from '../shared/withFlux';
 
 export class Rack extends React.Component {
 
-  static getDefaultData() {
-    return {
-      rack: []
-    };
-  }
-
-  static addDataHandlers() {
-    let { uid } = this.firebase.getAuth();
-
-    this.rack = this.firebase.child('racks').child(this.props.gameKey).child(uid);
-
-    this.handlers.rack = this.rack.on('value', res => {
-      if (res.exists()) {
-        this.setState({
-          rack: res.val()
-        });
-      }
-    });
-  }
-
-  static removeDataHandlers() {
-    this.rack.off('value', this.handlers.rack);
-  }
-
   render() {
+    let { rack } = this.props;
+
     return (
       <div>
         <h2>Rack</h2>
 
         <ul>
-          {this.props.rack.map(card => {
+          {rack.map(card => {
             return (
               <li key={card}>
                 {card}
@@ -47,4 +31,33 @@ export class Rack extends React.Component {
 
 }
 
-export default withFirebase(Rack);
+Rack.propTypes = {
+  rack: React.PropTypes.object
+};
+
+Rack.defaultProps = {
+  rack: Immutable.OrderedSet()
+};
+
+function syncer() {
+  let gameId = this.props.params.id;
+  let userId = this.props.user.id;
+
+  return [
+    RackSynchronizer.get(gameId, userId)
+  ];
+}
+
+function getter() {
+  let gameId = this.props.params.id;
+  let userId = this.props.user.id;
+
+  return {
+    rack: RackStore.get(gameId, userId)
+  };
+}
+
+const RackWithSync = withSync(Rack, syncer);
+const RackWithFlux = withFlux(RackWithSync, getter, RackStore);
+
+export default RackWithFlux;

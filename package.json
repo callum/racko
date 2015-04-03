@@ -18,7 +18,9 @@
     "deck": "0.0.4",
     "range": "0.0.2",
     "array-next": "0.0.1",
-    "eslint": "^0.17.1"
+    "eslint": "^0.17.1",
+    "immutable": "^3.7.1",
+    "uid": "0.0.2"
   },
   "devDependencies": {
     "babel-core": "^4.7.4",

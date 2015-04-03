@@ -1,22 +1,24 @@
 import React from 'react';
 
-function withFlux(Component, ...stores) {
+export default function withFlux(Component, getter, ...stores) {
   class WithFlux extends React.Component {
 
-    getInitialState() {
-      return Component.initialData.call(this);
+    constructor() {
+      this.update = this.update.bind(this);
+    }
+
+    update() {
+      this.setState(getter.call(this));
     }
 
     componentDidMount() {
-      stores.forEach(store => store.on('change', this.onChange));
+      this.update();
+
+      stores.forEach(store => store.addChangeListener(this.update));
     }
 
     componentWillUnmount() {
-      stores.forEach(store => store.off('change', this.onChange));
-    }
-
-    onChange() {
-      this.setState(Component.initialData.call(this));
+      stores.forEach(store => store.removeChangeListener(this.update));
     }
 
     render() {
@@ -24,10 +26,6 @@ function withFlux(Component, ...stores) {
     }
 
   }
-
-  WithFlux.contextTypes = {
-    router: React.PropTypes.func.isRequired
-  };
 
   return WithFlux;
 }

@@ -1,29 +1,6 @@
 import React from 'react';
-import withFirebase from '../shared/withFirebase';
 
-export class Tray extends React.Component {
-
-  static getDefaultData() {
-    return {
-      discardHead: null
-    };
-  }
-
-  static addDataHandlers() {
-    this.discardHead = this.firebase.child('trays').child(this.props.gameKey).child('discard/0');
-
-    this.handlers.discardHead = this.discardHead.on('value', res => {
-      if (res.exists()) {
-        this.setState({
-          discardHead: res.val()
-        });
-      }
-    });
-  }
-
-  static removeDataHandlers() {
-    this.discardHead.off('value', this.handlers.rack);
-  }
+export default class Tray extends React.Component {
 
   render() {
     return (
@@ -36,5 +13,3 @@ export class Tray extends React.Component {
   }
 
 }
-
-export default withFirebase(Tray);

@@ -6,9 +6,9 @@ const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 const GameSynchronizer = {
 
   get(id) {
-    let game = new Firebase(FIREBASE).child('games').child(id);
+    const game = new Firebase(FIREBASE).child('games').child(id);
 
-    let handler = game.on('value', snapshot => {
+    const handler = game.on('value', snapshot => {
       if (snapshot.exists()) {
         GameActions.receive(snapshot.val());
       }

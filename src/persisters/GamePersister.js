@@ -6,28 +6,32 @@ import { ActionTypes, States } from '../constants/GameConstants';
 const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 
 function create(user, createId) {
-  let game = GameStore.get(createId);
+  const game = GameStore.get(createId);
 
   if (game) {
-    let ref = new Firebase(FIREBASE);
+    const ref = new Firebase(FIREBASE);
 
     ref.child('games')
-      .child(game.id).set(game);
+      .child(game.id)
+      .set(game);
 
     ref.child('users')
-      .child(user.id).child('games').child(game.id).set(true);
+      .child(user.id)
+      .child('games')
+      .child(game.id)
+      .set(true);
 
     ref.child('players')
-      .child(game.id).child(user.id).set({ name: user.name });
+      .child(game.id)
+      .child(user.id)
+      .set({ name: user.name });
   }
 }
 
 const GamePersister = {
 
   initialize() {
-    this.dispatchToken = AppDispatcher.register(payload => {
-      let { action } = payload;
-
+    this.dispatchToken = AppDispatcher.register(({ action }) => {
       AppDispatcher.waitFor([
         GameStore.dispatchToken
       ]);

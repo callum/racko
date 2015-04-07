@@ -10,7 +10,7 @@ import withFlux from '../shared/withFlux';
 export class Rack extends React.Component {
 
   render() {
-    let { rack } = this.props;
+    const { rack } = this.props;
 
     return (
       <div>
@@ -40,20 +40,14 @@ Rack.defaultProps = {
 };
 
 function syncer() {
-  let gameId = this.props.params.id;
-  let userId = this.props.user.id;
-
   return [
-    RackSynchronizer.get(gameId, userId)
+    RackSynchronizer.get(this.props.params.id, this.props.user.id)
   ];
 }
 
 function getter() {
-  let gameId = this.props.params.id;
-  let userId = this.props.user.id;
-
   return {
-    rack: RackStore.get(gameId, userId)
+    rack: RackStore.get(this.props.params.id, this.props.user.id)
   };
 }
 

@@ -8,13 +8,11 @@ export default function withFirebase(Component, syncer) {
     }
 
     componentWillUnmount() {
-      this.listeners.forEach(off => off());
+      this.listeners.forEach(detach => detach());
     }
 
     render() {
-      return (
-        <Component {...this.props} />
-      );
+      return <Component {...this.props} />;
     }
 
   }

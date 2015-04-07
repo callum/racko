@@ -26,9 +26,7 @@ function receive(gameId, gamePlayers) {
   players = players.set(gameId, Immutable.fromJS(gamePlayers));
 }
 
-PlayerStore.dispatchToken = AppDispatcher.register(payload => {
-  let { action } = payload;
-
+PlayerStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case ActionTypes.PLAYER_CREATE:
       create(action.gameId, action.userId);

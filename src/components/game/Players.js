@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 export default class Players extends React.Component {
 
   render() {
-    let { game, players } = this.props;
+    const { game, players } = this.props;
 
     return (
       <div>
@@ -12,7 +12,7 @@ export default class Players extends React.Component {
 
         <ul>
           {players.map(player => {
-            let name = player.get('name');
+            const name = player.get('name');
 
             if (game.get('turn') === player.get('id')) {
               name = <b>{name}</b>;

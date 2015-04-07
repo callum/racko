@@ -21,9 +21,7 @@ function receive(gameId, userId, rack) {
   racks = racks.setIn([gameId, userId], Immutable.OrderedSet(rack));
 }
 
-RackStore.dispatchToken = AppDispatcher.register(payload => {
-  let { action } = payload;
-
+RackStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case ActionTypes.RACK_CREATE:
       create(action.cards);

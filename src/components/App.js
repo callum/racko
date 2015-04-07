@@ -1,75 +1,46 @@
 import React from 'react';
 import { RouteHandler } from 'react-router';
-import withFirebase from './shared/withFirebase';
+
+import AuthStore from '../stores/AuthStore';
+import UserStore from '../stores/UserStore';
+
+import AuthUtils from '../utils/AuthUtils';
+import withFlux from './shared/withFlux';
 
 export class App extends React.Component {
 
-  static getToken() {
-    return localStorage.getItem('token');
-  }
+  componentDidUpdate() {
+    const token = this.props.token;
+    const user = this.props.user;
 
-  static getDefaultData() {
-    return {
-      user: null
-    };
-  }
+    const requiresAuth = token && !user;
 
-  static addDataHandlers() {
-    let token = App.getToken();
-
-    if (token) {
-      this.firebase.authWithCustomToken(token, (err, res) => {
-        if (err) {
-          console.log('Authentication failed', err);
-          return;
-        }
-
-        this.user = this.firebase.child('users').child(res.uid);
-
-        this.handlers.user = this.user.on('value', res => {
-          this.setState({
-            user: res.val()
-          });
-        });
-      });
+    if (requiresAuth) {
+      AuthUtils.authenticate(token);
     }
-  }
-
-  static removeDataHandlers() {
-    this.user.off('value', this.handlers.user);
-  }
+  },
 
   authenticate(e) {
-    let name = e.target.elements.name.value;
-
-    this.props.firebase.authAnonymously((err, res) => {
-      if (err) {
-        console.log('Authentication failed', err);
-        return;
-      }
-
-      let user = { name };
-
-      this.props.firebase.child('users').child(res.uid).set(user);
-
-      localStorage.setItem('token', res.token);
+    AuthUtils.authenticate({
+      name: e.target.elements.name.value
     });
 
     e.preventDefault();
   }
 
   render() {
-    let token = App.getToken();
-    let params = this.context.router.getCurrentParams();
+    const params = this.context.router.getCurrentParams();
+    const token = this.props.token;
+    const user = this.props.user;
 
-    if (this.props.user) {
+    if (user) {
       return (
         <div>
           <h1>Rack-O</h1>
 
-          <p>Logged in as {this.props.user.name}</p>
+          <p>Logged in as {user.name}</p>
 
-          <RouteHandler params={params} user={this.props.user} />
+          <RouteHandler params={params} />
         </div>
       );
     }
@@ -102,4 +73,20 @@ App.contextTypes = {
   router: React.PropTypes.func.isRequired
 };
 
-export default withFirebase(App);
+App.propTypes = {
+  token: React.PropTypes.string,
+  user: React.PropTypes.object
+};
+
+App.defaultProps = {
+  user: Immutable.Map()
+};
+
+function getter() {
+  return {
+    token: AuthStore.getToken(),
+    user: UserStore.getCurrent()
+  };
+}
+
+const AppWithFlux = withFlux(App, getter, AuthStore, UserStore);

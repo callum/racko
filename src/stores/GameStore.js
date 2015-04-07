@@ -31,9 +31,7 @@ function receive(game) {
   games = games.set(game.id, Immutable.fromJS(game));
 }
 
-GameStore.dispatchToken = AppDispatcher.register(payload => {
-  let { action } = payload;
-
+GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case ActionTypes.GAME_CREATE:
       create(action.user, action.createId);

@@ -17,7 +17,7 @@ import withFlux from './shared/withFlux';
 export class Game extends React.Component {
 
   render() {
-    let isAuthenticated = this.props.user;
+    const isAuthenticated = this.props.user;
 
     return (
       <div>
@@ -43,7 +43,7 @@ Game.defaultProps = {
 };
 
 function syncer() {
-  let { id } = this.props.params;
+  const { id } = this.props.params;
 
   return [
     GameSynchronizer.get(id),
@@ -52,7 +52,7 @@ function syncer() {
 }
 
 function getter() {
-  let { id } = this.props.params;
+  const { id } = this.props.params;
 
   return {
     game: GameStore.get(id),

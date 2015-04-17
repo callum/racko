@@ -17,7 +17,7 @@ const TraySynchronizer = {
       }
     });
 
-    return tray.off.bind(this, 'value', handler);
+    return tray.off('value', handler);
   }
 
 };

@@ -5,7 +5,7 @@ const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 
 const PlayerSynchronizer = {
 
-  get(gameId) {
+  getAll(gameId) {
     const players = new Firebase(FIREBASE).child('players').child(gameId);
 
     const handler = players.on('value', snapshot => {

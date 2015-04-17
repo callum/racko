@@ -1,5 +1,4 @@
 import React from 'react';
-import withFirebase from '../shared/withFirebase';
 
 export class Turn extends React.Component {
 
@@ -90,4 +89,4 @@ export class Turn extends React.Component {
 
 }
 
-export default withFirebase(Turn);
+export default Turn;

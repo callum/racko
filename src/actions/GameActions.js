@@ -4,13 +4,13 @@ import uid from 'uid';
 
 const GameActions = {
 
-  create(user) {
-    let createId = uid();
+  create(userId) {
+    const id = uid();
 
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_CREATE,
-      user,
-      createId
+      id,
+      userId
     });
   },
 

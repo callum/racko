@@ -19,14 +19,15 @@ const AuthStore = Object.assign({}, storeMixin, {
 
 AuthStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
-    case ActionTypes.AUTH_RECEIVE_TOKEN:
-      token = action.token;
+    case ActionTypes.AUTH_RECEIVE:
+      token = action.auth.token;
+      uid = action.auth.uid;
 
       AuthStore.emitChange();
       break;
 
-    case ActionTypes.AUTH_RECEIVE_UID:
-      uid = action.uid;
+    case ActionTypes.AUTH_RECONCILE_TOKEN:
+      token = action.token;
 
       AuthStore.emitChange();
       break;

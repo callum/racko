@@ -1,31 +1,36 @@
 import React from 'react';
-import Immutable from 'immutable';
 
 import GameSynchronizer from '../synchronizers/GameSynchronizer';
 import PlayerSynchronizer from '../synchronizers/PlayerSynchronizer';
 import GameStore from '../stores/GameStore';
 import PlayerStore from '../stores/PlayerStore';
+import PlayerActions from '../actions/PlayerActions';
 
 import Players from './game/Players';
-import Rack from './game/Rack';
-import Tray from './game/Tray';
-import Turn from './game/Turn';
 
 import withSync from './shared/withSync';
 import withFlux from './shared/withFlux';
 
 export class Game extends React.Component {
 
+  join() {
+    const { user, game } = this.props;
+
+    PlayerActions.create(game.get('id'), user.get('id'));
+  }
+
   render() {
-    const isAuthenticated = this.props.user;
+    const createdAt = new Date(this.props.game.get('createdAt'));
 
     return (
       <div>
-        <Players {...this.props} />
+        <p>Created at {createdAt.toLocaleString('en-GB')}</p>
 
-        {isAuthenticated &&
-          <Rack {...this.props} />
-        }
+        <button onClick={this.join.bind(this)}>
+          Join
+        </button>
+
+        <Players {...this.props} />
       </div>
     );
   }
@@ -33,30 +38,26 @@ export class Game extends React.Component {
 }
 
 Game.propTypes = {
+  user: React.PropTypes.object,
   game: React.PropTypes.object,
   players: React.PropTypes.object
 };
 
-Game.defaultProps = {
-  game: Immutable.Map(),
-  players: Immutable.Map()
-};
-
 function syncer() {
-  const { id } = this.props.params;
+  const { id } = this.context.router.getCurrentParams();
 
   return [
     GameSynchronizer.get(id),
-    PlayerSynchronizer.get(id)
+    PlayerSynchronizer.getAll(id)
   ];
 }
 
 function getter() {
-  const { id } = this.props.params;
+  const { id } = this.context.router.getCurrentParams();
 
   return {
     game: GameStore.get(id),
-    players: PlayerStore.get(id)
+    players: PlayerStore.getAll(id)
   };
 }
 

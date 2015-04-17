@@ -1,38 +1,51 @@
 import Firebase from 'firebase';
+import AuthActions from '../actions/AuthActions';
 
 const TOKEN = 'token';
+const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 
-function getToken() {
-  localStorage.getItem(TOKEN);
-}
+const AuthUtils = {
 
-function setToken(token) {
-  localStorage.setItem(TOKEN, token);
-}
+  setToken(token) {
+    localStorage.setItem(TOKEN, token);
+  },
 
-function authenticate(user) {
-  const ref = new Firebase(FIREBASE);
+  reconcileToken() {
+    const token = localStorage.getItem(TOKEN);
 
-  ref.authAnonymously((err, res) => {
-    if (err) {
-      console.log('Authentication failed', err);
-      return;
+    if (token) {
+      AuthActions.reconcileToken(token);
     }
+  },
 
-    AuthActions.receiveToken(res.token);
-    AuthActions.receiveUid(res.uid);
-  });
-}
+  authAnonymously(callback) {
+    const ref = new Firebase(FIREBASE);
 
-function authenticate() {
-  const ref = new Firebase(FIREBASE);
+    ref.authAnonymously((err, res) => {
+      if (err) {
+        console.log('Authentication failed', err);
+        return;
+      }
 
-  ref.authWithCustomToken(token, (err, res) => {
-    if (err) {
-      console.log('Authentication failed', err);
-      return;
-    }
+      callback(res);
 
-    AuthActions.receiveUid(res.uid);
-  });
-}
+      AuthActions.receive(res);
+    });
+  },
+
+  authWithToken(token) {
+    const ref = new Firebase(FIREBASE);
+
+    ref.authWithCustomToken(token, (err, res) => {
+      if (err) {
+        console.log('Authentication failed', err);
+        return;
+      }
+
+      AuthActions.receive(res);
+    });
+  }
+
+};
+
+export default AuthUtils;

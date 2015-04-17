@@ -7,8 +7,8 @@ const AuthPersister = {
   initialize() {
     this.dispatchToken = AppDispatcher.register(({ action }) => {
       switch (action.type) {
-        case ActionTypes.AUTH_RECEIVE_TOKEN:
-          setToken(action.token);
+        case ActionTypes.AUTH_RECEIVE:
+          setToken(action.auth.token);
           break;
       }
     });

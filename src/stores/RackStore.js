@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import { ActionTypes, States } from '../constants/RackConstants';
+import { ActionTypes } from '../constants/RackConstants';
 import storeMixin from '../storeMixin';
 
 let racks = Immutable.Map();

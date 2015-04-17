@@ -4,6 +4,8 @@ export default function withFlux(Component, getter, ...stores) {
   class WithFlux extends React.Component {
 
     constructor() {
+      super();
+
       this.update = this.update.bind(this);
     }
 
@@ -11,7 +13,7 @@ export default function withFlux(Component, getter, ...stores) {
       this.setState(getter.call(this));
     }
 
-    componentDidMount() {
+    componentWillMount() {
       this.update();
 
       stores.forEach(store => store.addChangeListener(this.update));
@@ -26,6 +28,10 @@ export default function withFlux(Component, getter, ...stores) {
     }
 
   }
+
+  WithFlux.contextTypes = {
+    router: React.PropTypes.func.isRequired
+  };
 
   return WithFlux;
 }

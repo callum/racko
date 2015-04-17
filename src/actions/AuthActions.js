@@ -3,17 +3,17 @@ import { ActionTypes } from '../constants/AuthConstants';
 
 const AuthActions = {
 
-  receiveToken(token) {
+  receive(auth) {
     AppDispatcher.handleAction({
-      type: ActionTypes.AUTH_RECEIVE_TOKEN,
-      token
+      type: ActionTypes.AUTH_RECEIVE,
+      auth
     });
   },
 
-  receiveUid(uid) {
+  reconcileToken(token) {
     AppDispatcher.handleAction({
-      type: ActionTypes.AUTH_RECEIVE_UID,
-      uid
+      type: ActionTypes.AUTH_RECONCILE_TOKEN,
+      token
     });
   }
 

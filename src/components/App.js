@@ -2,57 +2,53 @@ import React from 'react';
 import { RouteHandler } from 'react-router';
 
 import AuthStore from '../stores/AuthStore';
-import UserStore from '../stores/UserStore';
+import UserActions from '../actions/UserActions';
 
 import AuthUtils from '../utils/AuthUtils';
 import withFlux from './shared/withFlux';
+import withUser from './shared/withUser';
 
 export class App extends React.Component {
 
+  componentDidMount() {
+    AuthUtils.reconcileToken();
+  }
+
   componentDidUpdate() {
-    const token = this.props.token;
-    const user = this.props.user;
+    const { token, uid } = this.props;
 
-    const requiresAuth = token && !user;
-
-    if (requiresAuth) {
-      AuthUtils.authenticate(token);
+    if (token && !uid) {
+      AuthUtils.authWithToken(token);
     }
-  },
+  }
 
-  authenticate(e) {
-    AuthUtils.authenticate({
-      name: e.target.elements.name.value
+  createUser(e) {
+    const name = e.target.elements.name.value;
+
+    AuthUtils.authAnonymously(auth => {
+      UserActions.create(auth.uid, { name });
     });
 
     e.preventDefault();
   }
 
   render() {
-    const params = this.context.router.getCurrentParams();
-    const token = this.props.token;
-    const user = this.props.user;
+    const { token, uid } = this.props;
 
-    if (user) {
-      return (
-        <div>
-          <h1>Rack-O</h1>
+    if (uid) {
+      const RouteHandlerWithUser = withUser(RouteHandler);
 
-          <p>Logged in as {user.name}</p>
-
-          <RouteHandler params={params} />
-        </div>
-      );
+      return <RouteHandlerWithUser uid={uid} />;
     }
 
     if (token) {
       return (
-        <p>Logging in…</p>
+        <p>Authenticating…</p>
       );
     }
 
     return (
-      <form onSubmit={this.authenticate.bind(this)}>
+      <form onSubmit={this.createUser.bind(this)}>
         <h1>Login</h1>
 
         <label>
@@ -61,7 +57,7 @@ export class App extends React.Component {
         </label>
 
         <button type="submit">
-          Authenticate
+          Create user
         </button>
       </form>
     );
@@ -69,24 +65,13 @@ export class App extends React.Component {
 
 }
 
-App.contextTypes = {
-  router: React.PropTypes.func.isRequired
-};
-
-App.propTypes = {
-  token: React.PropTypes.string,
-  user: React.PropTypes.object
-};
-
-App.defaultProps = {
-  user: Immutable.Map()
-};
-
 function getter() {
   return {
     token: AuthStore.getToken(),
-    user: UserStore.getCurrent()
+    uid: AuthStore.getUid()
   };
 }
 
-const AppWithFlux = withFlux(App, getter, AuthStore, UserStore);
+const AppWithFlux = withFlux(App, getter, AuthStore);
+
+export default AppWithFlux;

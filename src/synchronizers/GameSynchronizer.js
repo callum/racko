@@ -14,7 +14,7 @@ const GameSynchronizer = {
       }
     });
 
-    return () => game.off.bind('value', handler);
+    return () => game.off('value', handler);
   }
 
 };

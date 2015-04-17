@@ -3,6 +3,8 @@ import Router, { DefaultRoute, Route } from 'react-router';
 
 import AuthPersister from './persisters/AuthPersister';
 import GamePersister from './persisters/GamePersister';
+import PlayerPersister from './persisters/PlayerPersister';
+import UserPersister from './persisters/UserPersister';
 
 import App from './components/App';
 import Home from './components/Home';
@@ -17,7 +19,9 @@ const routes = (
 
 AuthPersister.initialize();
 GamePersister.initialize();
+PlayerPersister.initialize();
+UserPersister.initialize();
 
-Router.run(routes, Router.HistoryLocation, (Handler) => {
+Router.run(routes, (Handler) => {
   React.render(<Handler />, document.getElementById('root'));
 });

@@ -1,30 +1,35 @@
-import Immutable from 'immutable';
+import Firebase from 'firebase';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import GameStore from '../stores/GameStore';
-import { ActionTypes, States } from '../constants/GameConstants';
+import UserStore from '../stores/UserStore';
+import { ActionTypes } from '../constants/GameConstants';
 
 const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 
-function create(user, createId) {
-  const game = GameStore.get(createId);
+function create(id, userId) {
+  const game = GameStore.get(id);
+  const user = UserStore.get(userId);
 
-  if (game) {
+  if (game.size) {
     const ref = new Firebase(FIREBASE);
 
     ref.child('games')
-      .child(game.id)
-      .set(game);
+      .child(id)
+      .set(game.toJS());
 
     ref.child('users')
-      .child(user.id)
+      .child(userId)
       .child('games')
-      .child(game.id)
+      .child(id)
       .set(true);
 
     ref.child('players')
-      .child(game.id)
-      .child(user.id)
-      .set({ name: user.name });
+      .child(id)
+      .child(userId)
+      .set({
+        id: userId,
+        name: user.get('name')
+      });
   }
 }
 
@@ -38,7 +43,7 @@ const GamePersister = {
 
       switch (action.type) {
         case ActionTypes.GAME_CREATE:
-          create(action.user, action.createId);
+          window.setTimeout(() => create(action.id, action.userId), 0);
 
           break;
       }

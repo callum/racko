@@ -1,11 +1,15 @@
 {
   "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
   "env": {
     "browser": true,
     "node": true
   },
   "rules": {
     "strict": [2, "never"],
-    "quotes": [2, "single"]
+    "quotes": [2, "single"],
+    "new-cap": 1
   }
 }

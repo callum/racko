@@ -8,26 +8,28 @@ let users = Immutable.Map();
 const UserStore = Object.assign({}, storeMixin, {
 
   get(id) {
-    return users.get(id);
+    return users.get(id, Immutable.Map());
   }
 
 });
 
-function create(user, createId) {
-  users = users.set(createId, {
-    id: createId,
-    name: user.name
-  });
+function create(id, data) {
+  const user = Object.assign({
+    id,
+    createdAt: new Date().toISOString()
+  }, data);
+
+  users = users.set(id, Immutable.fromJS(user));
 }
 
 function receive(user) {
-  users = users.set(user.id, Immutable.Map(user));
+  users = users.set(user.id, Immutable.fromJS(user));
 }
 
 UserStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case ActionTypes.USER_CREATE:
-      create(action.user, action.createId);
+      create(action.id, action.data);
 
       UserStore.emitChange();
       break;

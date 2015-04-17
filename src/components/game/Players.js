@@ -1,5 +1,4 @@
 import React from 'react';
-import Immutable from 'immutable';
 
 export default class Players extends React.Component {
 
@@ -12,7 +11,7 @@ export default class Players extends React.Component {
 
         <ul>
           {players.map(player => {
-            const name = player.get('name');
+            let name = player.get('name');
 
             if (game.get('turn') === player.get('id')) {
               name = <b>{name}</b>;
@@ -34,9 +33,4 @@ export default class Players extends React.Component {
 Players.propTypes = {
   game: React.PropTypes.object,
   players: React.PropTypes.object
-};
-
-Players.defaultProps = {
-  game: Immutable.Map(),
-  players: Immutable.Map()
 };

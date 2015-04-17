@@ -7,25 +7,25 @@ let games = Immutable.Map();
 
 const GameStore = Object.assign({}, storeMixin, {
 
-  get(id) {
-    return games.get(id, Immutable.Map());
+  get(gameId) {
+    return games.get(gameId, Immutable.Map());
   }
 
 });
 
-function create(id, userId) {
+function create(gameId, userId) {
   const game = {
-    id,
+    id: gameId,
     state: States.CREATED,
     host: userId,
     createdAt: new Date().toISOString()
   };
 
-  games = games.set(id, Immutable.fromJS(game));
+  games = games.set(gameId, Immutable.fromJS(game));
 }
 
-function start(id) {
-  games = games.update(id, {
+function start(gameId) {
+  games = games.update(gameId, {
     state: States.STARTED
   });
 }
@@ -37,13 +37,13 @@ function receive(game) {
 GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case ActionTypes.GAME_CREATE:
-      create(action.id, action.userId);
+      create(action.gameId, action.userId);
 
       GameStore.emitChange();
       break;
 
     case ActionTypes.GAME_START:
-      start(action.user);
+      start(action.gameId);
 
       GameStore.emitChange();
       break;

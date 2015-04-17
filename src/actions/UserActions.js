@@ -3,11 +3,11 @@ import { ActionTypes } from '../constants/UserConstants';
 
 const UserActions = {
 
-  create(id, data) {
+  create(userId, details) {
     AppDispatcher.handleAction({
       type: ActionTypes.USER_CREATE,
-      id,
-      data
+      userId,
+      details
     });
   },
 

@@ -5,19 +5,19 @@ import uid from 'uid';
 const GameActions = {
 
   create(userId) {
-    const id = uid();
+    const gameId = uid();
 
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_CREATE,
-      id,
+      gameId,
       userId
     });
   },
 
-  start(id) {
+  start(gameId) {
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_START,
-      id
+      gameId
     });
   },
 

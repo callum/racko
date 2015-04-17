@@ -1,18 +1,20 @@
 import Firebase from 'firebase';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import UserStore from '../stores/UserStore';
-import { ActionTypes } from '../constants/UserConstants';
+
+import { ActionTypes as UserActionTypes } from '../constants/UserConstants';
+import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 
 const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 
-function create(id) {
-  const user = UserStore.get(id);
+function set(userId) {
+  const user = UserStore.get(userId);
 
   if (user.size) {
     const ref = new Firebase(FIREBASE);
 
     ref.child('users')
-     .child(id)
+     .child(userId)
      .set(user.toJS());
   }
 }
@@ -26,9 +28,9 @@ const UserPersister = {
       ]);
 
       switch (action.type) {
-        case ActionTypes.USER_CREATE:
-          window.setTimeout(() => create(action.id), 0);
-
+        case UserActionTypes.USER_CREATE:
+        case GameActionTypes.GAME_CREATE:
+          window.setTimeout(() => set(action.userId), 0);
           break;
       }
     });

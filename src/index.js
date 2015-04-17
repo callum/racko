@@ -13,7 +13,7 @@ import Game from './components/Game';
 const routes = (
   <Route handler={App}>
     <DefaultRoute name="home" handler={Home} />
-    <Route name="game" path=":id" handler={Game} />
+    <Route name="game" path=":gameId" handler={Game} />
   </Route>
 );
 

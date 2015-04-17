@@ -1,8 +1,10 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import UserStore from './UserStore';
-import { ActionTypes } from '../constants/PlayerConstants';
 import storeMixin from '../storeMixin';
+
+import { ActionTypes as PlayerActionTypes } from '../constants/PlayerConstants';
+import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 
 let players = Immutable.Map();
 
@@ -19,13 +21,15 @@ const PlayerStore = Object.assign({}, storeMixin, {
 });
 
 function create(gameId, userId) {
-  let user = UserStore.get(userId);
+  const user = UserStore.get(userId);
 
-  players = players.setIn([gameId, userId], Immutable.fromJS({
-    id: user.get('id'),
-    name: user.get('name'),
-    createdAt: new Date().toISOString()
-  }));
+  if (user.size) {
+    players = players.setIn([gameId, userId], Immutable.fromJS({
+      id: userId,
+      name: user.get('name'),
+      createdAt: new Date().toISOString()
+    }));
+  }
 }
 
 function receive(gameId, gamePlayers) {
@@ -33,14 +37,20 @@ function receive(gameId, gamePlayers) {
 }
 
 PlayerStore.dispatchToken = AppDispatcher.register(({ action }) => {
+
   switch (action.type) {
-    case ActionTypes.PLAYER_CREATE:
+    case PlayerActionTypes.PLAYER_CREATE:
+    case GameActionTypes.GAME_CREATE:
+      AppDispatcher.waitFor([
+        UserStore.dispatchToken
+      ]);
+
       create(action.gameId, action.userId);
 
       PlayerStore.emitChange();
       break;
 
-    case ActionTypes.PLAYER_RECEIVE:
+    case PlayerActionTypes.PLAYER_RECEIVE:
       receive(action.gameId, action.players);
 
       PlayerStore.emitChange();

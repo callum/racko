@@ -10,7 +10,15 @@ export default function withUser(Component) {
   class WithUser extends React.Component {
 
     render() {
-      return <Component user={this.props.user} />;
+      const { user } = this.props;
+
+      return (
+        <div>
+          <p>Logged in as {user.get('name')}</p>
+
+          <Component user={user} />
+        </div>
+      );
     }
 
   }

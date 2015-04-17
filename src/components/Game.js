@@ -44,20 +44,20 @@ Game.propTypes = {
 };
 
 function syncer() {
-  const { id } = this.context.router.getCurrentParams();
+  const { gameId } = this.context.router.getCurrentParams();
 
   return [
-    GameSynchronizer.get(id),
-    PlayerSynchronizer.getAll(id)
+    GameSynchronizer.get(gameId),
+    PlayerSynchronizer.getAll(gameId)
   ];
 }
 
 function getter() {
-  const { id } = this.context.router.getCurrentParams();
+  const { gameId } = this.context.router.getCurrentParams();
 
   return {
-    game: GameStore.get(id),
-    players: PlayerStore.getAll(id)
+    game: GameStore.get(gameId),
+    players: PlayerStore.getAll(gameId)
   };
 }
 

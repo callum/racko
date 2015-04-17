@@ -10,21 +10,15 @@ class Home extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
-
     return (
       <div>
-        <h1>Rack-O</h1>
-
-        <p>Logged in as {user.get('name')}</p>
-
         <h2>Games</h2>
 
         <ul>
-          {user.get('games', []).map((value, key) => {
+          {this.props.user.get('games', []).map((value, key) => {
             return (
               <li key={key}>
-                <Link to="game" params={{ id: key }}>{key}</Link>
+                <Link to="game" params={{ gameId: key }}>{key}</Link>
               </li>
             );
           })}
@@ -40,7 +34,6 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  uid: React.PropTypes.string.isRequired,
   user: React.PropTypes.object
 };
 

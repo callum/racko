@@ -10,6 +10,11 @@ import withUser from './shared/withUser';
 
 export class App extends React.Component {
 
+  static propTypes = {
+    token: React.PropTypes.string,
+    uid: React.PropTypes.string
+  }
+
   componentDidMount() {
     AuthUtils.reconcileToken();
   }

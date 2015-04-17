@@ -3,6 +3,10 @@ import React from 'react';
 export default function withFirebase(Component, syncer) {
   class WithSync extends React.Component {
 
+    static contextTypes = {
+      router: React.PropTypes.func.isRequired
+    }
+
     componentWillMount() {
       this.listeners = syncer.call(this);
     }
@@ -16,10 +20,6 @@ export default function withFirebase(Component, syncer) {
     }
 
   }
-
-  WithSync.contextTypes = {
-    router: React.PropTypes.func.isRequired
-  };
 
   return WithSync;
 }

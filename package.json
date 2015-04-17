@@ -9,17 +9,16 @@
     "build": "npm run clean && webpack -p --config webpack.config.production"
   },
   "dependencies": {
-    "flux": "^2.0.1",
-    "keymirror": "^0.1.1",
-    "react": "^0.13.1",
-    "react-router": "^0.13.2",
-    "firebase": "^2.2.4",
+    "array-next": "0.0.1",
     "babel-runtime": "^5.1.10",
     "deck": "0.0.4",
-    "range": "0.0.2",
-    "array-next": "0.0.1",
-    "eslint": "^0.17.1",
+    "firebase": "^2.2.4",
+    "flux": "^2.0.1",
     "immutable": "^3.7.2",
+    "keymirror": "^0.1.1",
+    "range": "0.0.2",
+    "react": "^0.13.1",
+    "react-router": "^0.13.2",
     "uid": "0.0.2"
   },
   "devDependencies": {
@@ -28,9 +27,9 @@
     "babel-loader": "^5.0.0",
     "eslint": "^0.19.0",
     "eslint-loader": "^0.10.0",
+    "eslint-plugin-react": "^2.1.1",
     "react-hot-loader": "^1.2.5",
     "webpack": "^1.8.4",
-    "webpack-dev-server": "^1.8.0",
-    "eslint-plugin-react": "^2.1.1"
+    "webpack-dev-server": "^1.8.0"
   }
 }

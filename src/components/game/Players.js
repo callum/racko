@@ -2,6 +2,11 @@ import React from 'react';
 
 export default class Players extends React.Component {
 
+  static propTypes = {
+    game: React.PropTypes.object,
+    players: React.PropTypes.object
+  }
+
   render() {
     const { game, players } = this.props;
 
@@ -29,8 +34,3 @@ export default class Players extends React.Component {
   }
 
 }
-
-Players.propTypes = {
-  game: React.PropTypes.object,
-  players: React.PropTypes.object
-};

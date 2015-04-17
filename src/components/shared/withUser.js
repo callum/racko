@@ -9,6 +9,15 @@ import withFlux from './withFlux';
 export default function withUser(Component) {
   class WithUser extends React.Component {
 
+    static contextTypes = {
+      router: React.PropTypes.func.isRequired
+    }
+
+    static propTypes = {
+      uid: React.PropTypes.string.isRequired,
+      user: React.PropTypes.object
+    }
+
     render() {
       const { user } = this.props;
 
@@ -22,10 +31,6 @@ export default function withUser(Component) {
     }
 
   }
-
-  WithUser.propTypes = {
-    uid: React.PropTypes.string.isRequired
-  };
 
   function syncer() {
     return [

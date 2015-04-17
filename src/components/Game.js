@@ -13,6 +13,12 @@ import withFlux from './shared/withFlux';
 
 export class Game extends React.Component {
 
+  static propTypes = {
+    user: React.PropTypes.object,
+    game: React.PropTypes.object,
+    players: React.PropTypes.object
+  }
+
   join() {
     const { user, game } = this.props;
 
@@ -36,12 +42,6 @@ export class Game extends React.Component {
   }
 
 }
-
-Game.propTypes = {
-  user: React.PropTypes.object,
-  game: React.PropTypes.object,
-  players: React.PropTypes.object
-};
 
 function syncer() {
   const { gameId } = this.context.router.getCurrentParams();

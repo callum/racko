@@ -10,6 +10,15 @@
   "rules": {
     "strict": [2, "never"],
     "quotes": [2, "single"],
-    "new-cap": 1
+    "new-cap": 1,
+    "react/jsx-boolean-value": 1,
+    "react/jsx-quotes": 1,
+    "react/jsx-no-undef": 1,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 1,
+    "react/no-multi-comp": 1,
+    "react/prop-types": 1,
+    "react/self-closing-comp": 1,
+    "react/wrap-multilines": 1
   }
 }

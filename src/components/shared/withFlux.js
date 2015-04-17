@@ -3,6 +3,10 @@ import React from 'react';
 export default function withFlux(Component, getter, ...stores) {
   class WithFlux extends React.Component {
 
+    static contextTypes = {
+      router: React.PropTypes.func.isRequired
+    }
+
     constructor() {
       super();
 
@@ -28,10 +32,6 @@ export default function withFlux(Component, getter, ...stores) {
     }
 
   }
-
-  WithFlux.contextTypes = {
-    router: React.PropTypes.func.isRequired
-  };
 
   return WithFlux;
 }

@@ -9,6 +9,14 @@ import withFlux from '../shared/withFlux';
 
 export class Rack extends React.Component {
 
+  static propTypes = {
+    rack: React.PropTypes.object
+  }
+
+  static defaultProps = {
+    rack: Immutable.OrderedSet()
+  }
+
   render() {
     const { rack } = this.props;
 
@@ -30,14 +38,6 @@ export class Rack extends React.Component {
   }
 
 }
-
-Rack.propTypes = {
-  rack: React.PropTypes.object
-};
-
-Rack.defaultProps = {
-  rack: Immutable.OrderedSet()
-};
 
 function syncer() {
   return [

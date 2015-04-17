@@ -5,6 +5,10 @@ import GameActions from '../actions/GameActions';
 
 class Home extends React.Component {
 
+  static propTypes = {
+    user: React.PropTypes.object
+  }
+
   createGame() {
     GameActions.create(this.props.user.get('id'));
   }
@@ -32,9 +36,5 @@ class Home extends React.Component {
   }
 
 }
-
-Home.propTypes = {
-  user: React.PropTypes.object
-};
 
 export default Home;

@@ -1,9 +1,7 @@
 import React from 'react';
 
 import GameSynchronizer from '../synchronizers/GameSynchronizer';
-import PlayerSynchronizer from '../synchronizers/PlayerSynchronizer';
 import GameStore from '../stores/GameStore';
-import PlayerStore from '../stores/PlayerStore';
 import GameActions from '../actions/GameActions';
 import PlayerActions from '../actions/PlayerActions';
 
@@ -20,8 +18,7 @@ export class Game extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object,
-    game: React.PropTypes.object,
-    players: React.PropTypes.object
+    game: React.PropTypes.object
   }
 
   join() {
@@ -72,8 +69,7 @@ function syncer() {
   const { gameId } = this.context.router.getCurrentParams();
 
   return [
-    GameSynchronizer.get(gameId),
-    PlayerSynchronizer.getAll(gameId)
+    GameSynchronizer.get(gameId)
   ];
 }
 
@@ -81,12 +77,11 @@ function getter() {
   const { gameId } = this.context.router.getCurrentParams();
 
   return {
-    game: GameStore.get(gameId),
-    players: PlayerStore.getAll(gameId)
+    game: GameStore.get(gameId)
   };
 }
 
 const GameWithSync = withSync(Game, syncer);
-const GameWithFlux = withFlux(GameWithSync, getter, GameStore, PlayerStore);
+const GameWithFlux = withFlux(GameWithSync, getter, GameStore);
 
 export default GameWithFlux;

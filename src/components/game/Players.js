@@ -1,5 +1,11 @@
 import React from 'react';
 
+import PlayerSynchronizer from '../../synchronizers/PlayerSynchronizer';
+import PlayerStore from '../../stores/PlayerStore';
+
+import withSync from '../shared/withSync';
+import withFlux from '../shared/withFlux';
+
 export default class Players extends React.Component {
 
   static propTypes = {
@@ -34,3 +40,24 @@ export default class Players extends React.Component {
   }
 
 }
+
+function syncer() {
+  const { gameId } = this.context.router.getCurrentParams();
+
+  return [
+    PlayerSynchronizer.getAll(gameId)
+  ];
+}
+
+function getter() {
+  const { gameId } = this.context.router.getCurrentParams();
+
+  return {
+    players: PlayerStore.getAll(gameId)
+  };
+}
+
+const PlayersWithSync = withSync(Players, syncer);
+const PlayersWithFlux = withFlux(PlayersWithSync, getter, PlayerStore);
+
+export default PlayersWithFlux;

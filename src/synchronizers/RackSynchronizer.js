@@ -1,8 +1,6 @@
 import Firebase from 'firebase';
 import RackActions from '../actions/RackActions';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 const RackSynchronizer = {
 
   get(gameId, userId) {

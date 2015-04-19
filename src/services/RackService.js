@@ -1,7 +1,5 @@
 import Firebase from 'firebase';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 const RackService = {
 
   set(gameId, racks) {

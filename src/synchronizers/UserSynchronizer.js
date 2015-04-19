@@ -1,8 +1,6 @@
 import Firebase from 'firebase';
 import UserActions from '../actions/UserActions';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 const UserSynchronizer = {
 
   get(userId) {

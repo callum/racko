@@ -1,8 +1,6 @@
 import Firebase from 'firebase';
 import AuthActions from '../actions/AuthActions';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 const AuthService = {
 
   authAnonymously(callback) {

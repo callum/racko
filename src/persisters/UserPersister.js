@@ -5,8 +5,6 @@ import UserStore from '../stores/UserStore';
 import { ActionTypes as UserActionTypes } from '../constants/UserConstants';
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 function set(userId) {
   const user = UserStore.get(userId);
 

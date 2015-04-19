@@ -3,8 +3,6 @@ import AppDispatcher from '../dispatchers/AppDispatcher';
 import GameStore from '../stores/GameStore';
 import { ActionTypes } from '../constants/GameConstants';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 function set(gameId) {
   const game = GameStore.get(gameId);
 

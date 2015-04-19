@@ -1,8 +1,6 @@
 import Firebase from 'firebase';
 import GameActions from '../actions/GameActions';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 const GameSynchronizer = {
 
   get(gameId) {

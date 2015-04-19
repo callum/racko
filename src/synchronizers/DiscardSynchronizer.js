@@ -1,8 +1,6 @@
 import Firebase from 'firebase';
 import DiscardActions from '../actions/DiscardActions';
 
-const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
-
 const DiscardSynchronizer = {
 
   get(gameId) {

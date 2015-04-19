@@ -1,6 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var config = {
+  FIREBASE: JSON.stringify('https://dazzling-heat-6913.firebaseio.com/')
+};
+
 module.exports = {
   devtool: 'inline-source-map',
   entry: [
@@ -14,6 +18,7 @@ module.exports = {
     publicPath: '/assets/'
   },
   plugins: [
+    new webpack.DefinePlugin(config),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],

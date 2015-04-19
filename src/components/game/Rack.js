@@ -1,5 +1,4 @@
 import React from 'react';
-import Immutable from 'immutable';
 
 import RackSynchronizer from '../../synchronizers/RackSynchronizer';
 import RackStore from '../../stores/RackStore';
@@ -11,10 +10,6 @@ export class Rack extends React.Component {
 
   static propTypes = {
     rack: React.PropTypes.object
-  }
-
-  static defaultProps = {
-    rack: Immutable.OrderedSet()
   }
 
   render() {
@@ -40,14 +35,18 @@ export class Rack extends React.Component {
 }
 
 function syncer() {
+  const { gameId } = this.context.router.getCurrentParams();
+
   return [
-    RackSynchronizer.get(this.props.params.id, this.props.user.id)
+    RackSynchronizer.get(gameId, this.props.user.get('id'))
   ];
 }
 
 function getter() {
+  const { gameId } = this.context.router.getCurrentParams();
+
   return {
-    rack: RackStore.get(this.props.params.id, this.props.user.id)
+    rack: RackStore.get(gameId, this.props.user.get('id'))
   };
 }
 

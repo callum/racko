@@ -14,10 +14,11 @@ const GameActions = {
     });
   },
 
-  start(gameId) {
+  start(gameId, setup) {
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_START,
-      gameId
+      gameId,
+      setup
     });
   },
 

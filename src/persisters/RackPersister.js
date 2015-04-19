@@ -1,33 +1,32 @@
 import Firebase from 'firebase';
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import GameStore from '../stores/GameStore';
-import { ActionTypes } from '../constants/GameConstants';
+import RackStore from '../stores/RackStore';
+import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 
 const FIREBASE = 'https://dazzling-heat-6913.firebaseio.com/';
 
 function set(gameId) {
-  const game = GameStore.get(gameId);
+  const racks = RackStore.getAll(gameId);
 
-  if (game.size) {
+  if (racks.size) {
     const ref = new Firebase(FIREBASE);
 
-    ref.child('games')
+    ref.child('racks')
       .child(gameId)
-      .set(game.toJS());
+      .set(racks.toJS());
   }
 }
 
-const GamePersister = {
+const RackPersister = {
 
   initialize() {
     this.dispatchToken = AppDispatcher.register(({ action }) => {
       AppDispatcher.waitFor([
-        GameStore.dispatchToken
+        RackStore.dispatchToken
       ]);
 
       switch (action.type) {
-        case ActionTypes.GAME_CREATE:
-        case ActionTypes.GAME_START:
+        case GameActionTypes.GAME_START:
           window.setTimeout(() => set(action.gameId), 0);
           break;
       }
@@ -36,4 +35,4 @@ const GamePersister = {
 
 };
 
-export default GamePersister;
+export default RackPersister;

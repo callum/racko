@@ -4,7 +4,9 @@ import { RouteHandler } from 'react-router';
 import AuthStore from '../stores/AuthStore';
 import UserActions from '../actions/UserActions';
 
+import AuthService from '../services/AuthService';
 import AuthUtils from '../utils/AuthUtils';
+
 import withFlux from './shared/withFlux';
 import withUser from './shared/withUser';
 
@@ -23,14 +25,14 @@ export class App extends React.Component {
     const { token, uid } = this.props;
 
     if (token && !uid) {
-      AuthUtils.authWithToken(token);
+      AuthService.authWithToken(token);
     }
   }
 
   createUser(e) {
     const name = e.target.elements.name.value;
 
-    AuthUtils.authAnonymously(auth => {
+    AuthService.authAnonymously(auth => {
       UserActions.create(auth.uid, { name });
     });
 

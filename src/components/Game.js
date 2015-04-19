@@ -4,12 +4,17 @@ import GameSynchronizer from '../synchronizers/GameSynchronizer';
 import PlayerSynchronizer from '../synchronizers/PlayerSynchronizer';
 import GameStore from '../stores/GameStore';
 import PlayerStore from '../stores/PlayerStore';
+import GameActions from '../actions/GameActions';
 import PlayerActions from '../actions/PlayerActions';
 
 import Players from './game/Players';
+import Rack from './game/Rack';
+import Tray from './game/Tray';
 
 import withSync from './shared/withSync';
 import withFlux from './shared/withFlux';
+
+import GameUtils from '../utils/GameUtils';
 
 export class Game extends React.Component {
 
@@ -25,8 +30,18 @@ export class Game extends React.Component {
     PlayerActions.create(game.get('id'), user.get('id'));
   }
 
+  start() {
+    const gameId = this.props.game.get('id');
+
+    const setup = GameUtils.setup(gameId);
+
+    GameActions.start(gameId, setup);
+  }
+
   render() {
     const createdAt = new Date(this.props.game.get('createdAt'));
+
+    const isHost = this.props.game.get('host') === this.props.user.get('id');
 
     return (
       <div>
@@ -36,7 +51,17 @@ export class Game extends React.Component {
           Join
         </button>
 
+        {isHost && (
+          <button onClick={this.start.bind(this)}>
+            Start
+          </button>
+        )}
+
         <Players {...this.props} />
+
+        <Tray {...this.props} />
+
+        {this.props.user.size && <Rack {...this.props} />}
       </div>
     );
   }

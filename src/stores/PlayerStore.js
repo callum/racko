@@ -1,10 +1,9 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import UserStore from './UserStore';
-import storeMixin from '../storeMixin';
-
-import { ActionTypes as PlayerActionTypes } from '../constants/PlayerConstants';
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
+import { ActionTypes as PlayerActionTypes } from '../constants/PlayerConstants';
+import storeMixin from '../storeMixin';
 
 let players = Immutable.Map();
 

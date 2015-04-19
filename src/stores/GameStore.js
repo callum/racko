@@ -25,7 +25,7 @@ function create(gameId, userId) {
 }
 
 function start(gameId) {
-  games = games.update(gameId, {
+  games = games.mergeIn([gameId], {
     state: States.STARTED
   });
 }

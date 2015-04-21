@@ -31,6 +31,7 @@ DrawStore.dispatchToken = AppDispatcher.register(({ action }) => {
       DrawStore.emitChange();
       break;
 
+    case GameActionTypes.GAME_END:
     case GameActionTypes.GAME_END_TURN:
     case RackActionTypes.RACK_SWAP:
       resetTail(action.gameId);

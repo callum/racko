@@ -8,9 +8,10 @@
     "node": true
   },
   "rules": {
+    "new-cap": 0,
+    "no-debugger": 0,
     "strict": [2, "never"],
     "quotes": [2, "single"],
-    "new-cap": 1,
     "react/jsx-boolean-value": 1,
     "react/jsx-quotes": 1,
     "react/jsx-no-undef": 1,

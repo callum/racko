@@ -1,6 +1,8 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import { ActionTypes, States } from '../constants/GameConstants';
+import { ActionTypes as GameActionTypes, States } from '../constants/GameConstants';
+import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
+import GameUtils from '../utils/GameUtils';
 import storeMixin from '../storeMixin';
 
 let games = Immutable.Map();
@@ -25,8 +27,26 @@ function create(gameId, userId) {
 }
 
 function start(gameId) {
+  const game = GameStore.get(gameId);
+
   games = games.mergeIn([gameId], {
-    state: States.STARTED
+    state: States.STARTED,
+    turn: GameUtils.getNextTurn(game, game.get('host'))
+  });
+}
+
+function end(gameId, winnerId) {
+  games = games.mergeIn([gameId], {
+    state: States.ENDED,
+    winner: winnerId
+  });
+}
+
+function endTurn(gameId, userId) {
+  const game = GameStore.get(gameId);
+
+  games = games.mergeIn([gameId], {
+    turn: GameUtils.getNextTurn(game, userId)
   });
 }
 
@@ -36,19 +56,32 @@ function receive(game) {
 
 GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
-    case ActionTypes.GAME_CREATE:
+    case GameActionTypes.GAME_CREATE:
       create(action.gameId, action.userId);
 
       GameStore.emitChange();
       break;
 
-    case ActionTypes.GAME_START:
+    case GameActionTypes.GAME_START:
       start(action.gameId);
 
       GameStore.emitChange();
       break;
 
-    case ActionTypes.GAME_RECEIVE:
+    case GameActionTypes.GAME_END:
+      end(action.gameId, action.winnerId);
+
+      GameStore.emitChange();
+      break;
+
+    case GameActionTypes.GAME_END_TURN:
+    case RackActionTypes.RACK_SWAP:
+      endTurn(action.gameId, action.userId);
+
+      GameStore.emitChange();
+      break;
+
+    case GameActionTypes.GAME_RECEIVE:
       receive(action.game);
 
       GameStore.emitChange();

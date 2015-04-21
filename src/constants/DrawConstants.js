@@ -1,6 +1,6 @@
 import keyMirror from 'keymirror';
 
 export const ActionTypes = keyMirror({
-  RACK_SWAP: null,
-  RACK_RECEIVE: null
+  DRAW_RESET_TAIL: null,
+  DRAW_RECEIVE_TAIL: null
 });

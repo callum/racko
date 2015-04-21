@@ -2,8 +2,10 @@ import React from 'react';
 import Router, { DefaultRoute, Route } from 'react-router';
 
 import AuthPersister from './persisters/AuthPersister';
+import DrawPersister from './persisters/DrawPersister';
 import GamePersister from './persisters/GamePersister';
 import PlayerPersister from './persisters/PlayerPersister';
+import RackPersister from './persisters/RackPersister';
 import UserPersister from './persisters/UserPersister';
 
 import App from './components/App';
@@ -18,8 +20,10 @@ const routes = (
 );
 
 AuthPersister.initialize();
+DrawPersister.initialize();
 GamePersister.initialize();
 PlayerPersister.initialize();
+RackPersister.initialize();
 UserPersister.initialize();
 
 Router.run(routes, (Handler) => {

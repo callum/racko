@@ -12,7 +12,11 @@ const RackSynchronizer = {
 
     const handler = rack.on('value', snapshot => {
       if (snapshot.exists()) {
-        RackActions.receive(gameId, userId, snapshot.val());
+        const rack = snapshot.val().reduce((reduction, card, i) => {
+          return Object.assign({ [i]: card }, reduction);
+        }, {});
+
+        RackActions.receive(gameId, userId, rack);
       }
     });
 

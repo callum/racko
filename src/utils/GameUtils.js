@@ -1,13 +1,46 @@
-import GameStore from '../stores/GameStore';
 import PlayerStore from '../stores/PlayerStore';
+import { States } from '../constants/GameConstants';
 
 import RackService from '../services/RackService';
 import TrayService from '../services/TrayService';
 
+import next from 'array-next';
 import { range } from 'range';
 import { shuffle } from 'deck';
 
 const GameUtils = {
+
+  isJoined(players, user) {
+    return !!players.get(user.get('id'));
+  },
+
+  isTurn(game, user) {
+    return game.get('turn') === user.get('id');
+  },
+
+  isHost(game, user) {
+    return game.get('host') === user.get('id');
+  },
+
+  isCreated(game) {
+    return game.get('state') === States.CREATED;
+  },
+
+  isStarted(game) {
+    return game.get('state') === States.STARTED;
+  },
+
+  isEnded(game) {
+    return game.get('state') === States.ENDED;
+  },
+
+  getNextTurn(game, userId) {
+    const playerIds = PlayerStore.getAll(game.get('id')).map(player => {
+      return player.get('id');
+    }).toArray();
+
+    return next(playerIds, userId);
+  },
 
   createDeck(playerCount) {
     let size;
@@ -35,8 +68,8 @@ const GameUtils = {
     }, {});
   },
 
-  setup(gameId) {
-    const game = GameStore.get(gameId);
+  setup(game) {
+    const gameId = game.get('id');
     const players = PlayerStore.getAll(gameId);
 
     const deck = GameUtils.createDeck(players.size);

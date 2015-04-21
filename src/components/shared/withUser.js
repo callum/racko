@@ -21,12 +21,18 @@ export default function withUser(Component) {
     render() {
       const { user } = this.props;
 
-      return (
-        <div>
-          <p>Logged in as {user.get('name')}</p>
+      if (user.size) {
+        return (
+          <div>
+            <p>Logged in as {user.get('name')}</p>
 
-          <Component user={user} />
-        </div>
+            <Component user={user} />
+          </div>
+        );
+      }
+
+      return (
+        <p>Retrieving user…</p>
       );
     }
 

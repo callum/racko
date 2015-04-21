@@ -22,21 +22,35 @@ export class App extends React.Component {
   }
 
   componentDidUpdate() {
+    this.authenticate();
+  }
+
+  async authenticate() {
     const { token, uid } = this.props;
 
     if (token && !uid) {
-      AuthService.authWithToken(token);
+      try {
+        await AuthService.authWithToken(token);
+      } catch(e) {
+        console.error(e.message);
+      }
     }
   }
 
-  createUser(e) {
+  async createUser(e) {
+    e.preventDefault();
+
     const name = e.target.elements.name.value;
 
-    AuthService.authAnonymously(auth => {
-      UserActions.create(auth.uid, { name });
-    });
+    let auth;
 
-    e.preventDefault();
+    try {
+      auth = await AuthService.authAnonymously();
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    UserActions.create(auth.uid, { name });
   }
 
   render() {

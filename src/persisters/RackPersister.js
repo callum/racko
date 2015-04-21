@@ -1,17 +1,18 @@
 import Firebase from 'firebase';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import RackStore from '../stores/RackStore';
-import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
+import { ActionTypes } from '../constants/RackConstants';
 
-function set(gameId) {
-  const racks = RackStore.getAll(gameId);
+function set(gameId, userId) {
+  const rack = RackStore.get(gameId, userId);
 
-  if (racks.size) {
+  if (rack.size) {
     const ref = new Firebase(FIREBASE);
 
     ref.child('racks')
       .child(gameId)
-      .set(racks.toJS());
+      .child(userId)
+      .set(rack.toJS());
   }
 }
 
@@ -24,8 +25,8 @@ const RackPersister = {
       ]);
 
       switch (action.type) {
-        case GameActionTypes.GAME_START:
-          window.setTimeout(() => set(action.gameId), 0);
+        case ActionTypes.RACK_SWAP:
+          window.setTimeout(() => set(action.gameId, action.userId), 0);
           break;
       }
     });

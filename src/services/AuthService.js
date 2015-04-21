@@ -3,31 +3,37 @@ import AuthActions from '../actions/AuthActions';
 
 const AuthService = {
 
-  authAnonymously(callback) {
+  authAnonymously() {
     const ref = new Firebase(FIREBASE);
 
-    ref.authAnonymously((err, res) => {
-      if (err) {
-        console.log('Authentication failed', err);
-        return;
-      }
+    return new Promise((resolve, reject) => {
+      ref.authAnonymously((err, res) => {
+        if (err) {
+          reject(new Error(err));
+          return;
+        }
 
-      callback(res);
+        resolve(res);
 
-      AuthActions.receive(res);
+        AuthActions.receive(res);
+      });
     });
   },
 
   authWithToken(token) {
     const ref = new Firebase(FIREBASE);
 
-    ref.authWithCustomToken(token, (err, res) => {
-      if (err) {
-        console.log('Authentication failed', err);
-        return;
-      }
+    return new Promise((resolve, reject) => {
+      ref.authWithCustomToken(token, (err, res) => {
+        if (err) {
+          reject(new Error(err));
+          return;
+        }
 
-      AuthActions.receive(res);
+        resolve(res);
+
+        AuthActions.receive(res);
+      });
     });
   }
 

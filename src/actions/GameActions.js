@@ -22,6 +22,22 @@ const GameActions = {
     });
   },
 
+  end(gameId, winnerId) {
+    AppDispatcher.handleAction({
+      type: ActionTypes.GAME_END,
+      gameId,
+      winnerId
+    });
+  },
+
+  endTurn(gameId, userId) {
+    AppDispatcher.handleAction({
+      type: ActionTypes.GAME_END_TURN,
+      gameId,
+      userId
+    });
+  },
+
   receive(game) {
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_RECEIVE,

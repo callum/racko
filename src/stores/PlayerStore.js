@@ -31,8 +31,8 @@ function create(gameId, userId) {
   }
 }
 
-function receive(gameId, gamePlayers) {
-  players = players.set(gameId, Immutable.fromJS(gamePlayers));
+function receive(gameId, allPlayers) {
+  players = players.set(gameId, Immutable.fromJS(allPlayers));
 }
 
 PlayerStore.dispatchToken = AppDispatcher.register(({ action }) => {

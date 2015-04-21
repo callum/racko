@@ -1,92 +1,65 @@
 import React from 'react';
 
+import DrawStore from '../../stores/DrawStore';
+import TrayService from '../../services/TrayService';
+import GameActions from '../../actions/GameActions';
+
+import withFlux from '../shared/withFlux';
+
 export class Turn extends React.Component {
 
-  static getDefaultData() {
-    return {
-      drawTail: null
-    };
+  static propTypes = {
+    user: React.PropTypes.object,
+    game: React.PropTypes.object,
+    drawTail: React.PropTypes.number
   }
 
-  static addDataHandlers() {
-    this.drawTail = this.props.firebase
-      .child('trays')
-      .child(this.props.gameKey)
-      .child('draw')
-      .orderByKey()
-      .limitToLast(1);
-
-    this.handlers.drawTail = this.drawTail.on('value', res => {
-      if (res.exists()) {
-        let card = res.val();
-
-        this.setState({
-          drawTail: card
-        });
-      }
-    });
-  }
-
-  static removeDataHandlers() {
-    this.drawTail.off('value', this.handlers.drawTail);
-  }
-
-  keep() {
-    this.props.onFinish();
+  startTurn() {
+    TrayService.getDrawTail(this.props.game.get('id'));
   }
 
   discard() {
-    let gameKey = this.props.gameKey;
-    let tray = this.props.firebase.child('trays').child(gameKey);
+    const { user, game, drawTail } = this.props;
 
-    tray.once('value', (res) => {
-      if (res.exists()) {
-        let { draw, discard } = res.val();
-        let discarded = draw.pop();
+    TrayService.discard(game.get('id'), drawTail);
 
-        if (draw.length) {
-          discard.unshift(discarded);
-        } else {
-          draw = [...discard, discarded];
-          discard = [draw.pop()];
-        }
-
-        tray.set({ draw, discard }, (err) => {
-          if (err) {
-            console.log('Set failed');
-            return;
-          }
-
-          this.props.onFinish();
-        });
-      }
-    });
+    GameActions.endTurn(game.get('id'), user.get('id'));
   }
 
   render() {
-    if (this.props.drawTail) {
+    const { drawTail } = this.props;
+
+    if (!drawTail) {
       return (
-        <div>
-          <p>
-            You picked up <b>{this.props.drawTail}</b>
-          </p>
-
-          <button onClick={this.keep.bind(this)}>
-            Keep
-          </button>
-
-          <button onClick={this.discard.bind(this)}>
-            Discard
-          </button>
-        </div>
+        <button onClick={this.startTurn.bind(this)}>
+          Take turn
+        </button>
       );
     }
 
     return (
-      <p>Loading…</p>
+      <div>
+        <p>
+          You picked up <b>{drawTail}</b>
+        </p>
+
+        <button onClick={this.discard.bind(this)}>
+          Discard
+        </button>
+      </div>
     );
   }
 
 }
 
-export default Turn;
+function getter() {
+  const { gameId } = this.context.router.getCurrentParams();
+
+  return {
+    drawTail: DrawStore.getTail(gameId)
+  };
+}
+
+const TurnWithFlux = withFlux(Turn, getter, DrawStore);
+
+export default TurnWithFlux;

@@ -3,11 +3,11 @@ import React from 'react';
 import GameSynchronizer from '../synchronizers/GameSynchronizer';
 import GameStore from '../stores/GameStore';
 import GameActions from '../actions/GameActions';
-import PlayerActions from '../actions/PlayerActions';
 
 import Players from './game/Players';
 import Rack from './game/Rack';
 import Tray from './game/Tray';
+import Turn from './game/Turn';
 
 import withSync from './shared/withSync';
 import withFlux from './shared/withFlux';
@@ -21,44 +21,42 @@ export class Game extends React.Component {
     game: React.PropTypes.object
   }
 
-  join() {
-    const { user, game } = this.props;
+  startGame() {
+    const { game } = this.props;
 
-    PlayerActions.create(game.get('id'), user.get('id'));
-  }
+    const setup = GameUtils.setup(game);
 
-  start() {
-    const gameId = this.props.game.get('id');
-
-    const setup = GameUtils.setup(gameId);
-
-    GameActions.start(gameId, setup);
+    GameActions.start(game.get('id'), setup);
   }
 
   render() {
-    const createdAt = new Date(this.props.game.get('createdAt'));
+    const { props } = this;
 
-    const isHost = this.props.game.get('host') === this.props.user.get('id');
+    const {
+      isHost,
+      isTurn,
+      isCreated,
+      isStarted,
+      isEnded
+    } = props;
 
     return (
       <div>
-        <p>Created at {createdAt.toLocaleString('en-GB')}</p>
-
-        <button onClick={this.join.bind(this)}>
-          Join
-        </button>
-
-        {isHost && (
-          <button onClick={this.start.bind(this)}>
-            Start
+        {isCreated && isHost && (
+          <button onClick={this.startGame.bind(this)}>
+            Start game
           </button>
         )}
 
-        <Players {...this.props} />
+        {isEnded && (
+          <p>Game over!</p>
+        )}
 
-        <Tray {...this.props} />
+        <Players {...props} />
 
-        {this.props.user.size && <Rack {...this.props} />}
+        {isStarted && <Tray {...props} />}
+        {(isStarted || isEnded) && <Rack {...props} />}
+        {isStarted && isTurn && <Turn {...props} />}
       </div>
     );
   }
@@ -75,9 +73,17 @@ function syncer() {
 
 function getter() {
   const { gameId } = this.context.router.getCurrentParams();
+  const { user } = this.props;
+
+  const game = GameStore.get(gameId);
 
   return {
-    game: GameStore.get(gameId)
+    game,
+    isHost: GameUtils.isHost(game, user),
+    isTurn: GameUtils.isTurn(game, user),
+    isCreated: GameUtils.isCreated(game),
+    isStarted: GameUtils.isStarted(game),
+    isEnded: GameUtils.isEnded(game)
   };
 }
 

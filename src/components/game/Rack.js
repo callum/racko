@@ -9,17 +9,18 @@ import DrawStore from '../../stores/DrawStore';
 import withSync from '../shared/withSync';
 import withFlux from '../shared/withFlux';
 
-import RackUtils from '../../utils/RackUtils';
+import RackHelper from '../../helpers/RackHelper';
 
 export class Rack extends React.Component {
 
   static propTypes = {
-    user: React.PropTypes.object,
-    game: React.PropTypes.object,
-    rack: React.PropTypes.object,
-    drawTail: React.PropTypes.number,
-    isStarted: React.PropTypes.bool
-  }
+    user: React.PropTypes.object.isRequired,
+    game: React.PropTypes.object.isRequired,
+    rack: React.PropTypes.object.isRequired,
+    drawTail: React.PropTypes.number.isRequired,
+    gameHelper: React.PropTypes.object.isRequired,
+    rackHelper: React.PropTypes.object.isRequired
+  };
 
   endGame() {
     const { user, game } = this.props;
@@ -34,15 +35,13 @@ export class Rack extends React.Component {
   }
 
   render() {
-    const { rack, drawTail, isStarted } = this.props;
-
-    const isRacko = RackUtils.isRacko(rack);
+    const { rack, drawTail, gameHelper, rackHelper } = this.props;
 
     return (
       <div>
         <h2>Rack</h2>
 
-        {isStarted && isRacko && (
+        {gameHelper.isStarted && rackHelper.isRacko && (
           <button onClick={this.endGame.bind(this)}>
             Call Rack-O!
           </button>
@@ -78,9 +77,12 @@ function syncer() {
 function getter() {
   const { gameId } = this.context.router.getCurrentParams();
 
+  const rack = RackStore.get(gameId, this.props.user.get('id'));
+
   return {
-    rack: RackStore.get(gameId, this.props.user.get('id')),
-    drawTail: DrawStore.getTail(gameId)
+    rack,
+    drawTail: DrawStore.getTail(gameId),
+    rackHelper: new RackHelper(rack)
   };
 }
 

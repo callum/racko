@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import GameStore from './GameStore';
 import storeMixin from '../storeMixin';
 
 import { ActionTypes as UserActionTypes } from '../constants/UserConstants';
@@ -29,7 +30,11 @@ function receive(user) {
 }
 
 function addGame(userId, gameId) {
-  users = users.setIn([userId, 'games', gameId], true);
+  const game = GameStore.get(gameId);
+
+  users = users.setIn([userId, 'games', gameId], {
+    createdAt: game.get('createdAt')
+  });
 }
 
 UserStore.dispatchToken = AppDispatcher.register(({ action }) => {
@@ -47,6 +52,10 @@ UserStore.dispatchToken = AppDispatcher.register(({ action }) => {
       break;
 
     case GameActionTypes.GAME_CREATE:
+      AppDispatcher.waitFor([
+        GameStore.dispatchToken
+      ]);
+
       addGame(action.userId, action.gameId);
 
       UserStore.emitChange();

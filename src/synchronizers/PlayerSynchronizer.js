@@ -8,7 +8,7 @@ const PlayerSynchronizer = {
 
     const handler = players.on('value', snapshot => {
       if (snapshot.exists()) {
-        PlayerActions.receive(gameId, snapshot.val());
+        PlayerActions.receiveAll(gameId, snapshot.val());
       }
     });
 

@@ -16,7 +16,7 @@ const DrawStore = Object.assign({}, storeMixin, {
 });
 
 function resetTail(gameId) {
-  draws = draws.set(gameId, undefined);
+  draws = draws.set(gameId, null);
 }
 
 function receiveTail(gameId, drawTail) {

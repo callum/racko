@@ -5,7 +5,7 @@ export default function withFlux(Component, getter, ...stores) {
 
     static contextTypes = {
       router: React.PropTypes.func.isRequired
-    }
+    };
 
     constructor() {
       super();

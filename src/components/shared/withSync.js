@@ -5,7 +5,7 @@ export default function withFirebase(Component, syncer) {
 
     static contextTypes = {
       router: React.PropTypes.func.isRequired
-    }
+    };
 
     componentWillMount() {
       this.listeners = syncer.call(this);

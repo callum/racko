@@ -11,9 +11,9 @@ const PlayerActions = {
     });
   },
 
-  receive(gameId, players) {
+  receiveAll(gameId, players) {
     AppDispatcher.handleAction({
-      type: ActionTypes.PLAYER_RECEIVE,
+      type: ActionTypes.PLAYER_RECEIVE_ALL,
       gameId,
       players
     });

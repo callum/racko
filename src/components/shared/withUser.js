@@ -11,12 +11,12 @@ export default function withUser(Component) {
 
     static contextTypes = {
       router: React.PropTypes.func.isRequired
-    }
+    };
 
     static propTypes = {
-      uid: React.PropTypes.string.isRequired,
-      user: React.PropTypes.object
-    }
+      userId: React.PropTypes.string.isRequired,
+      user: React.PropTypes.object.isRequired
+    };
 
     render() {
       const { user } = this.props;
@@ -40,13 +40,13 @@ export default function withUser(Component) {
 
   function syncer() {
     return [
-      UserSynchronizer.get(this.props.uid)
+      UserSynchronizer.get(this.props.userId)
     ];
   }
 
   function getter() {
     return {
-      user: UserStore.get(this.props.uid)
+      user: UserStore.get(this.props.userId)
     };
   }
 

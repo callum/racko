@@ -9,10 +9,10 @@ import withFlux from '../shared/withFlux';
 export class Turn extends React.Component {
 
   static propTypes = {
-    user: React.PropTypes.object,
-    game: React.PropTypes.object,
-    drawTail: React.PropTypes.number
-  }
+    user: React.PropTypes.object.isRequired,
+    game: React.PropTypes.object.isRequired,
+    drawTail: React.PropTypes.number.isRequired
+  };
 
   startTurn() {
     TrayService.getDrawTail(this.props.game.get('id'));

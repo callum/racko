@@ -31,7 +31,7 @@ function create(gameId, userId) {
   }
 }
 
-function receive(gameId, allPlayers) {
+function receiveAll(gameId, allPlayers) {
   players = players.set(gameId, Immutable.fromJS(allPlayers));
 }
 
@@ -49,8 +49,8 @@ PlayerStore.dispatchToken = AppDispatcher.register(({ action }) => {
       PlayerStore.emitChange();
       break;
 
-    case PlayerActionTypes.PLAYER_RECEIVE:
-      receive(action.gameId, action.players);
+    case PlayerActionTypes.PLAYER_RECEIVE_ALL:
+      receiveAll(action.gameId, action.players);
 
       PlayerStore.emitChange();
       break;

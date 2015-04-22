@@ -14,8 +14,8 @@ export class App extends React.Component {
 
   static propTypes = {
     token: React.PropTypes.string,
-    uid: React.PropTypes.string
-  }
+    userId: React.PropTypes.string
+  };
 
   componentDidMount() {
     AuthUtils.reconcileToken();
@@ -26,9 +26,9 @@ export class App extends React.Component {
   }
 
   async authenticate() {
-    const { token, uid } = this.props;
+    const { token, userId } = this.props;
 
-    if (token && !uid) {
+    if (token && !userId) {
       try {
         await AuthService.authWithToken(token);
       } catch(e) {
@@ -54,12 +54,12 @@ export class App extends React.Component {
   }
 
   render() {
-    const { token, uid } = this.props;
+    const { token, userId } = this.props;
 
-    if (uid) {
+    if (userId) {
       const RouteHandlerWithUser = withUser(RouteHandler);
 
-      return <RouteHandlerWithUser uid={uid} />;
+      return <RouteHandlerWithUser userId={userId} />;
     }
 
     if (token) {
@@ -89,7 +89,7 @@ export class App extends React.Component {
 function getter() {
   return {
     token: AuthStore.getToken(),
-    uid: AuthStore.getUid()
+    userId: AuthStore.getUserId()
   };
 }
 

@@ -9,8 +9,8 @@ import withFlux from '../shared/withFlux';
 export class Tray extends React.Component {
 
   static propTypes = {
-    discard: React.PropTypes.object
-  }
+    discard: React.PropTypes.object.isRequired
+  };
 
   render() {
     return (

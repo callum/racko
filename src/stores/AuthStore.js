@@ -3,7 +3,7 @@ import { ActionTypes } from '../constants/AuthConstants';
 import storeMixin from '../storeMixin';
 
 let token = null;
-let uid = null;
+let userId = null;
 
 const AuthStore = Object.assign({}, storeMixin, {
 
@@ -11,8 +11,8 @@ const AuthStore = Object.assign({}, storeMixin, {
     return token;
   },
 
-  getUid() {
-    return uid;
+  getUserId() {
+    return userId;
   }
 
 });
@@ -21,7 +21,7 @@ AuthStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case ActionTypes.AUTH_RECEIVE:
       token = action.auth.token;
-      uid = action.auth.uid;
+      userId = action.auth.uid;
 
       AuthStore.emitChange();
       break;

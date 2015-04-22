@@ -9,7 +9,7 @@ export const ActionTypes = keyMirror({
 });
 
 export const States = keyMirror({
-  CREATED: null,
-  STARTED: null,
-  ENDED: null
+  GAME_CREATED: 'created',
+  GAME_STARTED: 'started',
+  GAME_ENDED: 'ended'
 });

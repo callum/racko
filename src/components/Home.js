@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 
 import GameActions from '../actions/GameActions';
 
-class Home extends React.Component {
+export class Home extends React.Component {
 
   static propTypes = {
-    user: React.PropTypes.object
-  }
+    user: React.PropTypes.object.isRequired
+  };
 
   createGame() {
     GameActions.create(this.props.user.get('id'));

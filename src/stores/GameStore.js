@@ -18,7 +18,7 @@ const GameStore = Object.assign({}, storeMixin, {
 function create(gameId, userId) {
   const game = {
     id: gameId,
-    state: States.CREATED,
+    state: States.GAME_CREATED,
     host: userId,
     createdAt: new Date().toISOString()
   };
@@ -30,15 +30,16 @@ function start(gameId) {
   const game = GameStore.get(gameId);
 
   games = games.mergeIn([gameId], {
-    state: States.STARTED,
+    state: States.GAME_STARTED,
     turn: GameUtils.getNextTurn(game, game.get('host'))
   });
 }
 
 function end(gameId, winnerId) {
   games = games.mergeIn([gameId], {
-    state: States.ENDED,
-    winner: winnerId
+    state: States.GAME_ENDED,
+    winner: winnerId,
+    turn: null
   });
 }
 

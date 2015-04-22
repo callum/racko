@@ -1,3 +1,4 @@
+import GameStore from '../stores/GameStore';
 import PlayerStore from '../stores/PlayerStore';
 
 import RackService from '../services/RackService';
@@ -43,8 +44,8 @@ const GameUtils = {
     }, {});
   },
 
-  setup(game) {
-    const gameId = game.get('id');
+  setup(gameId) {
+    const game = GameStore.get(gameId);
     const players = PlayerStore.getAll(gameId);
 
     const deck = GameUtils.createDeck(players.size);

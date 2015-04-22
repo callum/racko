@@ -14,7 +14,6 @@ import Turn from './game/Turn';
 import withSync from './shared/withSync';
 import withFlux from './shared/withFlux';
 
-import GameUtils from '../utils/GameUtils';
 import GameHelper from '../helpers/GameHelper';
 
 export class Game extends React.Component {
@@ -28,9 +27,7 @@ export class Game extends React.Component {
   startGame() {
     const { game } = this.props;
 
-    const setup = GameUtils.setup(game);
-
-    GameActions.start(game.get('id'), setup);
+    GameActions.start(game.get('id'));
   }
 
   render() {

@@ -1,5 +1,6 @@
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import { ActionTypes } from '../constants/GameConstants';
+import GameUtils from '../utils/GameUtils';
 import uid from 'uid';
 
 const GameActions = {
@@ -14,7 +15,9 @@ const GameActions = {
     });
   },
 
-  start(gameId, setup) {
+  start(gameId) {
+    const setup = GameUtils.setup(gameId);
+
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_START,
       gameId,

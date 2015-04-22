@@ -27,7 +27,11 @@ export default class GameHelper {
   }
 
   get winnerName() {
-    return this.players.get(this.game.get('winner')).get('name');
+    const winner = this.players.get(this.game.get('winner'));
+
+    if (winner) {
+      return winner.get('name');
+    }
   }
 
   get canJoin() {

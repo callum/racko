@@ -10,9 +10,11 @@ export default class RackHelper {
     let streak = 1;
 
     for (let i = 1; i < rack.length; i++) {
-      if (rack[i] > rack[i - 1]) {
-        streak++;
+      if (rack[i] < rack[i - 1]) {
+        break;
       }
+
+      streak++;
     }
 
     return streak;

@@ -12,8 +12,8 @@ function set(userId) {
     const ref = new Firebase(FIREBASE);
 
     ref.child('users')
-     .child(userId)
-     .set(user.toJS());
+      .child(userId)
+      .set(user.toJS());
   }
 }
 

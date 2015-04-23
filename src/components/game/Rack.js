@@ -50,7 +50,7 @@ export class Rack extends React.Component {
         {rack.reverse().map((item, key) => {
           return (
             <div key={item}>
-              <span>{parseInt(key, 10) + 1} </span>
+              <span>{(parseInt(key, 10) + 1) * 5} </span>
 
               <button
                 onClick={this.swap.bind(this, item, key)}

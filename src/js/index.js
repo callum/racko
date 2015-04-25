@@ -26,6 +26,8 @@ PlayerPersister.initialize();
 RackPersister.initialize();
 UserPersister.initialize();
 
-Router.run(routes, Router.HistoryLocation, (Handler) => {
+Router.run(routes, (Handler) => {
   React.render(<Handler />, document.getElementById('root'));
 });
+
+import '../scss/index.scss';

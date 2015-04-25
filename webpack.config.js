@@ -10,7 +10,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
-    './src/index'
+    './src/js/index'
   ],
   output: {
     path: path.join(__dirname, 'build'),
@@ -23,15 +23,24 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   module: {
-    preLoaders: [{
-      test: /\.js$/,
-      loader: 'eslint-loader',
-      include: path.join(__dirname, 'src')
-    }],
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['react-hot', 'babel'],
-      include: path.join(__dirname, 'src')
-    }]
+    preLoaders: [
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        include: path.join(__dirname, 'src/js')
+      }
+    ],
+    loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['react-hot', 'babel'],
+        include: path.join(__dirname, 'src/js')
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'csslint', 'autoprefixer', 'sass'],
+        include: path.join(__dirname, 'src/scss')
+      }
+    ]
   }
 };

@@ -1,9 +1,8 @@
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    './src/index'
+    './src/js/index'
   ],
   output: {
     path: path.join(__dirname, 'build'),
@@ -13,7 +12,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel?experimental&optional=runtime'],
+      loaders: ['babel'],
       include: path.join(__dirname, 'src')
     }]
   }

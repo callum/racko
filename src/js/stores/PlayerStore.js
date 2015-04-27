@@ -36,7 +36,6 @@ function receiveAll(gameId, allPlayers) {
 }
 
 PlayerStore.dispatchToken = AppDispatcher.register(({ action }) => {
-
   switch (action.type) {
     case PlayerActionTypes.PLAYER_CREATE:
     case GameActionTypes.GAME_CREATE:

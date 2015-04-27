@@ -6,7 +6,7 @@
 
 .rack__heading {
   @extend %heading;
-  margin-left: 2.2rem;
+  margin-left: 2.6rem;
 }
 
 .rack__slot {
@@ -15,13 +15,13 @@
   flex: 1;
 
   &:not(:last-child) {
-    height: 2.2rem;
+    height: 2.6rem;
   }
 }
 
 .rack__slot__number {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.6rem;
+  height: 2.6rem;
   font-size: 1rem;
   font-weight: 500;
   color: #666;

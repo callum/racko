@@ -1,0 +1,15 @@
+.game {
+  display: flex;
+  flex: 1;
+}
+
+.game__sidebar {
+  flex: 1;
+}
+
+.game__body {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 4;
+}

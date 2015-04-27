@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import GameActions from '../actions/GameActions';
 
-export class Home extends React.Component {
+class Home extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired
@@ -15,7 +15,7 @@ export class Home extends React.Component {
 
   render() {
     return (
-      <div>
+      <main>
         <h2>Games</h2>
 
         <ul>
@@ -31,7 +31,7 @@ export class Home extends React.Component {
         <button onClick={this.createGame.bind(this)}>
           Create game
         </button>
-      </div>
+      </main>
     );
   }
 

@@ -9,7 +9,6 @@ import PlayerStore from '../stores/PlayerStore';
 import Players from './game/Players';
 import Rack from './game/Rack';
 import Tray from './game/Tray';
-import Turn from './game/Turn';
 
 import withSync from './shared/withSync';
 import withFlux from './shared/withFlux';
@@ -35,33 +34,33 @@ export class Game extends React.Component {
     const { user, gameHelper } = props;
 
     return (
-      <div>
-        {gameHelper.isCreated &&
-         gameHelper.canStart &&
-         gameHelper.isHost(user) && (
-          <button onClick={this.startGame.bind(this)}>
-            Start game
-          </button>
-        )}
+      <main className="game">
+        <aside className="game__sidebar">
+          <Players {...props} />
 
-        {gameHelper.isEnded && (
-          <p>{gameHelper.winnerName} wins!</p>
-        )}
+          {gameHelper.isCreated &&
+           gameHelper.canStart &&
+           gameHelper.isHost(user) && (
+            <button onClick={this.startGame.bind(this)}>
+              Start game
+            </button>
+          )}
+        </aside>
 
-        <Players {...props} />
+        <div className="game__body">
+          {gameHelper.isEnded && (
+            <p>{gameHelper.winnerName} wins!</p>
+          )}
 
-        {gameHelper.isStarted && (
-          <Tray {...props} />
-        )}
+          {gameHelper.isStarted && (
+            <Rack {...props} />
+          )}
 
-        {gameHelper.isStarted && (
-          <Rack {...props} />
-        )}
-
-        {gameHelper.isStarted && gameHelper.isTurn(user) && (
-          <Turn {...props} />
-        )}
-      </div>
+          {gameHelper.isStarted && (
+            <Tray {...props} />
+          )}
+        </div>
+      </main>
     );
   }
 

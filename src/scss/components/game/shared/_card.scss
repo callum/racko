@@ -1,0 +1,24 @@
+.card {
+  @extend %card;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.card__logo {
+  text-align: center;
+  font-family: 'Contrail One';
+  font-size: 2rem;
+  color: red;
+}
+
+.card__bottom {
+  transform: rotate(180deg);
+}
+
+.card__number {
+  display: block;
+  text-align: right;
+  font-weight: bold;
+  font-size: 1.6rem;
+}

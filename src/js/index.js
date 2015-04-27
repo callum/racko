@@ -27,7 +27,7 @@ RackPersister.initialize();
 UserPersister.initialize();
 
 Router.run(routes, (Handler) => {
-  React.render(<Handler />, document.getElementById('root'));
+  React.render(<Handler />, document.querySelector('.root'));
 });
 
 import '../scss/index.scss';

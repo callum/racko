@@ -22,13 +22,7 @@ export default function withUser(Component) {
       const { user } = this.props;
 
       if (user.size) {
-        return (
-          <div>
-            <p>Logged in as {user.get('name')}</p>
-
-            <Component user={user} />
-          </div>
-        );
+        return <Component user={user} />;
       }
 
       return (

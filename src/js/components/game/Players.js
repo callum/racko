@@ -20,10 +20,8 @@ export default class Players extends React.Component {
     const { user, players, gameHelper } = this.props;
 
     return (
-      <div>
-        <h2>Players</h2>
-
-        <ul>
+      <section className="players">
+        <ul className="players__list">
           {players.map(player => {
             let name = player.get('name');
 
@@ -32,7 +30,7 @@ export default class Players extends React.Component {
             }
 
             return (
-              <li key={player.get('id')}>
+              <li key={player.get('id')} className="players__item">
                 {name}
               </li>
             );
@@ -46,7 +44,7 @@ export default class Players extends React.Component {
             Join
           </button>
         )}
-      </div>
+      </section>
     );
   }
 

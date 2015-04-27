@@ -1,0 +1,29 @@
+.draw {
+}
+
+.draw__heading {
+  @extend %heading;
+}
+
+.draw__card {
+  @extend %card;
+  background-color: #ccc;
+  transform: translate3d(0, 0, 0);
+
+  .draw--activated & {
+    cursor: pointer;
+    background-color: $racko-secondary;
+  }
+}
+
+.draw__card__logo {
+  margin: auto;
+  text-align: center;
+  font-family: 'Contrail One';
+  font-size: 4rem;
+  color: #ddd;
+
+  .draw--activated & {
+    color: lighten($racko-secondary, 30%);
+  }
+}

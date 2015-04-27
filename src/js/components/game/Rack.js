@@ -9,6 +9,8 @@ import DrawStore from '../../stores/DrawStore';
 import withSync from '../shared/withSync';
 import withFlux from '../shared/withFlux';
 
+import Card from './shared/Card';
+
 import RackHelper from '../../helpers/RackHelper';
 
 export class Rack extends React.Component {
@@ -37,30 +39,40 @@ export class Rack extends React.Component {
   render() {
     const { rack, drawTail, gameHelper, rackHelper } = this.props;
 
+    let slot = rack.size + 1;
+
     return (
-      <div>
-        <h2>Rack</h2>
+      <section className="rack">
+        <h2 className="rack__heading">
+          Your rack
+        </h2>
+
+        {rack.reverse().map((item, key) => {
+          let onClick;
+
+          if (drawTail) {
+            onClick = this.swap.bind(this, item, key);
+          }
+
+          return (
+            <div key={item} className="rack__slot">
+              <span className="rack__slot__number">
+                {--slot * 5}
+              </span>
+
+              <div className="rack__slot__item">
+                <Card value={item} onClick={onClick} />
+              </div>
+            </div>
+          );
+        })}
 
         {gameHelper.isStarted && rackHelper.isRacko && (
           <button onClick={this.endGame.bind(this)}>
             Call Rack-O!
           </button>
         )}
-
-        {rack.reverse().map((item, key) => {
-          return (
-            <div key={item}>
-              <span>{(parseInt(key, 10) + 1) * 5} </span>
-
-              <button
-                onClick={this.swap.bind(this, item, key)}
-                disabled={!drawTail}>
-                {item}
-              </button>
-            </div>
-          );
-        })}
-      </div>
+      </section>
     );
   }
 

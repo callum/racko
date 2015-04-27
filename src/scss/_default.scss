@@ -21,6 +21,19 @@ $racko-secondary: #69da00;
   transform: translate3d(0, 0, 0);
 }
 
+%button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+
+  padding: .5rem .8rem;
+  padding-bottom: .6rem;
+  background-color: $racko-secondary;
+  color: #fff;
+}
+
 * {
   box-sizing: border-box;
 }

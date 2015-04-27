@@ -19,13 +19,15 @@ export class Home extends React.Component {
 
   render() {
     return (
-      <main>
-        <h2>Games</h2>
+      <main className="home">
+        <h2 className="home__heading">
+          Games
+        </h2>
 
-        <ul>
+        <ul className="home__games">
           {this.props.games.map((game, key) => {
             return (
-              <li key={key}>
+              <li key={key} className="home__game">
                 <Link to="game" params={{ gameId: key }}>
                   {new Date(game.get('createdAt')).toLocaleString('en-GB')}
                 </Link>
@@ -34,7 +36,9 @@ export class Home extends React.Component {
           })}
         </ul>
 
-        <button onClick={this.createGame.bind(this)}>
+        <button
+          onClick={this.createGame.bind(this)}
+          className="home__create-game">
           Create game
         </button>
       </main>

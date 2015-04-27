@@ -81,11 +81,6 @@ GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
     case GameActionTypes.GAME_CREATE:
       create(action.gameId, action.userId);
-
-      AppDispatcher.waitFor([
-        UserStore.dispatchToken
-      ]);
-
       join(action.gameId, action.userId);
 
       GameStore.emitChange();
@@ -104,10 +99,6 @@ GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
       break;
 
     case GameActionTypes.GAME_JOIN:
-      AppDispatcher.waitFor([
-        UserStore.dispatchToken
-      ]);
-
       join(action.gameId, action.userId);
 
       GameStore.emitChange();

@@ -33,6 +33,14 @@ const GameActions = {
     });
   },
 
+  join(gameId, userId) {
+    AppDispatcher.handleAction({
+      type: ActionTypes.GAME_JOIN,
+      gameId,
+      userId
+    });
+  },
+
   endTurn(gameId, userId) {
     AppDispatcher.handleAction({
       type: ActionTypes.GAME_END_TURN,

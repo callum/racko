@@ -1,6 +1,6 @@
 import test from 'tape';
-import AuthStore from '../../src/stores/AuthStore';
-import AuthActions from '../../src/actions/AuthActions';
+import AuthStore from '../../src/js/stores/AuthStore';
+import AuthActions from '../../src/js/actions/AuthActions';
 
 function setupStore(callback) {
   AuthStore.addChangeListener(callback);

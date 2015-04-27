@@ -1,5 +1,4 @@
 import GameStore from '../stores/GameStore';
-import PlayerStore from '../stores/PlayerStore';
 
 import RackService from '../services/RackService';
 import TrayService from '../services/TrayService';
@@ -11,7 +10,7 @@ import { shuffle } from 'deck';
 const GameUtils = {
 
   getNextTurn(game, userId) {
-    const playerIds = PlayerStore.getAll(game.get('id')).map(player => {
+    const playerIds = GameStore.getPlayers(game.get('id')).map(player => {
       return player.get('id');
     }).toArray();
 
@@ -46,10 +45,8 @@ const GameUtils = {
 
   setup(gameId) {
     const game = GameStore.get(gameId);
-    const players = PlayerStore.getAll(gameId);
-
-    const deck = GameUtils.createDeck(players.size);
-    const racks = GameUtils.createRacks(players, deck);
+    const deck = GameUtils.createDeck(game.get('players').size);
+    const racks = GameUtils.createRacks(game.get('players'), deck);
 
     const draw = [...deck];
     const discard = [draw.pop()];

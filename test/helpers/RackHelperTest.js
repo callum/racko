@@ -1,6 +1,6 @@
 import test from 'tape';
 import Immutable from 'immutable';
-import RackHelper from '../../src/helpers/RackHelper';
+import RackHelper from '../../src/js/helpers/RackHelper';
 
 function getHelper(rack) {
   return new RackHelper(Immutable.OrderedSet(rack));

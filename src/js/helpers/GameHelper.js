@@ -5,13 +5,12 @@ export default class GameHelper {
   static MIN_PLAYERS = 2;
   static MAX_PLAYERS = 4;
 
-  constructor(game, players) {
+  constructor(game) {
     this.game = game;
-    this.players = players;
   }
 
   isJoined(user) {
-    return !!this.players.get(user.get('id'));
+    return !!this.game.getIn(['players', user.get('id')]);
   }
 
   isTurn(user) {
@@ -27,7 +26,7 @@ export default class GameHelper {
   }
 
   get winnerName() {
-    const winner = this.players.get(this.game.get('winner'));
+    const winner = this.game.getIn(['players', this.game.get('winner')]);
 
     if (winner) {
       return winner.get('name');
@@ -35,11 +34,11 @@ export default class GameHelper {
   }
 
   get canJoin() {
-    return this.players.size < GameHelper.MAX_PLAYERS;
+    return this.game.get('players').size < GameHelper.MAX_PLAYERS;
   }
 
   get canStart() {
-    return this.players.size >= GameHelper.MIN_PLAYERS;
+    return this.game.get('players').size >= GameHelper.MIN_PLAYERS;
   }
 
   get isCreated() {

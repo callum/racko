@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerActions from '../../actions/PlayerActions';
+import GameActions from '../../actions/GameActions';
 
 export default class Players extends React.Component {
 
@@ -13,7 +13,7 @@ export default class Players extends React.Component {
   joinGame() {
     const { user, game } = this.props;
 
-    PlayerActions.create(game.get('id'), user.get('id'));
+    GameActions.join(game.get('id'), user.get('id'));
   }
 
   render() {

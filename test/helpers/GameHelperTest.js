@@ -1,7 +1,7 @@
 import test from 'tape';
 import Immutable from 'immutable';
-import GameHelper from '../../src/helpers/GameHelper';
-import { States } from '../../src/constants/GameConstants';
+import GameHelper from '../../src/js/helpers/GameHelper';
+import { States } from '../../src/js/constants/GameConstants';
 
 function getUser(id) {
   return Immutable.fromJS({ id });
@@ -12,16 +12,15 @@ function getHelper(state) {
     state,
     host: 'foo',
     turn: 'bar',
-    winner: 'baz'
+    winner: 'baz',
+    players: {
+      foo: { name: 'Foo' },
+      bar: { name: 'Bar' },
+      baz: { name: 'Baz' }
+    }
   });
 
-  const players = Immutable.fromJS({
-    foo: { name: 'Foo' },
-    bar: { name: 'Bar' },
-    baz: { name: 'Baz' }
-  });
-
-  return new GameHelper(game, players);
+  return new GameHelper(game);
 }
 
 test('is joined', t => {

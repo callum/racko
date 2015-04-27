@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import UserStore from './UserStore';
 import { ActionTypes as GameActionTypes, States } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
 import GameUtils from '../utils/GameUtils';
@@ -11,6 +12,16 @@ const GameStore = Object.assign({}, storeMixin, {
 
   get(gameId) {
     return games.get(gameId, Immutable.Map());
+  },
+
+  getPlayers(gameId) {
+    const players = GameStore.get(gameId).get('players');
+
+    if (players) {
+      return players.sortBy(g => new Date(g.get('joinedAt')));
+    }
+
+    return Immutable.Map();
   }
 
 });
@@ -38,9 +49,20 @@ function start(gameId) {
 function end(gameId, winnerId) {
   games = games.mergeIn([gameId], {
     state: States.GAME_ENDED,
+    turn: null,
     winner: winnerId,
-    turn: null
+    endedAt: new Date().toISOString()
   });
+}
+
+function join(gameId, userId) {
+  const user = UserStore.get(userId);
+
+  games = games.setIn([gameId, 'players', userId], Immutable.fromJS({
+    id: user.get('id'),
+    name: user.get('name'),
+    joinedAt: new Date().toISOString()
+  }));
 }
 
 function endTurn(gameId, userId) {
@@ -60,6 +82,12 @@ GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
     case GameActionTypes.GAME_CREATE:
       create(action.gameId, action.userId);
 
+      AppDispatcher.waitFor([
+        UserStore.dispatchToken
+      ]);
+
+      join(action.gameId, action.userId);
+
       GameStore.emitChange();
       break;
 
@@ -71,6 +99,16 @@ GameStore.dispatchToken = AppDispatcher.register(({ action }) => {
 
     case GameActionTypes.GAME_END:
       end(action.gameId, action.winnerId);
+
+      GameStore.emitChange();
+      break;
+
+    case GameActionTypes.GAME_JOIN:
+      AppDispatcher.waitFor([
+        UserStore.dispatchToken
+      ]);
+
+      join(action.gameId, action.userId);
 
       GameStore.emitChange();
       break;

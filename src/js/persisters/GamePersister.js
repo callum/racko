@@ -28,6 +28,7 @@ const GamePersister = {
         case GameActionTypes.GAME_CREATE:
         case GameActionTypes.GAME_START:
         case GameActionTypes.GAME_END:
+        case GameActionTypes.GAME_JOIN:
         case GameActionTypes.GAME_END_TURN:
         case RackActionTypes.RACK_SWAP:
           window.setTimeout(() => set(action.gameId), 0);

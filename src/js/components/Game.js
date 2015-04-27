@@ -3,8 +3,6 @@ import React from 'react';
 import GameSynchronizer from '../synchronizers/GameSynchronizer';
 import GameStore from '../stores/GameStore';
 import GameActions from '../actions/GameActions';
-import PlayerSynchronizer from '../synchronizers/PlayerSynchronizer';
-import PlayerStore from '../stores/PlayerStore';
 
 import Players from './game/Players';
 import Rack from './game/Rack';
@@ -70,8 +68,7 @@ function syncer() {
   const { gameId } = this.context.router.getCurrentParams();
 
   return [
-    GameSynchronizer.get(gameId),
-    PlayerSynchronizer.getAll(gameId)
+    GameSynchronizer.get(gameId)
   ];
 }
 
@@ -79,16 +76,15 @@ function getter() {
   const { gameId } = this.context.router.getCurrentParams();
 
   const game = GameStore.get(gameId);
-  const players = PlayerStore.getAll(gameId);
 
   return {
     game,
-    players,
-    gameHelper: new GameHelper(game, players)
+    players: GameStore.getPlayers(gameId),
+    gameHelper: new GameHelper(game)
   };
 }
 
 const GameWithSync = withSync(Game, syncer);
-const GameWithFlux = withFlux(GameWithSync, getter, GameStore, PlayerStore);
+const GameWithFlux = withFlux(GameWithSync, getter, GameStore);
 
 export default GameWithFlux;

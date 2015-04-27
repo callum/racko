@@ -12,6 +12,16 @@ const UserStore = Object.assign({}, storeMixin, {
 
   get(userId) {
     return users.get(userId, Immutable.Map());
+  },
+
+  getGames(userId) {
+    const games = UserStore.get(userId).get('games');
+
+    if (games) {
+      return games.sortBy(g => new Date(g.get('createdAt'))).reverse();
+    }
+
+    return Immutable.Map();
   }
 
 });
@@ -32,9 +42,9 @@ function receive(user) {
 function addGame(userId, gameId) {
   const game = GameStore.get(gameId);
 
-  users = users.setIn([userId, 'games', gameId], {
+  users = users.setIn([userId, 'games', gameId], Immutable.fromJS({
     createdAt: game.get('createdAt')
-  });
+  }));
 }
 
 UserStore.dispatchToken = AppDispatcher.register(({ action }) => {

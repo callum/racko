@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router';
 
+import UserStore from '../stores/UserStore';
 import GameActions from '../actions/GameActions';
 
-class Home extends React.Component {
+import withFlux from './shared/withFlux';
+
+export class Home extends React.Component {
 
   static propTypes = {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
+    games: React.PropTypes.object.isRequired
   };
 
   createGame() {
@@ -19,10 +23,12 @@ class Home extends React.Component {
         <h2>Games</h2>
 
         <ul>
-          {this.props.user.get('games', []).map((value, key) => {
+          {this.props.games.map((game, key) => {
             return (
               <li key={key}>
-                <Link to="game" params={{ gameId: key }}>{key}</Link>
+                <Link to="game" params={{ gameId: key }}>
+                  {new Date(game.get('createdAt')).toLocaleString('en-GB')}
+                </Link>
               </li>
             );
           })}
@@ -37,4 +43,12 @@ class Home extends React.Component {
 
 }
 
-export default Home;
+function getter() {
+  return {
+    games: UserStore.getGames(this.props.user.get('id'))
+  };
+}
+
+const HomeWithFlux = withFlux(Home, getter, UserStore);
+
+export default HomeWithFlux;

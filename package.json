@@ -5,13 +5,20 @@
   "author": "Callum Jefferies",
   "scripts": {
     "test-lint": "eslint test/**/*Test.js",
-    "test": "npm run test-lint && babel-tape-runner test/**/*Test.js",
-    "clean": "rm -rf build",
-    "start": "npm run clean && node server.js",
-    "build": "npm run clean && webpack -p --config webpack.config.production"
+    "test": "npm run test-lint && browserify test/**/*Test.js | testling",
+    "clean": "rm -rf build/*",
+    "start": "npm run clean && FIREBASE=https://dazzling-heat-6913.firebaseio.com/ watchify src/js/index.js -o build/bundle.js",
+    "build": "npm run clean && FIREBASE=https://dazzling-heat-6913.firebaseio.com/ browserify src/js/index.js -o build/bundle.js"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      "envify"
+    ]
   },
   "dependencies": {
     "array-next": "0.0.1",
+    "classnames": "^1.2.1",
     "deck": "0.0.4",
     "firebase": "^2.2.4",
     "flux": "^2.0.1",
@@ -21,26 +28,21 @@
     "range": "0.0.2",
     "react": "^0.13.1",
     "react-router": "^0.13.2",
-    "uid": "0.0.2",
-    "classnames": "^1.2.1"
+    "uid": "0.0.2"
   },
   "devDependencies": {
-    "autoprefixer-loader": "^1.2.0",
     "babel-core": "^5.1.10",
     "babel-eslint": "^3.0.1",
     "babel-loader": "^5.0.0",
     "babel-runtime": "^5.1.10",
     "babel-tape-runner": "^1.1.0",
-    "css-loader": "^0.12.0",
-    "csslint-loader": "^0.2.0",
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "envify": "^3.4.0",
     "eslint": "^0.19.0",
-    "eslint-loader": "^0.10.0",
     "eslint-plugin-react": "^2.1.1",
-    "react-hot-loader": "^1.2.5",
-    "sass-loader": "^0.6.0",
-    "style-loader": "^0.12.0",
     "tape": "^4.0.0",
-    "webpack": "^1.8.4",
-    "webpack-dev-server": "^1.8.0"
+    "testling": "^1.7.1",
+    "watchify": "^3.2.0"
   }
 }

@@ -7,7 +7,7 @@ function set(gameId, userId) {
   const rack = RackStore.get(gameId, userId);
 
   if (rack.size) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     ref.child('racks')
       .child(gameId)

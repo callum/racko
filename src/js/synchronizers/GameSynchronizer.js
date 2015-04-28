@@ -4,7 +4,7 @@ import GameActions from '../actions/GameActions';
 const GameSynchronizer = {
 
   get(gameId) {
-    const game = new Firebase(FIREBASE).child('games').child(gameId);
+    const game = new Firebase(process.env.FIREBASE).child('games').child(gameId);
 
     const handler = game.on('value', snapshot => {
       if (snapshot.exists()) {

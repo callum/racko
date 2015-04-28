@@ -8,7 +8,7 @@ function set(gameId) {
   const game = GameStore.get(gameId);
 
   if (game.size) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     ref.child('games')
       .child(gameId)

@@ -4,7 +4,7 @@ import RackActions from '../actions/RackActions';
 const RackSynchronizer = {
 
   get(gameId, userId) {
-    const rack = new Firebase(FIREBASE)
+    const rack = new Firebase(process.env.FIREBASE)
       .child('racks')
       .child(gameId)
       .child(userId)

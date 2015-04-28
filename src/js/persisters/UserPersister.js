@@ -9,7 +9,7 @@ function set(userId) {
   const user = UserStore.get(userId);
 
   if (user.size) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     ref.child('users')
       .child(userId)

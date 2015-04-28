@@ -6,13 +6,13 @@ import TrayUtils from '../utils/TrayUtils';
 const TrayService = {
 
   set(gameId, tray) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     ref.child('trays').child(gameId).set(tray);
   },
 
   getDrawTail(gameId) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     const drawTail = ref.child('trays')
       .child(gameId)
@@ -33,7 +33,7 @@ const TrayService = {
   },
 
   discard(gameId, discarded) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     const tray = ref.child('trays').child(gameId);
 

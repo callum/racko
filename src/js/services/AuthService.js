@@ -4,7 +4,7 @@ import AuthActions from '../actions/AuthActions';
 const AuthService = {
 
   authAnonymously() {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     return new Promise((resolve, reject) => {
       ref.authAnonymously((err, res) => {
@@ -21,7 +21,7 @@ const AuthService = {
   },
 
   authWithToken(token) {
-    const ref = new Firebase(FIREBASE);
+    const ref = new Firebase(process.env.FIREBASE);
 
     return new Promise((resolve, reject) => {
       ref.authWithCustomToken(token, (err, res) => {

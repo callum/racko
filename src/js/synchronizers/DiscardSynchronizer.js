@@ -4,7 +4,7 @@ import DiscardActions from '../actions/DiscardActions';
 const DiscardSynchronizer = {
 
   get(gameId) {
-    const tray = new Firebase(FIREBASE)
+    const tray = new Firebase(process.env.FIREBASE)
       .child('trays')
       .child(gameId)
       .child('discard')

@@ -4,17 +4,15 @@
   "description": "Rack-O",
   "author": "Callum Jefferies",
   "scripts": {
-    "test-lint": "eslint test/**/*Test.js",
-    "test": "npm run test-lint && browserify test/**/*Test.js | testling",
+    "pretest": "eslint test/**/*Test.js",
+    "test": "browserify -t babelify test/**/*Test.js | testling",
+    "start": "http-server build",
     "clean": "rm -rf build/*",
-    "start": "npm run clean && FIREBASE=https://dazzling-heat-6913.firebaseio.com/ watchify src/js/index.js -o build/bundle.js",
-    "build": "npm run clean && FIREBASE=https://dazzling-heat-6913.firebaseio.com/ browserify src/js/index.js -o build/bundle.js"
-  },
-  "browserify": {
-    "transform": [
-      "babelify",
-      "envify"
-    ]
+    "copy": "cp src/index.html build",
+    "lint": "eslint src/**/*.js",
+    "setup": "npm run clean && npm run copy && npm run lint",
+    "watch": "npm run setup && babel-node bin/watch.js",
+    "build": "npm run setup && babel-node bin/build.js"
   },
   "dependencies": {
     "array-next": "0.0.1",
@@ -35,7 +33,6 @@
     "babel-eslint": "^3.0.1",
     "babel-loader": "^5.0.0",
     "babel-runtime": "^5.1.10",
-    "babel-tape-runner": "^1.1.0",
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
     "envify": "^3.4.0",

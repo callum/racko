@@ -40,6 +40,7 @@
     "eslint-plugin-react": "^2.1.1",
     "tape": "^4.0.0",
     "testling": "^1.7.1",
+    "uglifyify": "^3.0.1",
     "watchify": "^3.2.0"
   }
 }

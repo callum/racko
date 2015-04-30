@@ -51,7 +51,7 @@ const GameUtils = {
     const draw = [...deck];
     const discard = [draw.pop()];
 
-    RackService.set(gameId, racks);
+    RackService.setAll(gameId, racks);
     TrayService.set(gameId, { draw, discard });
 
     return {

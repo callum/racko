@@ -17,6 +17,18 @@ const GameUtils = {
     return next(playerIds, userId);
   },
 
+  getPlayerList(game) {
+    const names = game.get('players').map(player => {
+      return player.get('name');
+    }).toArray();
+
+    if (names.length === 1) {
+      return names[0];
+    }
+
+    return `${names.slice(0, -1).join(', ')} and ${names.slice(-1)}`;
+  },
+
   createDeck(playerCount) {
     let size;
 

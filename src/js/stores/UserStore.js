@@ -1,10 +1,12 @@
 import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import AuthStore from './AuthStore';
 import GameStore from './GameStore';
 import storeMixin from '../storeMixin';
 
-import { ActionTypes as UserActionTypes } from '../constants/UserConstants';
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
+import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
+import { ActionTypes as UserActionTypes } from '../constants/UserConstants';
 
 let users = Immutable.Map();
 
@@ -39,12 +41,10 @@ function receive(user) {
   users = users.set(user.id, Immutable.fromJS(user));
 }
 
-function addGame(userId, gameId) {
+function setGame(userId, gameId) {
   const game = GameStore.get(gameId);
 
-  users = users.setIn([userId, 'games', gameId], Immutable.fromJS({
-    createdAt: game.get('createdAt')
-  }));
+  users = users.setIn([userId, 'games', gameId], game);
 }
 
 UserStore.dispatchToken = AppDispatcher.register(({ action }) => {
@@ -62,13 +62,23 @@ UserStore.dispatchToken = AppDispatcher.register(({ action }) => {
       break;
 
     case GameActionTypes.GAME_CREATE:
-      AppDispatcher.waitFor([
-        GameStore.dispatchToken
-      ]);
+    case GameActionTypes.GAME_START:
+    case GameActionTypes.GAME_END:
+    case GameActionTypes.GAME_JOIN:
+    case GameActionTypes.GAME_END_TURN:
+    case RackActionTypes.RACK_SWAP:
+      const userId = AuthStore.getUserId();
 
-      addGame(action.userId, action.gameId);
+      if (userId) {
+        AppDispatcher.waitFor([
+          GameStore.dispatchToken
+        ]);
 
-      UserStore.emitChange();
+        setGame(userId, action.gameId);
+
+        UserStore.emitChange();
+      }
+
       break;
   }
 });

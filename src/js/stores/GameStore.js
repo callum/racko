@@ -42,7 +42,8 @@ function start(gameId) {
 
   games = games.mergeIn([gameId], {
     state: States.GAME_STARTED,
-    turn: GameUtils.getNextTurn(game, game.get('host'))
+    turn: GameUtils.getNextTurn(game, game.get('host')),
+    startedAt: new Date().toISOString()
   });
 }
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 import UserStore from '../stores/UserStore';
 import GameActions from '../actions/GameActions';
+import GameUtils from '../utils/GameUtils';
 
 import withFlux from './shared/withFlux';
 
@@ -29,7 +30,7 @@ export class Home extends React.Component {
             return (
               <li key={key} className="home__game">
                 <Link to="game" params={{ gameId: key }}>
-                  {new Date(game.get('createdAt')).toLocaleString('en-GB')}
+                  {GameUtils.getPlayerList(game)}
                 </Link>
               </li>
             );

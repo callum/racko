@@ -5,6 +5,7 @@ import UserStore from '../stores/UserStore';
 import GameActions from '../actions/GameActions';
 import GameUtils from '../utils/GameUtils';
 
+import Time from './shared/Time';
 import withFlux from './shared/withFlux';
 
 export class Home extends React.Component {
@@ -32,6 +33,10 @@ export class Home extends React.Component {
                 <Link to="game" params={{ gameId: key }}>
                   {GameUtils.getPlayerList(game)}
                 </Link>
+
+                <div>
+                  <Time dateTime={game.get('updatedAt')} />
+                </div>
               </li>
             );
           })}

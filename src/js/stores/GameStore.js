@@ -31,7 +31,8 @@ function create(gameId, userId) {
     id: gameId,
     state: States.GAME_CREATED,
     host: userId,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   };
 
   games = games.set(gameId, Immutable.fromJS(game));
@@ -43,7 +44,8 @@ function start(gameId) {
   games = games.mergeIn([gameId], {
     state: States.GAME_STARTED,
     turn: GameUtils.getNextTurn(game, game.get('host')),
-    startedAt: new Date().toISOString()
+    startedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   });
 }
 
@@ -52,7 +54,8 @@ function end(gameId, winnerId) {
     state: States.GAME_ENDED,
     turn: null,
     winner: winnerId,
-    endedAt: new Date().toISOString()
+    endedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   });
 }
 
@@ -64,13 +67,16 @@ function join(gameId, userId) {
     name: user.get('name'),
     joinedAt: new Date().toISOString()
   }));
+
+  games = games.setIn([gameId, 'updatedAt'], new Date().toISOString());
 }
 
 function endTurn(gameId, userId) {
   const game = GameStore.get(gameId);
 
   games = games.mergeIn([gameId], {
-    turn: GameUtils.getNextTurn(game, userId)
+    turn: GameUtils.getNextTurn(game, userId),
+    updatedAt: new Date().toISOString()
   });
 }
 

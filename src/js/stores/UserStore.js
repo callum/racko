@@ -20,7 +20,7 @@ const UserStore = Object.assign({}, storeMixin, {
     const games = UserStore.get(userId).get('games');
 
     if (games) {
-      return games.sortBy(g => new Date(g.get('createdAt'))).reverse();
+      return games.sortBy(g => new Date(g.get('updatedAt'))).reverse();
     }
 
     return Immutable.Map();

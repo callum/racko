@@ -31,8 +31,8 @@ function create(gameId, userId) {
     id: gameId,
     state: States.GAME_CREATED,
     host: userId,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    createdAt: Date.now(),
+    updatedAt: Date.now()
   };
 
   games = games.set(gameId, Immutable.fromJS(game));
@@ -44,8 +44,8 @@ function start(gameId) {
   games = games.mergeIn([gameId], {
     state: States.GAME_STARTED,
     turn: GameUtils.getNextTurn(game, game.get('host')),
-    startedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    startedAt: Date.now(),
+    updatedAt: Date.now()
   });
 }
 
@@ -54,8 +54,8 @@ function end(gameId, winnerId) {
     state: States.GAME_ENDED,
     turn: null,
     winner: winnerId,
-    endedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
+    endedAt: Date.now(),
+    updatedAt: Date.now()
   });
 }
 
@@ -65,10 +65,10 @@ function join(gameId, userId) {
   games = games.setIn([gameId, 'players', userId], Immutable.fromJS({
     id: user.get('id'),
     name: user.get('name'),
-    joinedAt: new Date().toISOString()
+    joinedAt: Date.now()
   }));
 
-  games = games.setIn([gameId, 'updatedAt'], new Date().toISOString());
+  games = games.setIn([gameId, 'updatedAt'], Date.now());
 }
 
 function endTurn(gameId, userId) {
@@ -76,7 +76,7 @@ function endTurn(gameId, userId) {
 
   games = games.mergeIn([gameId], {
     turn: GameUtils.getNextTurn(game, userId),
-    updatedAt: new Date().toISOString()
+    updatedAt: Date.now()
   });
 }
 

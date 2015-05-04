@@ -4,7 +4,7 @@ import human from 'human-time';
 class Time extends React.Component {
 
   static propTypes = {
-    dateTime: React.PropTypes.string.isRequired
+    dateTime: React.PropTypes.number.isRequired
   };
 
   componentDidMount() {

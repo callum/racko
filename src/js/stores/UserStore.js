@@ -31,7 +31,7 @@ const UserStore = Object.assign({}, storeMixin, {
 function create(userId, details) {
   const user = Object.assign({
     id: userId,
-    createdAt: new Date().toISOString()
+    createdAt: Date.now()
   }, details);
 
   users = users.set(userId, Immutable.fromJS(user));

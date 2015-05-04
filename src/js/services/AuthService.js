@@ -15,6 +15,7 @@ const AuthService = {
 
         resolve(res);
 
+        AuthService.monitorPresence(res);
         AuthActions.receive(res);
       });
     });
@@ -32,8 +33,27 @@ const AuthService = {
 
         resolve(res);
 
+        AuthService.monitorPresence(res);
         AuthActions.receive(res);
       });
+    });
+  },
+
+  monitorPresence(auth) {
+    const connected = new Firebase(FIREBASE).child('.info/connected');
+    const user = new Firebase(FIREBASE).child('users').child(auth.uid);
+
+    connected.on('value', snapshot => {
+      if (snapshot.val() === true) {
+        user.child('connections')
+          .push(true)
+          .onDisconnect()
+          .remove();
+
+        user.child('seenAt')
+          .onDisconnect()
+          .set(Firebase.ServerValue.TIMESTAMP);
+      }
     });
   }
 

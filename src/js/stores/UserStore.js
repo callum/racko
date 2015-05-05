@@ -44,7 +44,10 @@ function receive(user) {
 function setGame(userId, gameId) {
   const game = GameStore.get(gameId);
 
-  users = users.setIn([userId, 'games', gameId], game);
+  users = users.setIn([userId, 'games', gameId], Immutable.fromJS({
+    id: game.get('id'),
+    updatedAt: game.get('updatedAt')
+  }));
 }
 
 UserStore.dispatchToken = AppDispatcher.register(({ action }) => {

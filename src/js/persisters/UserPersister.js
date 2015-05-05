@@ -1,3 +1,4 @@
+import Immutable from 'immutable';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import GameStore from '../stores/GameStore';
 import UserStore from '../stores/UserStore';
@@ -20,7 +21,10 @@ function setAllGames(gameId) {
 
   if (game) {
     game.get('players').forEach(player => {
-      UserService.setGame(player.get('id'), game);
+      UserService.setGame(player.get('id'), Immutable.fromJS({
+        id: game.get('id'),
+        updatedAt: game.get('updatedAt')
+      }));
     });
   }
 }

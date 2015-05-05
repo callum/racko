@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 import UserStore from '../stores/UserStore';
 import GameActions from '../actions/GameActions';
-import GameUtils from '../utils/GameUtils';
 
-import Time from './shared/Time';
+import Game from './home/Game';
+
 import withFlux from './shared/withFlux';
 
 export class Home extends React.Component {
@@ -30,13 +29,7 @@ export class Home extends React.Component {
           {this.props.games.map((game, key) => {
             return (
               <li key={key} className="home__game">
-                <Link to="game" params={{ gameId: key }}>
-                  {GameUtils.getPlayerList(game)}
-                </Link>
-
-                <div>
-                  <Time dateTime={game.get('updatedAt')} />
-                </div>
+                <Game gameId={game.get('id')} />
               </li>
             );
           })}

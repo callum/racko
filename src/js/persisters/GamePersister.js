@@ -1,6 +1,7 @@
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import GameStore from '../stores/GameStore';
 import GameService from '../services/GameService';
+import GameStore from '../stores/GameStore';
+
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
 

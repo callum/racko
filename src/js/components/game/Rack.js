@@ -1,19 +1,17 @@
 import React from 'react';
 
 import GameActions from '../../actions/GameActions';
-import RackSynchronizer from '../../synchronizers/RackSynchronizer';
-import RackStore from '../../stores/RackStore';
 import RackActions from '../../actions/RackActions';
+import RackHelper from '../../helpers/RackHelper';
 import DrawStore from '../../stores/DrawStore';
-
-import withSync from '../shared/withSync';
-import withFlux from '../shared/withFlux';
+import RackStore from '../../stores/RackStore';
+import RackSynchronizer from '../../synchronizers/RackSynchronizer';
 
 import Card from './shared/Card';
+import withFlux from '../shared/withFlux';
+import withSync from '../shared/withSync';
 
-import RackHelper from '../../helpers/RackHelper';
-
-export class Rack extends React.Component {
+class Rack extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired,

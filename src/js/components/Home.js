@@ -1,13 +1,13 @@
 import React from 'react';
 
-import UserStore from '../stores/UserStore';
 import GameActions from '../actions/GameActions';
+import UserStore from '../stores/UserStore';
 
 import Game from './home/Game';
 
 import withFlux from './shared/withFlux';
 
-export class Home extends React.Component {
+class Home extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired,

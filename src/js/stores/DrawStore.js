@@ -1,9 +1,10 @@
 import Immutable from 'immutable';
+import storeMixin from '../storeMixin';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 import { ActionTypes as DrawActionTypes } from '../constants/DrawConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
-import storeMixin from '../storeMixin';
 
 let draws = Immutable.Map();
 

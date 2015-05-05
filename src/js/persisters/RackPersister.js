@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import RackStore from '../stores/RackStore';
 import RackService from '../services/RackService';
+import RackStore from '../stores/RackStore';
 import { ActionTypes } from '../constants/RackConstants';
 
 function set(gameId, userId) {

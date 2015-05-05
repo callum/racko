@@ -1,8 +1,8 @@
 import Immutable from 'immutable';
+import storeMixin from '../storeMixin';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import AuthStore from './AuthStore';
 import GameStore from './GameStore';
-import storeMixin from '../storeMixin';
 
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';

@@ -1,40 +1,38 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import GameSynchronizer from '../../synchronizers/GameSynchronizer';
 import GameStore from '../../stores/GameStore';
+import GameSynchronizer from '../../synchronizers/GameSynchronizer';
 import GameUtils from '../../utils/GameUtils';
 
 import Time from '../shared/Time';
-import withSync from '../shared/withSync';
 import withFlux from '../shared/withFlux';
+import withSync from '../shared/withSync';
 
-export class Game extends React.Component {
+class Game extends React.Component {
 
   static propTypes = {
-    gameId: React.PropTypes.string.isRequired,
-    game: React.PropTypes.object.isRequired,
-    players: React.PropTypes.object.isRequired
+    game: React.PropTypes.object.isRequired
   };
 
   render() {
     const { game } = this.props;
 
-    if (!game.size) {
-      return <div>Loading…</div>;
+    if (game.size) {
+      return (
+        <article>
+          <Link to="game" params={{ gameId: game.get('id') }}>
+            {GameUtils.getPlayerList(game)}
+          </Link>
+
+          <div>
+            <Time dateTime={game.get('updatedAt')} />
+          </div>
+        </article>
+      );
     }
 
-    return (
-      <article>
-        <Link to="game" params={{ gameId: game.get('id') }}>
-          {GameUtils.getPlayerList(game)}
-        </Link>
-
-        <div>
-          <Time dateTime={game.get('updatedAt')} />
-        </div>
-      </article>
-    );
+    return <div>Loading…</div>;
   }
 
 }
@@ -46,11 +44,8 @@ function syncer() {
 }
 
 function getter() {
-  const { gameId } = this.props;
-
   return {
-    game: GameStore.get(gameId),
-    players: GameStore.getPlayers(gameId)
+    game: GameStore.get(this.props.gameId)
   };
 }
 

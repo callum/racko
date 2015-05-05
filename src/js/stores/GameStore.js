@@ -1,10 +1,11 @@
 import Immutable from 'immutable';
+import storeMixin from '../storeMixin';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import UserStore from './UserStore';
+import GameUtils from '../utils/GameUtils';
+
 import { ActionTypes as GameActionTypes, States } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
-import GameUtils from '../utils/GameUtils';
-import storeMixin from '../storeMixin';
 
 let games = Immutable.Map();
 

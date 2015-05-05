@@ -5,7 +5,7 @@ import TrayService from '../../../services/TrayService';
 
 import Card from '../shared/Card';
 
-class Draw extends React.Component {
+export default class Draw extends React.Component {
 
   static propTypes = {
     game: React.PropTypes.object.isRequired,
@@ -58,5 +58,3 @@ class Draw extends React.Component {
   }
 
 }
-
-export default Draw;

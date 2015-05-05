@@ -1,19 +1,18 @@
 import React from 'react';
 
-import GameSynchronizer from '../synchronizers/GameSynchronizer';
-import GameStore from '../stores/GameStore';
 import GameActions from '../actions/GameActions';
+import GameHelper from '../helpers/GameHelper';
+import GameStore from '../stores/GameStore';
+import GameSynchronizer from '../synchronizers/GameSynchronizer';
 
 import Players from './game/Players';
 import Rack from './game/Rack';
 import Tray from './game/Tray';
 
-import withSync from './shared/withSync';
 import withFlux from './shared/withFlux';
+import withSync from './shared/withSync';
 
-import GameHelper from '../helpers/GameHelper';
-
-export class Game extends React.Component {
+class Game extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired,

@@ -1,11 +1,10 @@
-import GameStore from '../stores/GameStore';
-
-import RackService from '../services/RackService';
-import TrayService from '../services/TrayService';
-
 import next from 'array-next';
 import { range } from 'range';
 import { shuffle } from 'deck';
+
+import RackService from '../services/RackService';
+import TrayService from '../services/TrayService';
+import GameStore from '../stores/GameStore';
 
 const GameUtils = {
 

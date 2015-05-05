@@ -4,7 +4,7 @@ import { Link, RouteHandler } from 'react-router';
 import withAuth from './shared/withAuth';
 import withUser from './shared/withUser';
 
-export class App extends React.Component {
+class App extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired

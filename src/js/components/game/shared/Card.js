@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Card extends React.Component {
+export default class Card extends React.Component {
 
   static propTypes = {
     value: React.PropTypes.number.isRequired
@@ -33,5 +33,3 @@ class Card extends React.Component {
   }
 
 }
-
-export default Card;

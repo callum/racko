@@ -1,7 +1,7 @@
 import React from 'react';
 import human from 'human-time';
 
-class Time extends React.Component {
+export default class Time extends React.Component {
 
   static propTypes = {
     dateTime: React.PropTypes.number.isRequired
@@ -26,5 +26,3 @@ class Time extends React.Component {
   }
 
 }
-
-export default Time;

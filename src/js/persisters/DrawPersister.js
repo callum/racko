@@ -1,6 +1,6 @@
 import AppDispatcher from '../dispatchers/AppDispatcher';
-import { ActionTypes } from '../constants/RackConstants';
 import TrayService from '../services/TrayService';
+import { ActionTypes } from '../constants/RackConstants';
 
 const DrawPersister = {
 

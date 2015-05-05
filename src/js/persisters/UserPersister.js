@@ -1,8 +1,9 @@
 import Immutable from 'immutable';
+
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import UserService from '../services/UserService';
 import GameStore from '../stores/GameStore';
 import UserStore from '../stores/UserStore';
-import UserService from '../services/UserService';
 
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';

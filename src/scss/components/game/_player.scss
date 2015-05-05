@@ -1,0 +1,19 @@
+.player {
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: .5rem;
+    height: .5rem;
+    margin-right: .5rem;
+    border-radius: .5rem;
+    background-color: #bbb;
+    transition: background-color .1s;
+  }
+}
+
+.player--connected {
+  &:before {
+    background-color: $racko-secondary;
+  }
+}

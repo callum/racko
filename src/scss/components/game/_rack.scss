@@ -29,7 +29,7 @@
 
 .rack__slot__item {
   transform: translateY(0);
-  transition: transform .1s linear;
+  transition: transform .1s;
 
   &:hover {
     transform: translateY(-1rem);

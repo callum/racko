@@ -1,5 +1,6 @@
 import React from 'react';
 import GameActions from '../../actions/GameActions';
+import Player from './Player';
 
 export default class Players extends React.Component {
 
@@ -23,15 +24,9 @@ export default class Players extends React.Component {
       <section className="players">
         <ul className="players__list">
           {players.map(player => {
-            let name = player.get('name');
-
-            if (gameHelper.isTurn(player)) {
-              name = <b>{name}</b>;
-            }
-
             return (
               <li key={player.get('id')} className="players__item">
-                {name}
+                <Player {...this.props} player={player} />
               </li>
             );
           })}

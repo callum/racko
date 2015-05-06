@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router';
 
-import UserStore from '../stores/UserStore';
 import GameActions from '../actions/GameActions';
+import UserStore from '../stores/UserStore';
+
+import Game from './home/Game';
 
 import withFlux from './shared/withFlux';
 
-export class Home extends React.Component {
+class Home extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired,
@@ -28,9 +29,7 @@ export class Home extends React.Component {
           {this.props.games.map((game, key) => {
             return (
               <li key={key} className="home__game">
-                <Link to="game" params={{ gameId: key }}>
-                  {new Date(game.get('createdAt')).toLocaleString('en-GB')}
-                </Link>
+                <Game partialGame={game} />
               </li>
             );
           })}

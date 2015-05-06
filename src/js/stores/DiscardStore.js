@@ -1,8 +1,9 @@
 import Immutable from 'immutable';
+import storeMixin from '../storeMixin';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+
 import { ActionTypes as DiscardActionTypes } from '../constants/DiscardConstants';
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
-import storeMixin from '../storeMixin';
 
 let discards = Immutable.Map();
 

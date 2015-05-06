@@ -4,7 +4,19 @@
 }
 
 .game__sidebar {
+  display: flex;
+  flex-direction: column;
   flex: 1;
+}
+
+.game__actions {
+  padding: 1rem;
+}
+
+.game__start,
+.game__end,
+.game__join {
+  @extend %button;
 }
 
 .game__body {

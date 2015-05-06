@@ -1,19 +1,16 @@
 import React from 'react';
 
-import GameActions from '../../actions/GameActions';
-import RackSynchronizer from '../../synchronizers/RackSynchronizer';
-import RackStore from '../../stores/RackStore';
 import RackActions from '../../actions/RackActions';
+import RackHelper from '../../helpers/RackHelper';
 import DrawStore from '../../stores/DrawStore';
-
-import withSync from '../shared/withSync';
-import withFlux from '../shared/withFlux';
+import RackStore from '../../stores/RackStore';
+import RackSynchronizer from '../../synchronizers/RackSynchronizer';
 
 import Card from './shared/Card';
+import withFlux from '../shared/withFlux';
+import withSync from '../shared/withSync';
 
-import RackHelper from '../../helpers/RackHelper';
-
-export class Rack extends React.Component {
+class Rack extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired,
@@ -24,12 +21,6 @@ export class Rack extends React.Component {
     rackHelper: React.PropTypes.object.isRequired
   };
 
-  endGame() {
-    const { user, game } = this.props;
-
-    GameActions.end(game.get('id'), user.get('id'));
-  }
-
   swap(item, key) {
     const { user, game, drawTail } = this.props;
 
@@ -37,7 +28,7 @@ export class Rack extends React.Component {
   }
 
   render() {
-    const { rack, drawTail, gameHelper, rackHelper } = this.props;
+    const { rack, drawTail, rackHelper: { run } } = this.props;
 
     let slot = rack.size + 1;
 
@@ -47,31 +38,31 @@ export class Rack extends React.Component {
           Your rack
         </h2>
 
-        {rack.reverse().map((item, key) => {
+        {rack.reverse().map((value, key) => {
+          let textValue = value;
+
+          if (run && run.indexOf(value) !== -1) {
+            textValue = <i>{value}</i>;
+          }
+
           let onClick;
 
           if (drawTail) {
-            onClick = this.swap.bind(this, item, key);
+            onClick = this.swap.bind(this, value, key);
           }
 
           return (
-            <div key={item} className="rack__slot">
+            <div key={value} className="rack__slot">
               <span className="rack__slot__number">
                 {--slot * 5}
               </span>
 
               <div className="rack__slot__item">
-                <Card value={item} onClick={onClick} />
+                <Card value={value} textValue={textValue} onClick={onClick} />
               </div>
             </div>
           );
         })}
-
-        {gameHelper.isStarted && rackHelper.isRacko && (
-          <button onClick={this.endGame.bind(this)}>
-            Call Rack-O!
-          </button>
-        )}
       </section>
     );
   }

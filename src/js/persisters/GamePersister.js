@@ -1,18 +1,15 @@
-import Firebase from 'firebase';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import GameService from '../services/GameService';
 import GameStore from '../stores/GameStore';
+
 import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
 
 function set(gameId) {
   const game = GameStore.get(gameId);
 
-  if (game.size) {
-    const ref = new Firebase(process.env.FIREBASE);
-
-    ref.child('games')
-      .child(gameId)
-      .set(game.toJS());
+  if (game) {
+    GameService.set(game);
   }
 }
 

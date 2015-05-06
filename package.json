@@ -20,6 +20,7 @@
     "deck": "0.0.4",
     "firebase": "^2.2.4",
     "flux": "^2.0.1",
+    "human-time": "0.0.1",
     "immutable": "^3.7.2",
     "keymirror": "^0.1.1",
     "node-sass": "^2.1.1",

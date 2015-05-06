@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import TrayService from '../../../services/TrayService';
+
 import GameActions from '../../../actions/GameActions';
+import TrayService from '../../../services/TrayService';
+
 import Card from '../shared/Card';
 
-class Discard extends React.Component {
+export default class Discard extends React.Component {
 
   static propTypes = {
     user: React.PropTypes.object.isRequired,
@@ -55,5 +57,3 @@ class Discard extends React.Component {
   }
 
 }
-
-export default Discard;

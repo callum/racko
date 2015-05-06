@@ -1,6 +1,6 @@
+import storeMixin from '../storeMixin';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import { ActionTypes } from '../constants/AuthConstants';
-import storeMixin from '../storeMixin';
 
 let token = null;
 let userId = null;

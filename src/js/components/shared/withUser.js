@@ -1,10 +1,10 @@
 import React from 'react';
 
-import UserSynchronizer from '../../synchronizers/UserSynchronizer';
 import UserStore from '../../stores/UserStore';
+import UserSynchronizer from '../../synchronizers/UserSynchronizer';
 
-import withSync from './withSync';
 import withFlux from './withFlux';
+import withSync from './withSync';
 
 export default function withUser(Component) {
   class WithUser extends React.Component {

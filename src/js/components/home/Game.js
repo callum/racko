@@ -12,40 +12,37 @@ import withSync from '../shared/withSync';
 class Game extends React.Component {
 
   static propTypes = {
+    partialGame: React.PropTypes.object.isRequired,
     game: React.PropTypes.object.isRequired
   };
 
   render() {
-    const { game } = this.props;
+    const { partialGame, game } = this.props;
 
-    if (game.size) {
-      return (
-        <article>
-          <Link to="game" params={{ gameId: game.get('id') }}>
-            {GameUtils.getPlayerList(game)}
-          </Link>
+    return (
+      <article>
+        <Link to="game" params={{ gameId: partialGame.get('id') }}>
+          {game.size ? GameUtils.getPlayerList(game) : 'Loading…'}
+        </Link>
 
-          <div>
-            <Time dateTime={game.get('updatedAt')} />
-          </div>
-        </article>
-      );
-    }
-
-    return <div>Loading…</div>;
+        <div>
+          <Time dateTime={partialGame.get('updatedAt')} />
+        </div>
+      </article>
+    );
   }
 
 }
 
 function syncer() {
   return [
-    GameSynchronizer.get(this.props.gameId)
+    GameSynchronizer.get(this.props.partialGame.get('id'))
   ];
 }
 
 function getter() {
   return {
-    game: GameStore.get(this.props.gameId)
+    game: GameStore.get(this.props.partialGame.get('id'))
   };
 }
 

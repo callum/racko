@@ -29,7 +29,7 @@ class Home extends React.Component {
           {this.props.games.map((game, key) => {
             return (
               <li key={key} className="home__game">
-                <Game gameId={game.get('id')} />
+                <Game partialGame={game} />
               </li>
             );
           })}

@@ -25,10 +25,12 @@ export default class RackHelper {
       return (a.end - a.start) - (b.end - b.start);
     })[runs.length - 1];
 
-    const slice = rack.slice(longestRun.start, longestRun.end);
+    if (longestRun) {
+      const slice = rack.slice(longestRun.start, longestRun.end);
 
-    if (slice.length >= RackHelper.MIN_RUN_SIZE) {
-      return slice;
+      if (slice.length >= RackHelper.MIN_RUN_SIZE) {
+        return slice;
+      }
     }
   }
 

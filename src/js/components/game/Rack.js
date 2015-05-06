@@ -1,6 +1,5 @@
 import React from 'react';
 
-import GameActions from '../../actions/GameActions';
 import RackActions from '../../actions/RackActions';
 import RackHelper from '../../helpers/RackHelper';
 import DrawStore from '../../stores/DrawStore';
@@ -22,12 +21,6 @@ class Rack extends React.Component {
     rackHelper: React.PropTypes.object.isRequired
   };
 
-  endGame() {
-    const { user, game } = this.props;
-
-    GameActions.end(game.get('id'), user.get('id'));
-  }
-
   swap(item, key) {
     const { user, game, drawTail } = this.props;
 
@@ -35,7 +28,7 @@ class Rack extends React.Component {
   }
 
   render() {
-    const { rack, drawTail, gameHelper, rackHelper } = this.props;
+    const { rack, drawTail, rackHelper } = this.props;
 
     let slot = rack.size + 1;
 
@@ -64,12 +57,6 @@ class Rack extends React.Component {
             </div>
           );
         })}
-
-        {gameHelper.isStarted && rackHelper.isRacko && (
-          <button onClick={this.endGame.bind(this)}>
-            Call Rack-O!
-          </button>
-        )}
       </section>
     );
   }

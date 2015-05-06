@@ -3,11 +3,16 @@ import React from 'react';
 export default class Card extends React.Component {
 
   static propTypes = {
-    value: React.PropTypes.number.isRequired
+    value: React.PropTypes.number.isRequired,
+    textValue: React.PropTypes.any
   };
 
   render() {
-    const { value } = this.props;
+    let { value, textValue } = this.props;
+
+    if (!textValue) {
+      textValue = value;
+    }
 
     const style = { width: `${value / 60 * 100}%` };
 
@@ -15,7 +20,7 @@ export default class Card extends React.Component {
       <div className="card" {...this.props}>
         <div className="card__top">
           <div style={style} className="card__number">
-            {value}
+            {textValue}
           </div>
         </div>
 
@@ -25,7 +30,7 @@ export default class Card extends React.Component {
 
         <div className="card__bottom">
           <div style={style} className="card__number">
-            {value}
+            {textValue}
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ class Rack extends React.Component {
   }
 
   render() {
-    const { rack, drawTail, rackHelper } = this.props;
+    const { rack, drawTail, rackHelper: { run } } = this.props;
 
     let slot = rack.size + 1;
 
@@ -38,21 +38,27 @@ class Rack extends React.Component {
           Your rack
         </h2>
 
-        {rack.reverse().map((item, key) => {
+        {rack.reverse().map((value, key) => {
+          let textValue = value;
+
+          if (run && run.indexOf(value) !== -1) {
+            textValue = <i>{value}</i>;
+          }
+
           let onClick;
 
           if (drawTail) {
-            onClick = this.swap.bind(this, item, key);
+            onClick = this.swap.bind(this, value, key);
           }
 
           return (
-            <div key={item} className="rack__slot">
+            <div key={value} className="rack__slot">
               <span className="rack__slot__number">
                 {--slot * 5}
               </span>
 
               <div className="rack__slot__item">
-                <Card value={item} onClick={onClick} />
+                <Card value={value} textValue={textValue} onClick={onClick} />
               </div>
             </div>
           );

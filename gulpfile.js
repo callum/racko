@@ -41,13 +41,13 @@ const autoprefixerConfig = {
   browsers: ['last 2 versions']
 };
 
-gulp.task('clean', cb => {
-  del([paths.out], cb);
-});
-
-gulp.task('build-html', ['clean'], () => {
+function html() {
   return gulp.src(paths.html.main).pipe(gulp.dest(paths.out));
-});
+}
+
+gulp.task('clean', cb => del([paths.out], cb));
+
+gulp.task('build-html', ['clean'], html);
 
 gulp.task('build-js', ['clean'], () => {
   return browserify(paths.js.main)
@@ -70,8 +70,10 @@ gulp.task('build-scss', ['clean'], () => {
     .pipe(gulp.dest(paths.out));
 });
 
-gulp.task('watch-html', ['clean', 'build-html'], () => {
-  gulp.watch(paths.html.main, ['build-html']);
+gulp.task('watch-html', ['clean'], () => {
+  gulp.watch(paths.html.main, html);
+
+  return html();
 });
 
 gulp.task('watch-js', ['clean'], () => {

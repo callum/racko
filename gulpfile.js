@@ -1,68 +1,111 @@
 import gulp from 'gulp';
+import { log } from 'gulp-util';
 import autoprefixer from 'gulp-autoprefixer';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
+import sourcemaps from 'gulp-sourcemaps';
 import uglify from 'gulp-uglify';
 import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
 import del from 'del';
 import browserify from 'browserify';
+import watchify from 'watchify';
 import babelify from 'babelify';
 import envify from 'envify/custom';
 
-let config;
+const paths = {
+  out: 'public',
+  html: {
+    main: './src/index.html'
+  },
+  js: {
+    main: './src/js/index.js',
+    out: 'bundle.js'
+  },
+  scss: {
+    main: './src/scss/index.scss',
+    glob: './src/scss/**/*.scss',
+    out: 'bundle.css'
+  }
+};
+
+let env;
 
 try {
-  config = require(`./config/${process.env.NODE_ENV}.json`);
+  env = require(`./config/${process.env.NODE_ENV}.json`);
 } catch (e) {
-  config = require('./config/default.json');
+  env = require('./config/default.json');
 }
 
+const autoprefixerConfig = {
+  browsers: ['last 2 versions']
+};
+
 gulp.task('clean', cb => {
-  del(['public'], cb);
+  del([paths.out], cb);
 });
 
 gulp.task('build-html', ['clean'], () => {
-  return gulp.src('./src/index.html').pipe(gulp.dest('public'));
+  return gulp.src(paths.html.main).pipe(gulp.dest(paths.out));
 });
 
 gulp.task('build-js', ['clean'], () => {
-  return browserify('./src/js/index.js')
+  return browserify(paths.js.main)
     .transform(babelify)
-    .transform(envify(config))
+    .transform(envify(env))
     .bundle()
-    .pipe(source('bundle.js'))
+    .pipe(source(paths.js.out))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest(paths.out));
 });
 
 gulp.task('build-scss', ['clean'], () => {
-  return gulp.src('./src/scss/index.scss')
+  return gulp.src(paths.scss.main)
     .pipe(sass({
       outputStyle: 'compressed'
     }))
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions']
-    }))
-    .pipe(rename('bundle.css'))
-    .pipe(gulp.dest('public'));
+    .pipe(autoprefixer(autoprefixerConfig))
+    .pipe(rename(paths.scss.out))
+    .pipe(gulp.dest(paths.out));
+});
+
+gulp.task('watch-html', ['clean', 'build-html'], () => {
+  gulp.watch(paths.html.main, ['build-html']);
+});
+
+gulp.task('watch-js', ['clean'], () => {
+  const args = Object.assign({ debug: true }, watchify.args);
+  const b = watchify(browserify(args));
+
+  function bundle() {
+    return b.bundle()
+      .pipe(source(paths.js.out))
+      .pipe(gulp.dest(paths.out));
+  }
+
+  b.add(paths.js.main)
+    .transform(babelify)
+    .transform(envify(env))
+    .on('update', bundle)
+    .on('log', msg => log(msg));
+
+  bundle();
 });
 
 gulp.task('watch-scss', ['clean'], () => {
-  gulp.watch('./src/scss/**/*.scss', );
-});
+  function bundle() {
+    gulp.src(paths.scss.main)
+      .pipe(sourcemaps.init())
+      .pipe(sass())
+      .pipe(autoprefixer(autoprefixerConfig))
+      .pipe(rename(paths.scss.out))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(paths.out));
+  }
 
-gulp.task('watch-html', () => {
-  gulp.watch('./src/index.html', ['build-html']);
-});
-
-gulp.task('watch-js', () => {
-  // watchify
-});
-
-gulp.task('watch-scss', () => {
-  gulp.watch('./src/scss/**/*.scss', ['build-scss']);
+  gulp.watch(paths.scss.glob, bundle);
+  bundle();
 });
 
 gulp.task('build', ['build-html', 'build-js', 'build-scss']);

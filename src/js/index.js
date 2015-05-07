@@ -24,6 +24,12 @@ GamePersister.initialize();
 RackPersister.initialize();
 UserPersister.initialize();
 
-Router.run(routes, (Handler) => {
+let location = Router.HistoryLocation;
+
+if (process.env.NODE_ENV !== 'production') {
+  location = Router.HashLocation;
+}
+
+Router.run(routes, location, Handler => {
   React.render(<Handler />, document.querySelector('.root'));
 });

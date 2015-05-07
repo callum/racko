@@ -49,4 +49,21 @@ gulp.task('build-scss', ['clean'], () => {
     .pipe(gulp.dest('public'));
 });
 
+gulp.task('watch-scss', ['clean'], () => {
+  gulp.watch('./src/scss/**/*.scss', );
+});
+
+gulp.task('watch-html', () => {
+  gulp.watch('./src/index.html', ['build-html']);
+});
+
+gulp.task('watch-js', () => {
+  // watchify
+});
+
+gulp.task('watch-scss', () => {
+  gulp.watch('./src/scss/**/*.scss', ['build-scss']);
+});
+
 gulp.task('build', ['build-html', 'build-js', 'build-scss']);
+gulp.task('watch', ['watch-html', 'watch-js', 'watch-scss']);

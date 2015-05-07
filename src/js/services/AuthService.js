@@ -1,5 +1,10 @@
 import Firebase from 'firebase';
 import AuthActions from '../actions/AuthActions';
+import PresenceService from './PresenceService';
+
+function onAuth(auth) {
+  PresenceService.set(auth.uid);
+}
 
 const AuthService = {
 
@@ -14,6 +19,7 @@ const AuthService = {
         }
 
         resolve(res);
+        onAuth(res);
 
         AuthActions.receive(res);
       });
@@ -31,6 +37,7 @@ const AuthService = {
         }
 
         resolve(res);
+        onAuth(res);
 
         AuthActions.receive(res);
       });

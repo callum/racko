@@ -1,8 +1,8 @@
 import React from 'react';
-import AuthService from '../services/AuthService';
 import UserActions from '../actions/UserActions';
+import AuthService from '../services/AuthService';
 
-class Auth extends React.Component {
+export default class Auth extends React.Component {
 
   async authenticate(e) {
     e.preventDefault();
@@ -38,5 +38,3 @@ class Auth extends React.Component {
   }
 
 }
-
-export default Auth;

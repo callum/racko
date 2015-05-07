@@ -1,8 +1,8 @@
 import React from 'react';
 
 import DrawStore from '../../stores/DrawStore';
-import DiscardSynchronizer from '../../synchronizers/DiscardSynchronizer';
 import DiscardStore from '../../stores/DiscardStore';
+import DiscardSynchronizer from '../../synchronizers/DiscardSynchronizer';
 
 import Discard from './tray/Discard';
 import Draw from './tray/Draw';
@@ -10,7 +10,7 @@ import Draw from './tray/Draw';
 import withSync from '../shared/withSync';
 import withFlux from '../shared/withFlux';
 
-export class Tray extends React.Component {
+class Tray extends React.Component {
 
   static propTypes = {
     drawTail: React.PropTypes.number.isRequired,

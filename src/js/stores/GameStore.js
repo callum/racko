@@ -1,10 +1,11 @@
 import Immutable from 'immutable';
+import storeMixin from '../storeMixin';
 import AppDispatcher from '../dispatchers/AppDispatcher';
 import UserStore from './UserStore';
+import GameUtils from '../utils/GameUtils';
+
 import { ActionTypes as GameActionTypes, States } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
-import GameUtils from '../utils/GameUtils';
-import storeMixin from '../storeMixin';
 
 let games = Immutable.Map();
 
@@ -31,7 +32,8 @@ function create(gameId, userId) {
     id: gameId,
     state: States.GAME_CREATED,
     host: userId,
-    createdAt: new Date().toISOString()
+    createdAt: Date.now(),
+    updatedAt: Date.now()
   };
 
   games = games.set(gameId, Immutable.fromJS(game));
@@ -42,7 +44,9 @@ function start(gameId) {
 
   games = games.mergeIn([gameId], {
     state: States.GAME_STARTED,
-    turn: GameUtils.getNextTurn(game, game.get('host'))
+    turn: GameUtils.getNextTurn(game, game.get('host')),
+    startedAt: Date.now(),
+    updatedAt: Date.now()
   });
 }
 
@@ -51,7 +55,8 @@ function end(gameId, winnerId) {
     state: States.GAME_ENDED,
     turn: null,
     winner: winnerId,
-    endedAt: new Date().toISOString()
+    endedAt: Date.now(),
+    updatedAt: Date.now()
   });
 }
 
@@ -61,15 +66,18 @@ function join(gameId, userId) {
   games = games.setIn([gameId, 'players', userId], Immutable.fromJS({
     id: user.get('id'),
     name: user.get('name'),
-    joinedAt: new Date().toISOString()
+    joinedAt: Date.now()
   }));
+
+  games = games.setIn([gameId, 'updatedAt'], Date.now());
 }
 
 function endTurn(gameId, userId) {
   const game = GameStore.get(gameId);
 
   games = games.mergeIn([gameId], {
-    turn: GameUtils.getNextTurn(game, userId)
+    turn: GameUtils.getNextTurn(game, userId),
+    updatedAt: Date.now()
   });
 }
 

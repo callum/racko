@@ -1,11 +1,10 @@
-import GameStore from '../stores/GameStore';
-
-import RackService from '../services/RackService';
-import TrayService from '../services/TrayService';
-
 import next from 'array-next';
 import { range } from 'range';
 import { shuffle } from 'deck';
+
+import RackService from '../services/RackService';
+import TrayService from '../services/TrayService';
+import GameStore from '../stores/GameStore';
 
 const GameUtils = {
 
@@ -15,6 +14,18 @@ const GameUtils = {
     }).toArray();
 
     return next(playerIds, userId);
+  },
+
+  getPlayerList(game) {
+    const names = game.get('players').map(player => {
+      return player.get('name');
+    }).toArray();
+
+    if (names.length === 1) {
+      return names[0];
+    }
+
+    return `${names.slice(0, -1).join(', ')} and ${names.slice(-1)}`;
   },
 
   createDeck(playerCount) {
@@ -51,7 +62,7 @@ const GameUtils = {
     const draw = [...deck];
     const discard = [draw.pop()];
 
-    RackService.set(gameId, racks);
+    RackService.setAll(gameId, racks);
     TrayService.set(gameId, { draw, discard });
 
     return {

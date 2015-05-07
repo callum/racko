@@ -6,13 +6,8 @@
   "scripts": {
     "pretest": "eslint test/**/*Test.js",
     "test": "browserify -t babelify test/**/*Test.js | testling",
-    "start": "http-server build",
-    "clean": "rm -rf build/*",
-    "copy": "cp src/index.html build",
-    "lint": "eslint src/**/*.js",
-    "setup": "npm run clean && npm run copy && npm run lint",
-    "watch": "npm run setup && babel-node bin/watch.js",
-    "build": "npm run setup && babel-node bin/build.js",
+    "prebuild": "eslint src/**/*.js",
+    "build": "babel-node ./node_modules/.bin/gulp build",
     "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
@@ -21,18 +16,18 @@
     "deck": "0.0.4",
     "firebase": "^2.2.4",
     "flux": "^2.0.1",
+    "human-time": "0.0.1",
     "immutable": "^3.7.2",
     "keymirror": "^0.1.1",
-    "node-sass": "^2.1.1",
     "range": "0.0.2",
     "react": "^0.13.1",
     "react-router": "^0.13.2",
     "uid": "0.0.2"
   },
   "devDependencies": {
+    "babel": "^5.2.16",
     "babel-core": "^5.1.10",
     "babel-eslint": "^3.0.1",
-    "babel-loader": "^5.0.0",
     "babel-runtime": "^5.1.10",
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
@@ -40,9 +35,17 @@
     "eslint": "^0.19.0",
     "eslint-plugin-react": "^2.1.1",
     "firebase-tools": "^1.1.6",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.2.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^1.3.3",
+    "gulp-uglify": "^1.2.0",
+    "node-sass": "^2.1.1",
     "tape": "^4.0.0",
     "testling": "^1.7.1",
-    "uglifyify": "^3.0.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.0"
   }
 }

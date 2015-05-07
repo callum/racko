@@ -1,18 +1,13 @@
-import Firebase from 'firebase';
 import AppDispatcher from '../dispatchers/AppDispatcher';
+import RackService from '../services/RackService';
 import RackStore from '../stores/RackStore';
 import { ActionTypes } from '../constants/RackConstants';
 
 function set(gameId, userId) {
   const rack = RackStore.get(gameId, userId);
 
-  if (rack.size) {
-    const ref = new Firebase(process.env.FIREBASE);
-
-    ref.child('racks')
-      .child(gameId)
-      .child(userId)
-      .set(rack.toJS());
+  if (rack) {
+    RackService.set(gameId, userId, rack);
   }
 }
 

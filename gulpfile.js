@@ -90,12 +90,12 @@ gulp.task('watch-js', ['clean'], () => {
     .on('update', bundle)
     .on('log', msg => log(msg));
 
-  bundle();
+  return bundle();
 });
 
 gulp.task('watch-scss', ['clean'], () => {
   function bundle() {
-    gulp.src(paths.scss.main)
+    return gulp.src(paths.scss.main)
       .pipe(sourcemaps.init())
       .pipe(sass())
       .pipe(autoprefixer(autoprefixerConfig))
@@ -105,7 +105,8 @@ gulp.task('watch-scss', ['clean'], () => {
   }
 
   gulp.watch(paths.scss.glob, bundle);
-  bundle();
+
+  return bundle();
 });
 
 gulp.task('build', ['build-html', 'build-js', 'build-scss']);

@@ -1,6 +1,7 @@
 import { task, watch, src, dest } from 'gulp';
 import { log } from 'gulp-util';
 import autoprefixer from 'gulp-autoprefixer';
+import eslint from 'gulp-eslint';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
 import sourcemaps from 'gulp-sourcemaps';
@@ -20,6 +21,7 @@ const paths = {
   },
   js: {
     main: './src/js/index.js',
+    glob: './src/js/**/*.js',
     out: 'bundle.js'
   },
   scss: {
@@ -45,11 +47,22 @@ function html() {
   return src(paths.html.main).pipe(dest(paths.out));
 }
 
+function lintJs(cb) {
+  src(paths.js.glob)
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .on('error', log);
+
+  return cb();
+}
+
+task('lint-js', lintJs);
+
 task('clean', cb => del([paths.out], cb));
 
 task('build-html', ['clean'], html);
 
-task('build-js', ['clean'], () => {
+task('build-js', ['lint-js', 'clean'], () => {
   return browserify(paths.js.main)
     .transform(babelify)
     .transform(envify(env))
@@ -77,20 +90,22 @@ task('watch-html', ['clean'], () => {
 });
 
 task('watch-js', ['clean'], () => {
-  const args = Object.assign({ debug: true }, watchify.args);
-  const b = watchify(browserify(args));
+  const b = watchify(browserify({ debug: true, ...watchify.args }));
 
   function bundle() {
-    return b.bundle()
-      .pipe(source(paths.js.out))
-      .pipe(dest(paths.out));
+    return lintJs(() => {
+      return b.bundle()
+        .pipe(source(paths.js.out))
+        .pipe(dest(paths.out));
+    });
   }
 
   b.add(paths.js.main)
     .transform(babelify)
     .transform(envify(env))
     .on('update', bundle)
-    .on('log', msg => log(msg));
+    .on('error', log)
+    .on('log', log);
 
   return bundle();
 });

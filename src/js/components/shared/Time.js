@@ -16,11 +16,11 @@ export default class Time extends React.Component {
   }
 
   render() {
-    const { dateTime } = this.props;
+    const dateTime = new Date(this.props.dateTime);
 
     return (
-      <time {...this.props} dateTime={dateTime}>
-        Last active {human(new Date(dateTime))}
+      <time {...this.props} dateTime={dateTime.toISOString()}>
+        Last active {human(dateTime)}
       </time>
     );
   }

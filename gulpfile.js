@@ -1,4 +1,4 @@
-import gulp from 'gulp';
+import { task, watch, src, dest } from 'gulp';
 import { log } from 'gulp-util';
 import autoprefixer from 'gulp-autoprefixer';
 import rename from 'gulp-rename';
@@ -42,14 +42,14 @@ const autoprefixerConfig = {
 };
 
 function html() {
-  return gulp.src(paths.html.main).pipe(gulp.dest(paths.out));
+  return src(paths.html.main).pipe(dest(paths.out));
 }
 
-gulp.task('clean', cb => del([paths.out], cb));
+task('clean', cb => del([paths.out], cb));
 
-gulp.task('build-html', ['clean'], html);
+task('build-html', ['clean'], html);
 
-gulp.task('build-js', ['clean'], () => {
+task('build-js', ['clean'], () => {
   return browserify(paths.js.main)
     .transform(babelify)
     .transform(envify(env))
@@ -57,33 +57,33 @@ gulp.task('build-js', ['clean'], () => {
     .pipe(source(paths.js.out))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest(paths.out));
+    .pipe(dest(paths.out));
 });
 
-gulp.task('build-scss', ['clean'], () => {
-  return gulp.src(paths.scss.main)
+task('build-scss', ['clean'], () => {
+  return src(paths.scss.main)
     .pipe(sass({
       outputStyle: 'compressed'
     }))
     .pipe(autoprefixer(autoprefixerConfig))
     .pipe(rename(paths.scss.out))
-    .pipe(gulp.dest(paths.out));
+    .pipe(dest(paths.out));
 });
 
-gulp.task('watch-html', ['clean'], () => {
-  gulp.watch(paths.html.main, html);
+task('watch-html', ['clean'], () => {
+  watch(paths.html.main, html);
 
   return html();
 });
 
-gulp.task('watch-js', ['clean'], () => {
+task('watch-js', ['clean'], () => {
   const args = Object.assign({ debug: true }, watchify.args);
   const b = watchify(browserify(args));
 
   function bundle() {
     return b.bundle()
       .pipe(source(paths.js.out))
-      .pipe(gulp.dest(paths.out));
+      .pipe(dest(paths.out));
   }
 
   b.add(paths.js.main)
@@ -95,21 +95,21 @@ gulp.task('watch-js', ['clean'], () => {
   return bundle();
 });
 
-gulp.task('watch-scss', ['clean'], () => {
+task('watch-scss', ['clean'], () => {
   function bundle() {
-    return gulp.src(paths.scss.main)
+    return src(paths.scss.main)
       .pipe(sourcemaps.init())
       .pipe(sass())
       .pipe(autoprefixer(autoprefixerConfig))
       .pipe(rename(paths.scss.out))
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(paths.out));
+      .pipe(dest(paths.out));
   }
 
-  gulp.watch(paths.scss.glob, bundle);
+  watch(paths.scss.glob, bundle);
 
   return bundle();
 });
 
-gulp.task('build', ['build-html', 'build-js', 'build-scss']);
-gulp.task('watch', ['watch-html', 'watch-js', 'watch-scss']);
+task('build', ['build-html', 'build-js', 'build-scss']);
+task('watch', ['watch-html', 'watch-js', 'watch-scss']);

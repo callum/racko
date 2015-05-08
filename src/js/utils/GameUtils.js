@@ -9,7 +9,7 @@ import GameStore from '../stores/GameStore';
 const GameUtils = {
 
   getNextTurn(game, userId) {
-    const playerIds = GameStore.getPlayers(game.get('id')).map(player => {
+    const playerIds = game.get('players').map(player => {
       return player.get('id');
     }).toArray();
 
@@ -48,9 +48,8 @@ const GameUtils = {
 
   createRacks(players, deck) {
     return players.reduce((racks, player) => {
-      return Object.assign({
-        [player.get('id')]: deck.splice(0, 10)
-      }, racks);
+      racks[player.get('id')] = deck.splice(0, 10);
+      return racks;
     }, {});
   },
 

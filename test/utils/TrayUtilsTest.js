@@ -8,14 +8,14 @@ test('discard cycle', t => {
 
   tray = discard(tray, 3);
   t.deepEqual(tray.draw, [1, 2]);
-  t.deepEqual(tray.discard, [4, 3]);
+  t.deepEqual(tray.discard, [3, 4]);
 
   tray = discard(tray, 2);
   t.deepEqual(tray.draw, [1]);
-  t.deepEqual(tray.discard, [4, 3, 2]);
+  t.deepEqual(tray.discard, [2, 3, 4]);
 
   tray = discard(tray, 1);
-  t.deepEqual(tray.draw, [4, 3, 2]);
+  t.deepEqual(tray.draw, [2, 3, 4]);
   t.deepEqual(tray.discard, [1]);
 });
 
@@ -26,13 +26,13 @@ test('discard from rack', t => {
 
   tray = discard(tray, 15);
   t.deepEqual(tray.draw, [1, 2]);
-  t.deepEqual(tray.discard, [4, 15]);
+  t.deepEqual(tray.discard, [15, 4]);
 
   tray = discard(tray, 25);
   t.deepEqual(tray.draw, [1]);
-  t.deepEqual(tray.discard, [4, 15, 25]);
+  t.deepEqual(tray.discard, [25, 15, 4]);
 
   tray = discard(tray, 35);
-  t.deepEqual(tray.draw, [4, 15, 25]);
+  t.deepEqual(tray.draw, [25, 15, 4]);
   t.deepEqual(tray.discard, [35]);
 });

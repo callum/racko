@@ -12,7 +12,7 @@ const TrayUtils = {
     }
 
     if (draw.length) {
-      discard.unshift(discarded);
+      discard.push(discarded);
     } else {
       draw = [...discard, discarded];
       discard = [draw.pop()];

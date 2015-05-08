@@ -44,7 +44,7 @@ export default class Discard extends React.Component {
         </h2>
 
         <div onClick={onClick} className="discard__list">
-          {discard.take(5).reverse().map(value => {
+          {discard.take(5).map(value => {
             return (
               <div key={value} className="discard__item">
                 <Card value={value} />

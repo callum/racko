@@ -33,7 +33,7 @@ function setAllGames(gameId) {
 const UserPersister = {
 
   initialize() {
-    this.dispatchToken = AppDispatcher.register(({ action }) => {
+    AppDispatcher.register(({ action }) => {
 
       switch (action.type) {
         case UserActionTypes.USER_CREATE:

@@ -5,7 +5,7 @@ import { setToken } from '../utils/AuthUtils';
 const AuthPersister = {
 
   initialize() {
-    this.dispatchToken = AppDispatcher.register(({ action }) => {
+    AppDispatcher.register(({ action }) => {
       switch (action.type) {
         case ActionTypes.AUTH_RECEIVE:
           setToken(action.auth.token);

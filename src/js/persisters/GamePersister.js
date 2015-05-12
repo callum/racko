@@ -16,7 +16,7 @@ function set(gameId) {
 const GamePersister = {
 
   initialize() {
-    this.dispatchToken = AppDispatcher.register(({ action }) => {
+    AppDispatcher.register(({ action }) => {
       AppDispatcher.waitFor([
         GameStore.dispatchToken
       ]);

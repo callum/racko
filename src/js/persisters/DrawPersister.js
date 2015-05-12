@@ -5,7 +5,7 @@ import { ActionTypes } from '../constants/RackConstants';
 const DrawPersister = {
 
   initialize() {
-    this.dispatchToken = AppDispatcher.register(({ action }) => {
+    AppDispatcher.register(({ action }) => {
       switch (action.type) {
         case ActionTypes.RACK_SWAP:
           window.setTimeout(() => {

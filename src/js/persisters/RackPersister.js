@@ -14,7 +14,7 @@ function set(gameId, userId) {
 const RackPersister = {
 
   initialize() {
-    this.dispatchToken = AppDispatcher.register(({ action }) => {
+    AppDispatcher.register(({ action }) => {
       AppDispatcher.waitFor([
         RackStore.dispatchToken
       ]);

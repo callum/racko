@@ -3,9 +3,9 @@ import { ActionTypes } from '../constants/DiscardConstants';
 
 const DiscardActions = {
 
-  receive(gameId, discard) {
+  receiveHead(gameId, discard) {
     AppDispatcher.handleAction({
-      type: ActionTypes.DISCARD_RECEIVE,
+      type: ActionTypes.DISCARD_RECEIVE_HEAD,
       gameId,
       discard
     });

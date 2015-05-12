@@ -13,12 +13,13 @@ import withFlux from '../shared/withFlux';
 class Tray extends React.Component {
 
   static propTypes = {
-    drawTail: React.PropTypes.number.isRequired,
-    discard: React.PropTypes.object.isRequired
+    drawTail: React.PropTypes.number,
+    discardHead: React.PropTypes.number
   };
 
   render() {
     const { props } = this;
+    const { discardHead } = props;
 
     return (
       <section className="tray">
@@ -26,9 +27,11 @@ class Tray extends React.Component {
           <Draw {...props} />
         </div>
 
-        <div className="tray__discard">
-          <Discard {...props} />
-        </div>
+        {discardHead && (
+          <div className="tray__discard">
+            <Discard {...props} />
+          </div>
+        )}
       </section>
     );
   }
@@ -48,7 +51,7 @@ function getter() {
 
   return {
     drawTail: DrawStore.getTail(gameId),
-    discard: DiscardStore.get(gameId)
+    discardHead: DiscardStore.getHead(gameId)
   };
 }
 

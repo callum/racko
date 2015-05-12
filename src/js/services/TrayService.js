@@ -20,9 +20,9 @@ const TrayService = {
       .orderByKey()
       .limitToLast(1);
 
-    drawTail.once('value', res => {
-      if (res.exists()) {
-        const value = res.val();
+    drawTail.once('value', snapshot => {
+      if (snapshot.exists()) {
+        const value = snapshot.val();
 
         for (let prop in value) {
           DrawActions.receiveTail(gameId, value[prop]);
@@ -37,9 +37,9 @@ const TrayService = {
 
     const tray = ref.child('trays').child(gameId);
 
-    tray.once('value', (res) => {
-      if (res.exists()) {
-        const updatedTray = TrayUtils.discard(res.val(), discarded);
+    tray.once('value', (snapshot) => {
+      if (snapshot.exists()) {
+        const updatedTray = TrayUtils.discard(snapshot.val(), discarded);
 
         tray.set(updatedTray);
       }

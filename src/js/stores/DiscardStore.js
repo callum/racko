@@ -9,24 +9,24 @@ let discards = Immutable.Map();
 
 const DiscardStore = Object.assign({}, storeMixin, {
 
-  get(gameId) {
-    return discards.get(gameId, Immutable.OrderedSet());
+  getHead(gameId) {
+    return discards.get(gameId);
   }
 
 });
 
 function create(gameId, discard) {
-  discards = discards.set(gameId, Immutable.OrderedSet(discard));
+  discards = discards.set(gameId, discard);
 }
 
-function receive(gameId, discard) {
-  discards = discards.set(gameId, Immutable.OrderedSet(discard));
+function receiveHead(gameId, discard) {
+  discards = discards.set(gameId, discard);
 }
 
 DiscardStore.dispatchToken = AppDispatcher.register(({ action }) => {
   switch (action.type) {
-    case DiscardActionTypes.DISCARD_RECEIVE:
-      receive(action.gameId, action.discard);
+    case DiscardActionTypes.DISCARD_RECEIVE_HEAD:
+      receiveHead(action.gameId, action.discard);
 
       DiscardStore.emitChange();
       break;

@@ -1,7 +1,10 @@
 $racko: #0081ff;
 $racko-secondary: #69da00;
 
-%heading {
+$disabled-background: #d3d3d3;
+$disabled-text: #f0f0f0;
+
+@mixin heading {
   margin: 0;
   margin-bottom: 1rem;
   text-align: center;
@@ -11,17 +14,24 @@ $racko-secondary: #69da00;
   color: #666;
 }
 
-%card {
+@mixin card {
+  $aspect-ratio: 5 / 7;
+
   display: flex;
-  width: 18rem;
-  height: 12rem;
+  width: 15rem;
+  height: round(15rem * $aspect-ratio);
   padding: .5rem;
   border-radius: .5rem;
   box-shadow: 0 0 .5rem rgba(#000, .1);
   transform: translate3d(0, 0, 0);
+
+  @media (min-height: 768px) {
+    width: 18rem;
+    height: round(18rem * $aspect-ratio);
+  }
 }
 
-%button {
+@mixin button {
   margin: 0;
   padding: 0;
   border: none;
@@ -32,7 +42,14 @@ $racko-secondary: #69da00;
   padding: .5rem .8rem;
   padding-bottom: .6rem;
   background-color: $racko-secondary;
+  box-shadow: 0 0 .5rem rgba(#000, .1);
   color: #fff;
+  transition: all .1s;
+
+  &:disabled {
+    background-color: $disabled-background;
+    color: $disabled-text;
+  }
 }
 
 * {

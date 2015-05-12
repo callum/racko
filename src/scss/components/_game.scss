@@ -9,14 +9,17 @@
   flex: 1;
 }
 
-.game__actions {
-  padding: 1rem;
+%game__button {
+  @include button;
+  font-size: 1.6rem;
 }
 
-.game__start,
-.game__end,
+.game__start {
+  @extend %game__button;
+}
+
 .game__join {
-  @extend %button;
+  @extend %game__button;
 }
 
 .game__body {

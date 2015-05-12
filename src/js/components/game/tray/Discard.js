@@ -11,8 +11,8 @@ export default class Discard extends React.Component {
   static propTypes = {
     user: React.PropTypes.object.isRequired,
     game: React.PropTypes.object.isRequired,
-    drawTail: React.PropTypes.number.isRequired,
-    discard: React.PropTypes.object.isRequired
+    drawTail: React.PropTypes.number,
+    discardHead: React.PropTypes.number.isRequired
   };
 
   discard() {
@@ -24,7 +24,7 @@ export default class Discard extends React.Component {
   }
 
   render() {
-    const { drawTail, discard } = this.props;
+    const { drawTail, discardHead } = this.props;
 
     let onClick;
 
@@ -43,14 +43,8 @@ export default class Discard extends React.Component {
           Discard pile
         </h2>
 
-        <div onClick={onClick} className="discard__list">
-          {discard.take(5).reverse().map(value => {
-            return (
-              <div key={value} className="discard__item">
-                <Card value={value} />
-              </div>
-            );
-          })}
+        <div onClick={onClick} className="discard__item">
+          <Card value={discardHead} />
         </div>
       </div>
     );

@@ -2,9 +2,7 @@ import React from 'react';
 
 import GameActions from '../actions/GameActions';
 import GameHelper from '../helpers/GameHelper';
-import RackHelper from '../helpers/RackHelper';
 import GameStore from '../stores/GameStore';
-import RackStore from '../stores/RackStore';
 import GameSynchronizer from '../synchronizers/GameSynchronizer';
 
 import Players from './game/Players';
@@ -19,8 +17,7 @@ class Game extends React.Component {
   static propTypes = {
     user: React.PropTypes.object.isRequired,
     game: React.PropTypes.object.isRequired,
-    gameHelper: React.PropTypes.object.isRequired,
-    rackHelper: React.PropTypes.object.isRequired
+    gameHelper: React.PropTypes.object.isRequired
   };
 
   startGame() {
@@ -34,7 +31,6 @@ class Game extends React.Component {
 
     GameActions.end(game.get('id'), user.get('id'));
   }
-
 
   joinGame() {
     const { user, game } = this.props;
@@ -50,45 +46,35 @@ class Game extends React.Component {
       <main className="game">
         <aside className="game__sidebar">
           <Players {...props} />
-
-          <div className="game__actions">
-            {gameHelper.isCreated &&
-             gameHelper.canStart &&
-             gameHelper.isHost(user) && (
-              <button
-                onClick={this.startGame.bind(this)}
-                className="game__start">
-                Start game
-              </button>
-            )}
-
-            {gameHelper.isStarted && rackHelper.isRacko && (
-              <button
-                onClick={this.endGame.bind(this)}
-                className="game__end">
-                Rack-O!
-              </button>
-            )}
-
-            {gameHelper.isCreated &&
-             gameHelper.canJoin &&
-             !gameHelper.isJoined(user) && (
-              <button
-                onClick={this.joinGame.bind(this)}
-                className="game__join">
-                Join
-              </button>
-            )}
-          </div>
         </aside>
 
         <div className="game__body">
+          {gameHelper.isCreated &&
+           gameHelper.canStart &&
+           gameHelper.isHost(user) && (
+            <button
+              onClick={this.startGame.bind(this)}
+              className="game__start">
+              Start game
+            </button>
+          )}
+
+          {gameHelper.isCreated &&
+           gameHelper.canJoin &&
+           !gameHelper.isJoined(user) && (
+            <button
+              onClick={this.joinGame.bind(this)}
+              className="game__join">
+              Join game
+            </button>
+          )}
+
           {gameHelper.isEnded && (
             <p>{gameHelper.winnerName} wins!</p>
           )}
 
           {gameHelper.isStarted && (
-            <Rack {...props} />
+            <Rack endGame={this.endGame.bind(this)} {...props} />
           )}
 
           {gameHelper.isStarted && (
@@ -113,16 +99,14 @@ function getter() {
   const { gameId } = this.context.router.getCurrentParams();
 
   const game = GameStore.get(gameId);
-  const rack = RackStore.get(gameId, this.props.user.get('id'));
 
   return {
     game,
-    gameHelper: new GameHelper(game),
-    rackHelper: new RackHelper(rack)
+    gameHelper: new GameHelper(game)
   };
 }
 
 const GameWithSync = withSync(Game, syncer);
-const GameWithFlux = withFlux(GameWithSync, getter, GameStore, RackStore);
+const GameWithFlux = withFlux(GameWithSync, getter, GameStore);
 
 export default GameWithFlux;

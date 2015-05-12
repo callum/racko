@@ -13,5 +13,5 @@
 }
 
 .home__create-game {
-  @extend %button;
+  @include button;
 }

@@ -11,7 +11,7 @@ let draws = Immutable.Map();
 const DrawStore = Object.assign({}, storeMixin, {
 
   getTail(gameId) {
-    return parseInt(draws.get(gameId), 10);
+    return draws.get(gameId);
   }
 
 });

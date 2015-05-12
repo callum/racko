@@ -10,7 +10,7 @@ export default class Draw extends React.Component {
   static propTypes = {
     game: React.PropTypes.object.isRequired,
     user: React.PropTypes.object.isRequired,
-    drawTail: React.PropTypes.number.isRequired,
+    drawTail: React.PropTypes.number,
     gameHelper: React.PropTypes.object.isRequired
   };
 

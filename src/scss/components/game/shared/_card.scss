@@ -1,5 +1,5 @@
 .card {
-  @extend %card;
+  @include card;
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;

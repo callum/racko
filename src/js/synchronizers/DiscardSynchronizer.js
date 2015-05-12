@@ -8,11 +8,17 @@ const DiscardSynchronizer = {
       .child('trays')
       .child(gameId)
       .child('discard')
-      .orderByKey();
+      .orderByKey()
+      .limitToFirst(1);
 
     const handler = tray.on('value', snapshot => {
       if (snapshot.exists()) {
-        DiscardActions.receive(gameId, snapshot.val());
+        const value = snapshot.val();
+
+        for (let prop in value) {
+          DiscardActions.receiveHead(gameId, value[prop]);
+          return;
+        }
       }
     });
 

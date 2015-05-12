@@ -2,17 +2,11 @@
 }
 
 .discard__heading {
-  @extend %heading;
-}
-
-.discard__list {
-  .discard--activated & {
-    cursor: pointer;
-  }
+  @include heading;
 }
 
 .discard__item {
-  &:not(:last-child) {
-    height: .8rem;
+  .discard--activated & {
+    cursor: pointer;
   }
 }

@@ -13,10 +13,11 @@ import withSync from '../shared/withSync';
 class Rack extends React.Component {
 
   static propTypes = {
+    endGame: React.PropTypes.func.isRequired,
     user: React.PropTypes.object.isRequired,
     game: React.PropTypes.object.isRequired,
     rack: React.PropTypes.object.isRequired,
-    drawTail: React.PropTypes.number.isRequired,
+    drawTail: React.PropTypes.number,
     gameHelper: React.PropTypes.object.isRequired,
     rackHelper: React.PropTypes.object.isRequired
   };
@@ -28,41 +29,41 @@ class Rack extends React.Component {
   }
 
   render() {
-    const { rack, drawTail, rackHelper: { run } } = this.props;
-
-    let slot = rack.size + 1;
+    const { endGame, rack, drawTail, gameHelper, rackHelper } = this.props;
+    const { run } = rackHelper;
 
     return (
       <section className="rack">
-        <h2 className="rack__heading">
-          Your rack
-        </h2>
+        <header className="rack__header">
+          <button
+            disabled={!(gameHelper.isStarted && rackHelper.isRacko)}
+            onClick={endGame}
+            className="rack__game-end">
+            Rack-O!
+          </button>
+        </header>
 
-        {rack.reverse().map((value, key) => {
-          let textValue = value;
+        <ol className="rack__items">
+          {rack.reverse().map((value, key) => {
+            let textValue = value;
 
-          if (run && run.indexOf(value) !== -1) {
-            textValue = <i>{value}</i>;
-          }
+            if (run && run.indexOf(value) !== -1) {
+              textValue = <i>{value}</i>;
+            }
 
-          let onClick;
+            let onClick;
 
-          if (drawTail) {
-            onClick = this.swap.bind(this, value, key);
-          }
+            if (drawTail) {
+              onClick = this.swap.bind(this, value, key);
+            }
 
-          return (
-            <div key={value} className="rack__slot">
-              <span className="rack__slot__number">
-                {--slot * 5}
-              </span>
-
-              <div className="rack__slot__item">
+            return (
+              <li key={value} className="rack__item">
                 <Card value={value} textValue={textValue} onClick={onClick} />
-              </div>
-            </div>
-          );
-        })}
+              </li>
+            );
+          })}
+        </ol>
       </section>
     );
   }

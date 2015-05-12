@@ -2,13 +2,13 @@
 }
 
 .draw__heading {
-  @extend %heading;
+  @include heading;
 }
 
 .draw__card {
-  @extend %card;
-  background-color: #ccc;
-  transform: translate3d(0, 0, 0);
+  @include card;
+  background-color: $disabled-background;
+  transition: background-color .1s;
 
   .draw--activated & {
     cursor: pointer;
@@ -21,7 +21,7 @@
   text-align: center;
   font-family: 'Contrail One';
   font-size: 4rem;
-  color: #ddd;
+  color: $disabled-text;
 
   .draw--activated & {
     color: lighten($racko-secondary, 30%);

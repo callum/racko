@@ -22,15 +22,23 @@ export default class Auth extends React.Component {
 
   render() {
     return (
-      <main>
-        <form onSubmit={this.authenticate.bind(this)}>
-          <label>
+      <main className="auth">
+        <form
+          onSubmit={this.authenticate.bind(this)}
+          className="auth__form">
+          <label className="auth__label">
             Your name
-            <input type="text" name="name" />
           </label>
 
-          <button type="submit">
-            Create user
+          <input
+            autoFocus
+            type="text"
+            name="name"
+            className="auth__name"
+          />
+
+          <button type="submit" className="auth__submit">
+            Enter
           </button>
         </form>
       </main>

@@ -4,6 +4,8 @@ $racko-secondary: #69da00;
 $disabled-background: #d3d3d3;
 $disabled-text: #f0f0f0;
 
+$subtle-shadow: 0 0 .5rem rgba(#000, .1);
+
 @mixin heading {
   margin: 0;
   margin-bottom: 1rem;
@@ -22,7 +24,7 @@ $disabled-text: #f0f0f0;
   height: round(15rem * $aspect-ratio);
   padding: .5rem;
   border-radius: .5rem;
-  box-shadow: 0 0 .5rem rgba(#000, .1);
+  box-shadow: $subtle-shadow;
   transform: translate3d(0, 0, 0);
 
   @media (min-height: 768px) {
@@ -35,6 +37,7 @@ $disabled-text: #f0f0f0;
   margin: 0;
   padding: 0;
   border: none;
+  outline: none;
   background: none;
   font: inherit;
 
@@ -42,9 +45,12 @@ $disabled-text: #f0f0f0;
   padding: .5rem .8rem;
   padding-bottom: .6rem;
   background-color: $racko-secondary;
-  box-shadow: 0 0 .5rem rgba(#000, .1);
   color: #fff;
   transition: all .1s;
+
+  &:focus {
+    background-color: darken($racko-secondary, 10%);
+  }
 
   &:disabled {
     background-color: $disabled-background;
@@ -70,4 +76,8 @@ body {
 .root {
   display: flex;
   height: 100%;
+}
+
+.status {
+  margin: auto;
 }

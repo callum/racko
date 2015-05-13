@@ -25,7 +25,7 @@ class Home extends React.Component {
           Games
         </h2>
 
-        <ul className="home__games">
+        <ol className="home__games">
           {this.props.games.map((game, key) => {
             return (
               <li key={key} className="home__game">
@@ -33,7 +33,7 @@ class Home extends React.Component {
               </li>
             );
           })}
-        </ul>
+        </ol>
 
         <button
           onClick={this.createGame.bind(this)}

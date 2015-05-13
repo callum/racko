@@ -26,7 +26,9 @@ export default function withUser(Component) {
       }
 
       return (
-        <p>Retrieving user…</p>
+        <p className="status">
+          Retrieving user…
+        </p>
       );
     }
 

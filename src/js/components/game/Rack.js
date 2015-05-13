@@ -34,14 +34,12 @@ class Rack extends React.Component {
 
     return (
       <section className="rack">
-        <header className="rack__header">
-          <button
-            disabled={!(gameHelper.isStarted && rackHelper.isRacko)}
-            onClick={endGame}
-            className="rack__game-end">
-            Rack-O!
-          </button>
-        </header>
+        <button
+          disabled={!(gameHelper.isStarted && rackHelper.isRacko)}
+          onClick={endGame}
+          className="rack__game-end">
+          Rack-O!
+        </button>
 
         <ol className="rack__items">
           {rack.reverse().map((value, key) => {

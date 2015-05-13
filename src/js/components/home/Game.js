@@ -20,14 +20,17 @@ class Game extends React.Component {
     const { partialGame, game } = this.props;
 
     return (
-      <article>
+      <article className="home-game">
         <Link to="game" params={{ gameId: partialGame.get('id') }}>
           {game.size ? GameUtils.getPlayerList(game) : 'Loading…'}
         </Link>
 
-        <div>
-          <Time dateTime={partialGame.get('updatedAt')} />
-        </div>
+        <footer className="home-game__footer">
+          <Time
+            dateTime={partialGame.get('updatedAt')}
+            className="home-game__timestamp"
+          />
+        </footer>
       </article>
     );
   }

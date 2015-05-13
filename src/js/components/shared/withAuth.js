@@ -45,7 +45,9 @@ export default function withAuth(Component) {
 
       if (token) {
         return (
-          <p>Authenticating…</p>
+          <p className="status">
+            Authenticating…
+          </p>
         );
       }
 

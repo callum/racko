@@ -24,6 +24,7 @@ function setAllGames(gameId) {
     game.get('players').forEach(player => {
       UserService.setGame(player.get('id'), Immutable.fromJS({
         id: game.get('id'),
+        state: game.get('state'),
         updatedAt: game.get('updatedAt')
       }));
     });

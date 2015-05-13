@@ -4,7 +4,7 @@ import AppDispatcher from '../dispatchers/AppDispatcher';
 import AuthStore from './AuthStore';
 import GameStore from './GameStore';
 
-import { ActionTypes as GameActionTypes } from '../constants/GameConstants';
+import { ActionTypes as GameActionTypes, States } from '../constants/GameConstants';
 import { ActionTypes as RackActionTypes } from '../constants/RackConstants';
 import { ActionTypes as UserActionTypes } from '../constants/UserConstants';
 
@@ -20,7 +20,10 @@ const UserStore = Object.assign({}, storeMixin, {
     const games = UserStore.get(userId).get('games');
 
     if (games) {
-      return games.sortBy(g => new Date(g.get('updatedAt'))).reverse();
+      return games
+        .filter(g => g.get('state') !== States.GAME_ENDED)
+        .sortBy(g => new Date(g.get('updatedAt')))
+        .reverse();
     }
 
     return Immutable.Map();
@@ -45,6 +48,7 @@ function setGame(userId, gameId) {
 
   users = users.setIn([userId, 'games', gameId], Immutable.fromJS({
     id: game.get('id'),
+    state: game.get('state'),
     updatedAt: game.get('updatedAt')
   }));
 }

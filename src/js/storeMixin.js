@@ -18,4 +18,6 @@ const storeMixin = Object.assign({
 
 }, EventEmitter.prototype);
 
+storeMixin.setMaxListeners(0);
+
 export default storeMixin;

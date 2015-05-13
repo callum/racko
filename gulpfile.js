@@ -65,6 +65,7 @@ task('build-scss', ['clean'], () => {
     .pipe(sass({
       outputStyle: 'compressed'
     }))
+    .on('error', sass.logError)
     .pipe(autoprefixer(autoprefixerConfig))
     .pipe(rename(paths.scss.out))
     .pipe(dest(paths.out));
@@ -100,6 +101,7 @@ task('watch-scss', ['clean'], () => {
     return src(paths.scss.main)
       .pipe(sourcemaps.init())
       .pipe(sass())
+      .on('error', sass.logError)
       .pipe(autoprefixer(autoprefixerConfig))
       .pipe(rename(paths.scss.out))
       .pipe(sourcemaps.write())

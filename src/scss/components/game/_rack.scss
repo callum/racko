@@ -28,4 +28,8 @@
   &:not(:last-child) {
     height: 2.6rem;
   }
+
+  .rack--activated & {
+    cursor: pointer;
+  }
 }

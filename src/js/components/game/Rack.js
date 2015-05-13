@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import RackActions from '../../actions/RackActions';
 import RackHelper from '../../helpers/RackHelper';
@@ -32,8 +33,13 @@ class Rack extends React.Component {
     const { endGame, rack, drawTail, gameHelper, rackHelper } = this.props;
     const { run } = rackHelper;
 
+    const classes = classNames({
+      'rack': true,
+      'rack--activated': !!drawTail
+    });
+
     return (
-      <section className="rack">
+      <section className={classes}>
         <button
           disabled={!(gameHelper.isStarted && rackHelper.isRacko)}
           onClick={endGame}

@@ -6,7 +6,7 @@
   "scripts": {
     "gulp": "eslint gulpfile.js && babel-node ./node_modules/.bin/gulp",
     "lint": "eslint src/**/*.js",
-    "test": "eslint test/**/*Test.js && browserify -t babelify test/**/*Test.js | testling",
+    "test": "eslint test/**/*Test.js && browserify -t babelify test/**/*Test.js | tape-run",
     "start": "npm run watch",
     "build": "npm run lint && npm run gulp build",
     "watch": "npm run lint && npm run gulp watch",
@@ -46,7 +46,7 @@
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "tape": "^4.0.0",
-    "testling": "^1.7.1",
+    "tape-run": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.1"

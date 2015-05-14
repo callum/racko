@@ -6,7 +6,9 @@
   "scripts": {
     "gulp": "eslint gulpfile.js && babel-node ./node_modules/.bin/gulp",
     "lint": "eslint src/**/*.js",
-    "test": "eslint test/**/*Test.js && browserify -t babelify test/**/*Test.js | tape-run",
+    "test-lint": "eslint test/**/*Test.js",
+    "test": "npm run test-lint && browserify -t babelify test/**/*Test.js | tape-run",
+    "test-node": "npm run test-lint && babel-tape-runner test/**/*Test.js",
     "start": "npm run watch",
     "build": "npm run lint && npm run gulp build",
     "watch": "npm run lint && npm run gulp watch",
@@ -31,6 +33,7 @@
     "babel-core": "^5.1.10",
     "babel-eslint": "^3.0.1",
     "babel-runtime": "^5.1.10",
+    "babel-tape-runner": "^1.1.0",
     "babelify": "^6.0.2",
     "browserify": "^10.1.2",
     "del": "^1.1.1",

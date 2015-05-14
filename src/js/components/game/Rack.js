@@ -75,15 +75,13 @@ class Rack extends React.Component {
 }
 
 function syncer() {
-  const { gameId } = this.context.router.getCurrentParams();
-
   return [
-    RackSynchronizer.get(gameId, this.props.user.get('id'))
+    RackSynchronizer.get(this.props.game.get('id'), this.props.user.get('id'))
   ];
 }
 
 function getter() {
-  const { gameId } = this.context.router.getCurrentParams();
+  const gameId = this.props.game.get('id');
 
   const rack = RackStore.get(gameId, this.props.user.get('id'));
 

@@ -39,15 +39,13 @@ class Tray extends React.Component {
 }
 
 function syncer() {
-  const { gameId } = this.context.router.getCurrentParams();
-
   return [
-    DiscardSynchronizer.get(gameId)
+    DiscardSynchronizer.get(this.props.game.get('id'))
   ];
 }
 
 function getter() {
-  const { gameId } = this.context.router.getCurrentParams();
+  const gameId = this.props.game.get('id');
 
   return {
     drawTail: DrawStore.getTail(gameId),

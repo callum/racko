@@ -34,11 +34,10 @@ test('detects racko', t => {
   t.plan(3);
 
   const rackA = getHelper([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  const rackB = getHelper([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const rackB = getHelper([1, 12, 14, 18, 19, 27, 28, 34, 39, 40]);
   const rackC = getHelper([1, 2, 3, 4, 5, 6, 7, 8, 40, 35]);
 
   t.ok(rackA.isRacko);
   t.ok(rackB.isRacko);
-
   t.notOk(rackC.isRacko);
 });

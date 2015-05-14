@@ -7,6 +7,7 @@ import GameSynchronizer from '../synchronizers/GameSynchronizer';
 
 import Players from './game/Players';
 import Rack from './game/Rack';
+import Scoreboard from './game/Scoreboard';
 import Tray from './game/Tray';
 
 import withFlux from './shared/withFlux';
@@ -70,7 +71,7 @@ class Game extends React.Component {
           )}
 
           {gameHelper.isEnded && (
-            <p>{gameHelper.winnerName} wins!</p>
+            <Scoreboard {...props} />
           )}
 
           {gameHelper.isStarted && (

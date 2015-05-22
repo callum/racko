@@ -29,19 +29,7 @@ const GameUtils = {
   },
 
   createDeck(playerCount) {
-    let size;
-
-    switch (playerCount) {
-      case 2:
-        size = 40;
-        break;
-      case 3:
-        size = 50;
-        break;
-      case 4:
-        size = 60;
-        break;
-    }
+    const size = (playerCount + 2) * 10;
 
     return shuffle(range(1, size + 1));
   },

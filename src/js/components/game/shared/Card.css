@@ -1,22 +1,22 @@
-.card {
-  @include card;
+.root {
+  composes: card from '../../shared/card.css';
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
 }
 
-.card__logo {
+.logo {
   text-align: center;
   font-family: 'Contrail One';
   font-size: 2rem;
   color: red;
 }
 
-.card__bottom {
+.bottom {
   transform: rotate(180deg);
 }
 
-.card__number {
+.number {
   display: block;
   text-align: right;
   font-weight: bold;

@@ -1,0 +1,46 @@
+.root {
+}
+
+.heading {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.cell {
+  text-align: left;
+}
+
+.cell:last-child {
+  text-align: right;
+}
+
+.cell:not(:first-child) {
+  padding-left: 1rem;
+}
+
+.cell:not(:last-child) {
+  padding-right: 1rem;
+}
+
+.label,
+.row:not(:last-child) .value {
+  padding-bottom: .6rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.label {
+  composes: cell;
+}
+
+.value {
+  composes: cell;
+  font-size: 1.2rem;
+}
+
+.row .value {
+  padding-top: .6rem;
+}

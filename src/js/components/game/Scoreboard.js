@@ -1,3 +1,5 @@
+import styles from './Scoreboard.css';
+
 import React from 'react';
 import ScoreboardItem from './ScoreboardItem';
 
@@ -11,18 +13,18 @@ export default class Scoreboard extends React.Component {
     const { game } = this.props;
 
     return (
-      <section className="scoreboard">
-        <h2 className="scoreboard__heading">
+      <section className={styles.root}>
+        <h2 className={styles.heading}>
           Scoreboard
         </h2>
 
-        <table className="scoreboard__table">
+        <table className={styles.table}>
           <thead>
-            <tr className="scoreboard__row">
-              <th className="scoreboard__label">Player</th>
-              <th className="scoreboard__label">Points</th>
-              <th className="scoreboard__label">Bonus points</th>
-              <th className="scoreboard__label">Total</th>
+            <tr className={styles.row}>
+              <th className={styles.label}>Player</th>
+              <th className={styles.label}>Points</th>
+              <th className={styles.label}>Bonus points</th>
+              <th className={styles.label}>Total</th>
             </tr>
           </thead>
           <tbody>

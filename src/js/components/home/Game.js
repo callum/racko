@@ -1,3 +1,5 @@
+import styles from './Game.css';
+
 import React from 'react';
 import { Link } from 'react-router';
 
@@ -20,15 +22,15 @@ class Game extends React.Component {
     const { partialGame, game } = this.props;
 
     return (
-      <article className="home-game">
+      <article className={styles.root}>
         <Link to="game" params={{ gameId: partialGame.get('id') }}>
           {game.size ? GameUtils.getPlayerList(game) : 'Loading…'}
         </Link>
 
-        <footer className="home-game__footer">
+        <footer>
           <Time
             dateTime={partialGame.get('updatedAt')}
-            className="home-game__timestamp"
+            className={styles.timestamp}
           />
         </footer>
       </article>

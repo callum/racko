@@ -1,33 +1,29 @@
-.auth {
+.root {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.auth__label {
+.label {
   display: block;
   margin-bottom: .3rem;
   color: #666;
 }
 
-.auth__name {
+.name {
+  composes: subtleShadow from './shared/effect.css';
   border: none;
   outline: none;
   font: inherit;
-
   display: block;
   margin-bottom: 1rem;
   padding: .5rem .8rem;
   padding-bottom: .6rem;
   font-size: 1.4rem;
   transition: all .1s;
-
-  &:focus {
-    box-shadow: $subtle-shadow;
-  }
 }
 
-.auth__submit {
-  @include button;
+.submit {
+  composes: default from './shared/button.css';
 }

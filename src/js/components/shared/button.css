@@ -1,0 +1,28 @@
+.reset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font: inherit;
+}
+
+.default {
+  composes: reset;
+  display: block;
+  padding: .5rem .8rem;
+  padding-bottom: .6rem;
+  transition: all .1s;
+  background-color: #69da00;
+  color: #fff;
+}
+
+.default:focus {
+  background-color: #50c100;
+  color: #fff;
+}
+
+.default:disabled {
+  background-color: #d3d3d3;
+  color: #f0f0f0;
+}

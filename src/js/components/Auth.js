@@ -1,3 +1,5 @@
+import styles from './Auth.css';
+
 import React from 'react';
 import UserActions from '../actions/UserActions';
 import AuthService from '../services/AuthService';
@@ -22,11 +24,11 @@ export default class Auth extends React.Component {
 
   render() {
     return (
-      <main className="auth">
+      <main className={styles.root}>
         <form
           onSubmit={this.authenticate.bind(this)}
-          className="auth__form">
-          <label className="auth__label">
+          className={styles.form}>
+          <label className={styles.label}>
             Your name
           </label>
 
@@ -34,10 +36,10 @@ export default class Auth extends React.Component {
             autoFocus
             type="text"
             name="name"
-            className="auth__name"
+            className={styles.name}
           />
 
-          <button type="submit" className="auth__submit">
+          <button type="submit" className={styles.submit}>
             Enter
           </button>
         </form>

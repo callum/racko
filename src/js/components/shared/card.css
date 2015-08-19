@@ -1,0 +1,16 @@
+.card {
+  composes: subtleShadow from './effect.css';
+  display: flex;
+  width: 15rem;
+  height: 10.7rem; /* 15rem * (5 / 7) */
+  padding: .5rem;
+  border-radius: .5rem;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (min-height: 768px) {
+  .card {
+    width: 18rem;
+    height: 12.8rem; /* 18rem * (5 / 7) */
+  }
+}

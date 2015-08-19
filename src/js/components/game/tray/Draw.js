@@ -1,5 +1,6 @@
+import styles from './Draw.css';
+
 import React from 'react';
-import classNames from 'classnames';
 
 import TrayService from '../../../services/TrayService';
 
@@ -24,14 +25,19 @@ export default class Draw extends React.Component {
     const isTurn = gameHelper.isTurn(user);
 
     let onClick;
+    let root = styles.root;
 
     if (isTurn) {
       onClick = this.take.bind(this);
+
+      if (!drawTail) {
+        root = styles.activated;
+      }
     }
 
     let card = (
-      <div onClick={onClick} className="draw__card">
-        <div className="draw__card__logo">
+      <div onClick={onClick} className={styles.card}>
+        <div className={styles.logo}>
           Rack-O
         </div>
       </div>
@@ -41,14 +47,9 @@ export default class Draw extends React.Component {
       card = <Card value={drawTail} />;
     }
 
-    const classes = classNames({
-      'draw': true,
-      'draw--activated': isTurn && !drawTail
-    });
-
     return (
-      <div className={classes}>
-        <h2 className="draw__heading">
+      <div className={root}>
+        <h2 className={styles.heading}>
           Draw pile
         </h2>
 

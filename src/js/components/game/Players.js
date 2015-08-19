@@ -1,3 +1,5 @@
+import styles from './Players.css';
+
 import React from 'react';
 import GameStore from '../../stores/GameStore';
 import Player from './Player';
@@ -13,11 +15,11 @@ class Players extends React.Component {
     const { players } = this.props;
 
     return (
-      <section className="players">
-        <ul className="players__list">
+      <section className={styles.root}>
+        <ul className={styles.list}>
           {players.map(player => {
             return (
-              <li key={player.get('id')} className="players__item">
+              <li key={player.get('id')} className={styles.item}>
                 <Player {...this.props} player={player} />
               </li>
             );

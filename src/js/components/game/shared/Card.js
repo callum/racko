@@ -1,3 +1,5 @@
+import styles from './Card.css';
+
 import React from 'react';
 
 export default class Card extends React.Component {
@@ -17,19 +19,19 @@ export default class Card extends React.Component {
     const style = { width: `${value / 60 * 100}%` };
 
     return (
-      <div className="card" {...this.props}>
-        <div className="card__top">
-          <div style={style} className="card__number">
+      <div className={styles.root} {...this.props}>
+        <div className={styles.top}>
+          <div style={style} className={styles.number}>
             {textValue}
           </div>
         </div>
 
-        <div className="card__logo">
+        <div className={styles.logo}>
           Rack-O
         </div>
 
-        <div className="card__bottom">
-          <div style={style} className="card__number">
+        <div className={styles.bottom}>
+          <div style={style} className={styles.number}>
             {textValue}
           </div>
         </div>

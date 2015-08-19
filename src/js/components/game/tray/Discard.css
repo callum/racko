@@ -1,0 +1,14 @@
+.root {
+}
+
+.activated {
+  composes: root;
+}
+
+.heading {
+  composes: heading from '../../shared/typography.css';
+}
+
+.activated .item {
+  cursor: pointer;
+}

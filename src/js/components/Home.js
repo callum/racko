@@ -1,3 +1,5 @@
+import styles from './Home.css';
+
 import React from 'react';
 
 import GameActions from '../actions/GameActions';
@@ -20,15 +22,15 @@ class Home extends React.Component {
 
   render() {
     return (
-      <main className="home">
-        <h2 className="home__heading">
+      <main className={styles.root}>
+        <h2 className={styles.heading}>
           Games
         </h2>
 
-        <ol className="home__games">
+        <ol className={styles.games}>
           {this.props.games.map((game, key) => {
             return (
-              <li key={key} className="home__game">
+              <li key={key} className={styles.game}>
                 <Game partialGame={game} />
               </li>
             );
@@ -37,7 +39,7 @@ class Home extends React.Component {
 
         <button
           onClick={this.createGame.bind(this)}
-          className="home__create-game">
+          className={styles.createGame}>
           Create game
         </button>
       </main>

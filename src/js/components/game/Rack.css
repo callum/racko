@@ -1,0 +1,39 @@
+.root {
+}
+
+.activated {
+  composes: root;
+}
+
+.endGame {
+  composes: default from '../shared/button.css';
+  composes: subtleShadow from '../shared/effect.css';
+  width: 100%;
+  padding-bottom: 1.6rem;
+  margin-bottom: -1rem;
+  border-radius: .5rem;
+  font-size: 1.4rem;
+}
+
+.items {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item {
+  transform: translateY(0);
+  transition: transform .1s;
+}
+
+.item:hover {
+  transform: translateY(-1rem);
+}
+
+.item:not(:last-child) {
+  height: 2.6rem;
+}
+
+.activated .item {
+  cursor: pointer;
+}

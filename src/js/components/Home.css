@@ -1,17 +1,17 @@
-.home {
+.root {
   padding: 1rem;
 }
 
-.home__heading {
+.heading {
   margin: 0;
   margin-bottom: 1rem;
 }
 
-.home__games {
+.games {
   margin: 0;
   margin-bottom: 2rem;
 }
 
-.home__create-game {
-  @include button;
+.createGame {
+  composes: default from './shared/button.css';
 }

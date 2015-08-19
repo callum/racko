@@ -1,28 +1,21 @@
-.game {
+.root {
   display: flex;
   flex: 1;
 }
 
-.game__sidebar {
+.sidebar {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-%game__button {
-  @include button;
+.start,
+.join {
+  composes: default from './shared/button.css';
   font-size: 1.6rem;
 }
 
-.game__start {
-  @extend %game__button;
-}
-
-.game__join {
-  @extend %game__button;
-}
-
-.game__body {
+.body {
   display: flex;
   align-items: center;
   justify-content: space-around;

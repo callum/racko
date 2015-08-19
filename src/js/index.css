@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: #eee;
+  font-family: 'Roboto', sans-serif;
+}
+
+:global(.root) {
+  display: flex;
+  height: 100%;
+}
+
+:global(.status) {
+  margin: auto;
+}

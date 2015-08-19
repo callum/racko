@@ -1,3 +1,5 @@
+import './index.css';
+
 import React from 'react';
 import Router, { DefaultRoute, Route } from 'react-router';
 

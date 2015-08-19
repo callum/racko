@@ -1,24 +1,24 @@
-.app {
+.root {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.app__header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
-  background-color: $racko;
+  background-color: #0081ff;
   color: #fff;
 }
 
-.app__heading {
+.heading {
   margin: 0;
   font-size: 1.4rem;
 }
 
-.app__link {
+.link {
   text-decoration: none;
   color: inherit;
 }

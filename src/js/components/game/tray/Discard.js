@@ -1,5 +1,6 @@
+import styles from './Discard.css';
+
 import React from 'react';
-import classNames from 'classnames';
 
 import GameActions from '../../../actions/GameActions';
 import TrayService from '../../../services/TrayService';
@@ -27,23 +28,20 @@ export default class Discard extends React.Component {
     const { drawTail, discardHead } = this.props;
 
     let onClick;
+    let root = styles.root;
 
     if (drawTail) {
       onClick = this.discard.bind(this);
+      root = styles.activated;
     }
 
-    const classes = classNames({
-      'discard': true,
-      'discard--activated': drawTail
-    });
-
     return (
-      <div className={classes}>
-        <h2 className="discard__heading">
+      <div className={root}>
+        <h2 className={styles.heading}>
           Discard pile
         </h2>
 
-        <div onClick={onClick} className="discard__item">
+        <div onClick={onClick} className={styles.item}>
           <Card value={discardHead} />
         </div>
       </div>

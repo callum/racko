@@ -1,0 +1,33 @@
+.root {
+}
+
+.activated {
+  composes: root;
+}
+
+.heading {
+  composes: heading from '../../shared/typography.css';
+}
+
+.card {
+  composes: card from '../../shared/card.css';
+  background-color: #d3d3d3;
+  transition: background-color .1s;
+}
+
+.activated .card {
+  background-color: #69da00;
+  cursor: pointer;
+}
+
+.logo {
+  margin: auto;
+  text-align: center;
+  font-family: 'Contrail One';
+  font-size: 4rem;
+  color: #f0f0f0;
+}
+
+.activated .logo {
+  background-color: #1d8e00;
+}

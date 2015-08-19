@@ -1,3 +1,5 @@
+import styles from './ScoreboardItem.css';
+
 import React from 'react';
 
 import ScoreHelper from '../../helpers/ScoreHelper';
@@ -19,17 +21,17 @@ class ScoreboardItem extends React.Component {
     const { key, player, scoreHelper } = this.props;
 
     return (
-      <tr key={key} className="scoreboard__row">
-        <td className="scoreboard__value">
+      <tr key={key} className={styles.root}>
+        <td className={styles.value}>
           {player.get('name')}
         </td>
-        <td className="scoreboard__value">
+        <td className={styles.value}>
           {scoreHelper.points}
         </td>
-        <td className="scoreboard__value">
+        <td className={styles.value}>
           {scoreHelper.bonus}
         </td>
-        <td className="scoreboard__value scoreboard__value--total">
+        <td className={styles.total}>
           {scoreHelper.total}
         </td>
       </tr>

@@ -1,0 +1,12 @@
+.root {
+  composes: row from './Scoreboard.css';
+}
+
+.value {
+  composes: value from './Scoreboard.css';
+}
+
+.total {
+  composes: value from './Scoreboard.css';
+  font-weight: bold;
+}

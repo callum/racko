@@ -1,5 +1,6 @@
+import styles from './Rack.css';
+
 import React from 'react';
-import classNames from 'classnames';
 
 import RackActions from '../../actions/RackActions';
 import RackHelper from '../../helpers/RackHelper';
@@ -33,21 +34,22 @@ class Rack extends React.Component {
     const { endGame, rack, drawTail, gameHelper, rackHelper } = this.props;
     const { run } = rackHelper;
 
-    const classes = classNames({
-      'rack': true,
-      'rack--activated': !!drawTail
-    });
+    let root = styles.root;
+
+    if (!!drawTail) {
+      root = styles.activated;
+    }
 
     return (
-      <section className={classes}>
+      <section className={root}>
         <button
           disabled={!(gameHelper.isStarted && rackHelper.isRacko)}
           onClick={endGame}
-          className="rack__game-end">
+          className={styles.endGame}>
           Rack-O!
         </button>
 
-        <ol className="rack__items">
+        <ol className={styles.items}>
           {rack.reverse().map((value, key) => {
             let textValue = value;
 
@@ -62,7 +64,7 @@ class Rack extends React.Component {
             }
 
             return (
-              <li key={value} className="rack__item">
+              <li key={value} className={styles.item}>
                 <Card value={value} textValue={textValue} onClick={onClick} />
               </li>
             );

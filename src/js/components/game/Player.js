@@ -1,5 +1,6 @@
+import styles from './Player.css';
+
 import React from 'react';
-import classNames from 'classnames';
 import human from 'human-time';
 
 import PresenceStore from '../../stores/PresenceStore';
@@ -26,19 +27,17 @@ class Player extends React.Component {
       name = <b>{name}</b>;
     }
 
-    let title;
+    let title, root;
 
     if (!isConnected) {
       title = `Last seen ${human(new Date(presence.get('seenAt')))}`;
+      root = styles.root;
+    } else {
+      root = styles.isConnected;
     }
 
-    const classes = classNames({
-      'player': true,
-      'player--connected': isConnected
-    });
-
     return (
-      <article title={title} className={classes}>
+      <article title={title} className={root}>
         {name}
       </article>
     );

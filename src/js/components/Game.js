@@ -1,3 +1,5 @@
+import styles from './Game.css';
+
 import React from 'react';
 
 import GameActions from '../actions/GameActions';
@@ -44,18 +46,18 @@ class Game extends React.Component {
     const { user, gameHelper, rackHelper } = props;
 
     return (
-      <main className="game">
-        <aside className="game__sidebar">
+      <main className={styles.root}>
+        <aside className={styles.sidebar}>
           <Players {...props} />
         </aside>
 
-        <div className="game__body">
+        <div className={styles.body}>
           {gameHelper.isCreated &&
            gameHelper.canStart &&
            gameHelper.isHost(user) && (
             <button
               onClick={this.startGame.bind(this)}
-              className="game__start">
+              className={styles.start}>
               Start game
             </button>
           )}
@@ -65,7 +67,7 @@ class Game extends React.Component {
            !gameHelper.isJoined(user) && (
             <button
               onClick={this.joinGame.bind(this)}
-              className="game__join">
+              className={styles.join}>
               Join game
             </button>
           )}

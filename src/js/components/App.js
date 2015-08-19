@@ -1,3 +1,5 @@
+import styles from './App.css';
+
 import React from 'react';
 import { Link, RouteHandler } from 'react-router';
 
@@ -12,10 +14,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="app">
-        <header className="app__header">
-          <h1 className="app__heading">
-            <Link to="home" className="app__link">
+      <div className={styles.root}>
+        <header className={styles.header}>
+          <h1 className={styles.heading}>
+            <Link to="home" className={styles.link}>
               Rack-O
             </Link>
           </h1>

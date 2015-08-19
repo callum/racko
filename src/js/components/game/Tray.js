@@ -1,3 +1,5 @@
+import styles from './Tray.css';
+
 import React from 'react';
 
 import DrawStore from '../../stores/DrawStore';
@@ -22,13 +24,13 @@ class Tray extends React.Component {
     const { discardHead } = props;
 
     return (
-      <section className="tray">
-        <div className="tray__draw">
+      <section className={styles.root}>
+        <div className={styles.draw}>
           <Draw {...props} />
         </div>
 
         {discardHead && (
-          <div className="tray__discard">
+          <div>
             <Discard {...props} />
           </div>
         )}
